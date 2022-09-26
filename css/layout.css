@@ -21,23 +21,44 @@ img {
   width: 100%;
   object-fit: cover;
   height: 50%;
+  border-radius: 0.5rem;
 }
 
-@media screen and (max-width: 767px) {
-  .fa-shuffle {
-    position: absolute;
-    right: 4.4rem;
-  }
+.card {
+  width: 90%;
+}
 
-  .fa-circle-question {
-    position: absolute;
-    right: 1.5rem;
-  }
+.card-text {
+  padding: 0.2rem 1.4rem 0.3rem;
+}
 
-  .button-search {
-    position: absolute;
-    left: 13.5rem;
-  }
+.fa-shuffle {
+  position: absolute;
+  right: 4.4rem;
+}
+
+.fa-circle-question {
+  position: absolute;
+  right: 1.5rem;
+}
+
+#search {
+  padding: 0.5rem 0.2rem;
+  margin-left: -0.4rem;
+}
+
+::placeholder {
+  padding-left: 0.5rem;
+}
+
+.button-search {
+  position: absolute;
+  left: 13.5rem;
+  margin-left: -0.8rem;
+}
+
+.nav {
+  padding: 0.1rem 1.3rem 1rem;
 }
 
 @media screen and (min-width: 768px) {
@@ -60,17 +81,17 @@ img {
   .nav {
     display: flex;
     justify-content: space-between;
-    padding: 0;
+    padding: 0 2rem;
   }
 
   .nav-top {
-    gap: 1rem;
+    gap: 3.5rem;
   }
 
   .nav-bottom {
     display: flex;
     justify-content: space-between;
-    gap: 2rem;
+    gap: 2.3rem;
   }
 
   .fa-shuffle {
@@ -81,5 +102,38 @@ img {
   .fa-circle-question {
     position: static;
     transform: scale(1.7);
+  }
+
+  .button-search {
+    position: static;
+    margin-left: -1.6rem;
+  }
+
+  #search {
+    padding: 0.5rem 1.2rem;
+  }
+
+  ::placeholder {
+    padding-left: 0;
+  }
+
+  .fa-feather-pointed {
+    margin-right: -2rem;
+  }
+
+  .card {
+    width: 70%;
+    display: flex;
+  }
+
+  .card-text {
+    padding: 0.2rem 2rem 1.7rem 1.4rem;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
   }
 }
