@@ -5,14 +5,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AJAX Project</title>
   <link rel="icon" href="images/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
+    <div class="row">
+      <div class="column-full nav">
+        <div class="nav-top">
+          <i class="fa-solid fa-feather-pointed"></i>
+          <h2 class="site-name">Gamer'sCodex</h2>
+          <h3><a href="#">Games</a></h3>
+          <h3><a href="#">MyCodex</a></h3>
+        </div>
+        <div class="nav-bottom">
+          <i class="fa-solid fa-shuffle"></i>
+          <i class="fa-regular fa-circle-question"></i>
+          <input type="text" id="search" placeholder="Search Game">
+          <button type="submit" class="button-search">Search</button>
+        </div>
+      </div>
+    </div>
   </header>
   <main>
+    <div class="container" data-view="games">
+      <div class="row">
+        <div class="column-full">
+          <h1>Games</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column-full">
+          <ul>
+            <li>
+              <div class="card">
+                <div class="column-two-fifths">
+                  <img
+                    src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/en_US/games/switch/r/rune-factory-5-switch/hero"
+                    alt="game image">
+                </div>
+                <div class="column-three-fifths card-text">
+                  <div class="card-title">
+                    <h2 class="game-title">Rune Factory 5</h2>
+                    <i class="fa-regular fa-heart"></i>
+                  </div>
+                  <p>Description: As the newest ranger of a peacekeeping organization known as SEED, protect your community by rounding up rowdy monsters
+                  and going on special missions. Cultivate your farm and friendships alike while unravelling rune-related mysteries!</p>
+                  <p>Release Date: Jul 13, 2022</p>
+                  <p>Genre: Adventure, RPG, Simulation</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>

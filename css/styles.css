@@ -1,0 +1,137 @@
+body {
+  font-family: Roboto, sans-serif;
+  background-color: #444;
+}
+
+/* Nav Bar */
+.nav {
+  background-color: #171717;
+  padding: 0.1rem 1.3rem 1rem;
+}
+
+.nav-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -0.3rem;
+}
+
+.fa-feather-pointed,
+.button-search {
+  color: #007bff;
+}
+
+.site-name {
+  color: #da0037;
+}
+
+a,
+.fa-shuffle,
+.fa-circle-question {
+  color: white;
+}
+
+.fa-shuffle,
+.fa-circle-question {
+  cursor: pointer;
+}
+
+.fa-shuffle {
+  transform: scale(1.6);
+}
+
+.fa-circle-question {
+  transform: scale(1.7);
+}
+
+.fa-feather-pointed {
+  transform: scale(1.8);
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: lighter;
+  font-size: 1.1rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-left: -0.4rem;
+}
+
+.button-search {
+  padding: 0.5rem 0.7rem;
+  border: 1px solid #007bff;
+  border-radius: 0.2rem;
+  background-color: #171717;
+  margin-left: -0.8rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+#search {
+  padding: 0.5rem 0.2rem;
+  border: 1px solid;
+  border-radius: 0.2rem;
+  margin-left: -0.4rem;
+}
+
+::placeholder {
+  padding-left: 0.5rem;
+}
+
+/* Games */
+h1 {
+  color: white;
+  text-shadow: rgb(0, 0, 0) 1px 0 0, rgb(0, 0, 0) 0.5px 0.8px 0, rgb(0, 0, 0) -0.416px 0.909px 0;
+  text-align: center;
+  margin-top: 0.8rem;
+}
+
+ul {
+  padding-inline-start: 1.1rem;
+}
+
+li {
+  list-style: none;
+}
+
+/* Card */
+.card {
+  background-color: white;
+  border-radius: 0.5rem;
+  width: 95%;
+  margin-top: -1.5rem;
+}
+
+img {
+  border-radius: 0.5rem;
+}
+
+.card-text {
+  padding: 0.2rem 1.4rem 0.3rem;
+}
+
+.card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: -0.7rem;
+}
+
+.game-title {
+  font-weight: 600;
+}
+
+.fa-heart {
+  transform: scale(1.7);
+  cursor: pointer;
+}
