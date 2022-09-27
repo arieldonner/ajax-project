@@ -3,6 +3,8 @@ var gameList = [];
 var $search = document.querySelector('#search');
 
 var $searchButton = document.querySelector('.button-search');
+var gameCounter = 0;
+var xhrResponses;
 $searchButton.addEventListener('click', function (event) {
   // console.log($search.value);
 
@@ -16,28 +18,42 @@ $searchButton.addEventListener('click', function (event) {
     // console.log(xhr.response);
     for (var j = 0; j < gameList.length; j++) {
       gameList[j].remove();
+      gameCounter = 0;
     }
-    for (var i = 0; i < xhr.response.length; i++) {
-      var appId = xhr.response[i].appid;
+    xhrResponses = xhr.response;
+    var appId = xhr.response[0].appid;
+    getGameData(appId);
 
-      var targetUrl2 = encodeURIComponent('https://store.steampowered.com/api/appdetails?appids=' + appId);
+  }
+  );
 
-      var xhr2 = new XMLHttpRequest();
-      xhr2.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrl2);
-      xhr2.setRequestHeader('token', 'abc123');
-      xhr2.responseType = 'json';
-      xhr2.addEventListener('load', function () {
-        // console.log(xhr2.response);
-      });
-      xhr2.send();
-
-      createEntry(xhr.response[i]);
-      // var $description = document.querySelector('description');
-      // $description.textContent = xhr2.response[appId].data.short_description;
-    }
-  });
   xhr.send();
 });
+
+function getGameData(appId) {
+  if (gameCounter >= xhrResponses.length || appId === undefined) {
+    gameCounter = 0;
+    xhrResponses = [];
+    return;
+  }
+  var targetUrl2 = encodeURIComponent('https://store.steampowered.com/api/appdetails?appids=' + appId);
+
+  var xhr2 = new XMLHttpRequest();
+  xhr2.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrl2);
+  xhr2.setRequestHeader('token', 'abc123');
+  xhr2.responseType = 'json';
+  createEntry(xhrResponses[gameCounter]);
+  xhr2.addEventListener('load', function () {
+    gameCounter++;
+    // console.log(xhr2.response[appId].data.short_description);
+
+    if (gameCounter < xhrResponses.length) {
+      getGameData(xhrResponses[gameCounter].appid);
+    }
+  });
+
+  xhr2.send();
+}
 
 var $ul = document.querySelector('ul');
 /* Create Game Entry with Dom */
@@ -78,15 +94,15 @@ function createEntry(entry) {
 
   var description = document.createElement('p');
   description.className = 'description';
-  // description.textContent = appid[idNum].data.short_description;
+  description.textContent = 'Description: ';
   col3.appendChild(description);
 
   var release = document.createElement('p');
-  // release.textContent = ;
+  release.textContent = 'Release Date';
   col3.appendChild(release);
 
   var genre = document.createElement('p');
-  // genre.textContent = ;
+  genre.textContent = 'Genre: ';
   col3.appendChild(genre);
 
   $ul.appendChild(list);
