@@ -65,13 +65,13 @@ img {
 
 .card-small {
   width: 90%;
+  height: 250px;
   box-shadow: 10px 10px 20px black;
 }
 
 .button-sale {
-  position: relative;
-  bottom: 190px;
-  left: 12px;
+  position: absolute;
+  left: 20px;
 }
 
 @media screen and (min-width: 768px) {
@@ -153,17 +153,20 @@ img {
   }
 
   .card-small {
-    width: 75%;
-    height: 380px;
+    width: 95%;
+    height: 340px;
   }
 
   .gallery {
     display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
   }
 
   .button-sale {
     position: relative;
-    bottom: 280px;
-    left: 12px;
+    bottom: 238px;
+    left: 0;
   }
 }

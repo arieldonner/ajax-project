@@ -12,14 +12,17 @@ function getFeatured() {
   xhr3.setRequestHeader('token', 'abc123');
   xhr3.responseType = 'json';
   xhr3.addEventListener('load', function () {
-    // console.log(xhr3.response.featured_win);
-    gameList.push(xhr3.response.featured_win);
-    // console.log(gameList);
+    var xhr3Response = xhr3.response.featured_win;
+    for (var i = 0; i < xhr3Response.length; i++) {
+      createEntrySmall(xhr3Response[i]);
+      var $sale = document.querySelectorAll('.button-sale');
+
+      if (xhr3Response[i].discounted === false) {
+        $sale[i].className = 'button-sale hidden';
+      }
+    }
   });
   xhr3.send();
-  for (var i = 0; i < gameList.length; i++) {
-    createEntrySmall(gameList[i]);
-  }
 }
 getFeatured();
 
@@ -32,7 +35,7 @@ var xhrResponses;
 
 /* Search when clicking the button */
 $searchButton.addEventListener('click', function (event) {
-
+  $gallery.className = 'gallery hidden';
   var targetUrl = encodeURIComponent('https://steamcommunity.com/actions/SearchApps/' + $search.value);
 
   var xhr = new XMLHttpRequest();
@@ -40,7 +43,6 @@ $searchButton.addEventListener('click', function (event) {
   xhr.setRequestHeader('token', 'abc123');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    $ul.className = '';
     /* Removes games when searching again */
     for (var j = 0; j < gameList.length; j++) {
       gameList[j].remove();
@@ -87,7 +89,7 @@ function getGameData(appId) {
     var $genre = document.querySelectorAll('.genre');
     genres.push(xhr2.response[appId].data.genres[0].description);
 
-    var $img = document.querySelectorAll('img');
+    var $img = document.querySelectorAll('.search-img');
     imgs.push(xhr2.response[appId].data.header_image);
 
     for (var i = 0; i < $description.length; i++) {
@@ -105,7 +107,7 @@ function getGameData(appId) {
   xhr2.send();
 }
 
-var $ul = document.querySelector('ul');
+var $ul = document.querySelector('.ul-games');
 
 /* Create Game Entry with Dom */
 function createEntry(entry) {
@@ -122,6 +124,7 @@ function createEntry(entry) {
   var col2div = cardContainer.appendChild(col2);
 
   var img = document.createElement('img');
+  img.className = 'search-img';
   img.setAttribute('alt', 'image for the game');
   col2div.appendChild(img);
 
@@ -183,6 +186,7 @@ function createEntry(entry) {
 </li> */
 
 /* Create game entry small version with Dom */
+var $gallery = document.querySelector('.gallery');
 function createEntrySmall(entry) {
   var list = document.createElement('li');
 
@@ -217,7 +221,7 @@ function createEntrySmall(entry) {
   heart.className = 'fa-regular fa-heart';
   titleDivContainer.appendChild(heart);
 
-  $ul.appendChild(list);
+  $gallery.appendChild(list);
 }
 /*
 <li>
