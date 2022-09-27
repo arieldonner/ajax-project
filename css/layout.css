@@ -20,8 +20,9 @@
 img {
   width: 100%;
   object-fit: cover;
-  height: 50%;
   border-radius: 0.5rem;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .card {
@@ -123,6 +124,7 @@ img {
 
   .card {
     width: 70%;
+    height: 330px;
     display: flex;
   }
 
@@ -135,5 +137,6 @@ img {
     height: 100%;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    object-fit: cover;
   }
 }

@@ -1,7 +1,9 @@
 var gameList = [];
+
 var descriptions = [];
 var releases = [];
 var genres = [];
+var imgs = [];
 /* Search Bar */
 var $search = document.querySelector('#search');
 
@@ -19,10 +21,14 @@ $searchButton.addEventListener('click', function (event) {
   xhr.setRequestHeader('token', 'abc123');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    // console.log(xhr.response);
+
     /* Removes games when searching again */
     for (var j = 0; j < gameList.length; j++) {
       gameList[j].remove();
+      descriptions = [];
+      releases = [];
+      genres = [];
+      imgs = [];
       gameCounter = 0;
     }
 
@@ -52,7 +58,6 @@ function getGameData(appId) {
   createEntry(xhrResponses[gameCounter]);
   xhr2.addEventListener('load', function () {
     gameCounter++;
-    // console.log(xhr2.response[appId].data);
 
     var $description = document.querySelectorAll('.description');
     descriptions.push(xhr2.response[appId].data.short_description);
@@ -63,10 +68,14 @@ function getGameData(appId) {
     var $genre = document.querySelectorAll('.genre');
     genres.push(xhr2.response[appId].data.genres[0].description);
 
+    var $img = document.querySelectorAll('img');
+    imgs.push(xhr2.response[appId].data.header_image);
+
     for (var i = 0; i < $description.length; i++) {
       $description[i].textContent = 'Description: ' + descriptions[i];
       $release[i].textContent = 'Release Date: ' + releases[i];
       $genre[i].textContent = 'Genre: ' + genres[i];
+      $img[i].setAttribute('src', imgs[i]);
     }
 
     if (gameCounter < xhrResponses.length) {
@@ -78,6 +87,7 @@ function getGameData(appId) {
 }
 
 var $ul = document.querySelector('ul');
+
 /* Create Game Entry with Dom */
 function createEntry(entry) {
 
@@ -93,7 +103,6 @@ function createEntry(entry) {
   var col2div = cardContainer.appendChild(col2);
 
   var img = document.createElement('img');
-  img.setAttribute('src', entry.logo);
   img.setAttribute('alt', 'image for the game');
   col2div.appendChild(img);
 
