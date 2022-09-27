@@ -4,6 +4,25 @@ var descriptions = [];
 var releases = [];
 var genres = [];
 var imgs = [];
+
+function getFeatured() {
+  var targetUrl3 = encodeURIComponent('https://store.steampowered.com/api/featured');
+  var xhr3 = new XMLHttpRequest();
+  xhr3.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrl3);
+  xhr3.setRequestHeader('token', 'abc123');
+  xhr3.responseType = 'json';
+  xhr3.addEventListener('load', function () {
+    // console.log(xhr3.response.featured_win);
+    gameList.push(xhr3.response.featured_win);
+    // console.log(gameList);
+  });
+  xhr3.send();
+  for (var i = 0; i < gameList.length; i++) {
+    createEntrySmall(gameList[i]);
+  }
+}
+getFeatured();
+
 /* Search Bar */
 var $search = document.querySelector('#search');
 
@@ -21,7 +40,7 @@ $searchButton.addEventListener('click', function (event) {
   xhr.setRequestHeader('token', 'abc123');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-
+    $ul.className = '';
     /* Removes games when searching again */
     for (var j = 0; j < gameList.length; j++) {
       gameList[j].remove();
@@ -162,3 +181,71 @@ function createEntry(entry) {
     </div>
   </div>
 </li> */
+
+/* Create game entry small version with Dom */
+function createEntrySmall(entry) {
+  var list = document.createElement('li');
+
+  var cardSmall = document.createElement('div');
+  cardSmall.className = 'card-small';
+  var cardContainer = list.appendChild(cardSmall);
+
+  var container = document.createElement('div');
+  container.className = 'entry-container';
+  var entryContainer = cardContainer.appendChild(container);
+
+  var img = document.createElement('img');
+  img.setAttribute('alt', 'image for the game');
+  img.setAttribute('src', entry.header_image);
+  entryContainer.appendChild(img);
+
+  var button = document.createElement('button');
+  button.className = 'button-sale';
+  button.textContent = 'Sale';
+  entryContainer.appendChild(button);
+
+  var titleDiv = document.createElement('div');
+  titleDiv.className = 'card-title card-title-small';
+  var titleDivContainer = entryContainer.appendChild(titleDiv);
+
+  var gameTitle = document.createElement('h2');
+  gameTitle.className = 'game-title';
+  gameTitle.textContent = entry.name;
+  titleDivContainer.appendChild(gameTitle);
+
+  var heart = document.createElement('i');
+  heart.className = 'fa-regular fa-heart';
+  titleDivContainer.appendChild(heart);
+
+  $ul.appendChild(list);
+}
+/*
+<li>
+              <div class="card-small">
+                <div class="entry-container">
+                  <img
+                    src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/en_US/games/switch/r/rune-factory-5-switch/hero"
+                    alt="game image">
+                  <button class="button-sale">Sale</button>
+                  <div class="card-title card-title-small">
+                    <h2 class="game-title">Rune Factory 5</h2>
+                    <i class="fa-regular fa-heart"></i>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="card-small">
+                <div class="entry-container">
+                  <img
+                    src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/en_US/games/switch/r/rune-factory-5-switch/hero"
+                    alt="game image">
+                  <button class="button-sale">Sale</button>
+                  <div class="card-title card-title-small">
+                    <h2 class="game-title">Rune Factory 5</h2>
+                    <i class="fa-regular fa-heart"></i>
+                  </div>
+                </div>
+              </div>
+            </li>
+*/
