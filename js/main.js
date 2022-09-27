@@ -1,12 +1,16 @@
 var gameList = [];
-/* Search Bar for Games */
+var descriptions = [];
+var releases = [];
+var genres = [];
+/* Search Bar */
 var $search = document.querySelector('#search');
 
 var $searchButton = document.querySelector('.button-search');
 var gameCounter = 0;
 var xhrResponses;
+
+/* Search when clicking the button */
 $searchButton.addEventListener('click', function (event) {
-  // console.log($search.value);
 
   var targetUrl = encodeURIComponent('https://steamcommunity.com/actions/SearchApps/' + $search.value);
 
@@ -16,10 +20,12 @@ $searchButton.addEventListener('click', function (event) {
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     // console.log(xhr.response);
+    /* Removes games when searching again */
     for (var j = 0; j < gameList.length; j++) {
       gameList[j].remove();
       gameCounter = 0;
     }
+
     xhrResponses = xhr.response;
     var appId = xhr.response[0].appid;
     getGameData(appId);
@@ -36,6 +42,7 @@ function getGameData(appId) {
     xhrResponses = [];
     return;
   }
+
   var targetUrl2 = encodeURIComponent('https://store.steampowered.com/api/appdetails?appids=' + appId);
 
   var xhr2 = new XMLHttpRequest();
@@ -45,7 +52,22 @@ function getGameData(appId) {
   createEntry(xhrResponses[gameCounter]);
   xhr2.addEventListener('load', function () {
     gameCounter++;
-    // console.log(xhr2.response[appId].data.short_description);
+    // console.log(xhr2.response[appId].data);
+
+    var $description = document.querySelectorAll('.description');
+    descriptions.push(xhr2.response[appId].data.short_description);
+
+    var $release = document.querySelectorAll('.release');
+    releases.push(xhr2.response[appId].data.release_date.date);
+
+    var $genre = document.querySelectorAll('.genre');
+    genres.push(xhr2.response[appId].data.genres[0].description);
+
+    for (var i = 0; i < $description.length; i++) {
+      $description[i].textContent = 'Description: ' + descriptions[i];
+      $release[i].textContent = 'Release Date: ' + releases[i];
+      $genre[i].textContent = 'Genre: ' + genres[i];
+    }
 
     if (gameCounter < xhrResponses.length) {
       getGameData(xhrResponses[gameCounter].appid);
@@ -94,15 +116,17 @@ function createEntry(entry) {
 
   var description = document.createElement('p');
   description.className = 'description';
-  description.textContent = 'Description: ';
+  description.textContent = '';
   col3.appendChild(description);
 
   var release = document.createElement('p');
-  release.textContent = 'Release Date';
+  release.className = 'release';
+  release.textContent = '';
   col3.appendChild(release);
 
   var genre = document.createElement('p');
-  genre.textContent = 'Genre: ';
+  genre.className = 'genre';
+  genre.textContent = '';
   col3.appendChild(genre);
 
   $ul.appendChild(list);
