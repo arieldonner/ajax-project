@@ -6,6 +6,7 @@ var genres = [];
 var imgs = [];
 
 var featured = [];
+var searchedGames = [];
 
 /* Get geatured games */
 function getFeatured() {
@@ -74,7 +75,6 @@ $searchButton.addEventListener('click', function (event) {
     xhrResponses = xhr.response;
     var appId = xhr.response[0].appid;
     getGameData(appId);
-
   }
   );
 
@@ -117,6 +117,13 @@ function getGameData(appId) {
       $img[i].setAttribute('src', imgs[i]);
     }
 
+    var values = {
+      name: xhr2.response[appId].data.name,
+      img: xhr2.response[appId].data.header_image,
+      id: xhr2.response[appId].data.steam_appid
+    };
+    searchedGames.push(values);
+
     if (gameCounter < xhrResponses.length) {
       getGameData(xhrResponses[gameCounter].appid);
     }
@@ -125,14 +132,24 @@ function getGameData(appId) {
   xhr2.send();
 }
 
+var $featuredContainer = document.querySelector('.featured-container');
+var $gamesContainer = document.querySelector('.games-container');
+var $codexContainer = document.querySelector('.codex-container');
+
 function handleView(view) {
   data.view = view;
   if (view === 'games') {
-    $gallery.className = 'gallery hidden';
-    $ul.className = 'ul-games';
+    $featuredContainer.className = 'container featured-container hidden';
+    $gamesContainer.className = 'container games-container';
+    $codexContainer.className = 'container codex-container hidden';
   } else if (view === 'featured') {
-    $gallery.className = 'gallery';
-    $ul.className = 'ul-games hidden';
+    $featuredContainer.className = 'container featured-container';
+    $gamesContainer.className = 'container games-container hidden';
+    $codexContainer.className = 'container codex-container hidden';
+  } else if (view === 'codex') {
+    $featuredContainer.className = 'container featured-container hidden';
+    $gamesContainer.className = 'container games-container hidden';
+    $codexContainer.className = 'container codex-container';
   }
 }
 
@@ -172,6 +189,7 @@ function createEntry(entry) {
 
   var heart = document.createElement('i');
   heart.className = 'fa-regular fa-heart';
+  heart.id = entry.appid;
   titleDivContainer.appendChild(heart);
 
   var description = document.createElement('p');
@@ -294,6 +312,11 @@ function handleHearts(event) {
     for (var i = 0; i < featured.length; i++) {
       if (parseInt(event.target.id) === featured[i].id) {
         data.entries.unshift(featured[i]);
+      }
+    }
+    for (var j = 0; j < searchedGames.length; j++) {
+      if (parseInt(event.target.id) === searchedGames[j].id) {
+        data.entries.unshift(searchedGames[j]);
       }
     }
   } else if (event.target && event.target.tagName === 'I' && event.target.className === 'fa-solid fa-heart') {
