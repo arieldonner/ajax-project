@@ -81,8 +81,8 @@ img {
 }
 
 .rectangle {
-  width: 90%;
-  height: 92%;
+  width: 350px;
+  height: 760px;
   margin-top: 2.5rem;
 }
 
@@ -212,8 +212,8 @@ img {
   }
 
   .rectangle {
-    width: 60%;
-    height: 50%;
+    width: 1200px;
+    height: 600px;
     padding: 0.5rem;
   }
 
