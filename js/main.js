@@ -50,9 +50,6 @@ var $myCodex = document.querySelector('.nav-codex');
 $myCodex.addEventListener('click', function (event) {
   handleView('codex');
   $search.value = '';
-  for (var i = 0; i < data.entries.length; i++) {
-    createCodex(data.entries[i]);
-  }
 });
 
 /* Search Bar */
@@ -200,6 +197,11 @@ function createEntry(entry) {
   var heart = document.createElement('i');
   heart.className = 'fa-regular fa-heart';
   heart.id = entry.appid;
+  for (var i = 0; i < data.entries.length; i++) {
+    if (parseInt(heart.id) === data.entries[i].id) {
+      heart.className = 'fa-solid fa-heart';
+    }
+  }
   titleDivContainer.appendChild(heart);
 
   var description = document.createElement('p');
@@ -275,8 +277,13 @@ function createEntrySmall(entry) {
   titleDivContainer.appendChild(gameTitle);
 
   var heart = document.createElement('i');
-  heart.className = 'fa-regular fa-heart';
   heart.id = entry.id;
+  heart.className = 'fa-regular fa-heart';
+  for (var i = 0; i < data.entries.length; i++) {
+    if (parseInt(heart.id) === data.entries[i].id) {
+      heart.className = 'fa-solid fa-heart';
+    }
+  }
   titleDivContainer.appendChild(heart);
 
   $gallery.appendChild(list);
@@ -376,3 +383,10 @@ function createCodex(entry) {
 
   $codexCards.appendChild(list);
 }
+
+function createCodexPage() {
+  for (var i = 0; i < data.entries.length; i++) {
+    createCodex(data.entries[i]);
+  }
+}
+createCodexPage();
