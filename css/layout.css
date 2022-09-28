@@ -74,6 +74,40 @@ img {
   left: 20px;
 }
 
+/* Modal */
+.center-page {
+  min-height: 100vh;
+  justify-content: center;
+}
+
+.rectangle {
+  width: 90%;
+  height: 92%;
+  margin-top: 2.5rem;
+}
+
+.modal-text {
+  font-size: 1.85rem;
+  margin-bottom: -0.2rem;
+  margin-top: 2.5rem;
+}
+
+.modal-body {
+  font-size: 1.2rem;
+  padding: 0 1rem;
+}
+
+.fa-xmark {
+  transform: scale(2);
+  position: absolute;
+  right: 1rem;
+  top: -1.5rem;
+}
+
+.li-modal {
+  padding-bottom: 0.4rem;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     max-width: 1350px;
@@ -169,5 +203,37 @@ img {
   .button-sale {
     position: absolute;
     left: 0;
+  }
+
+  /* Modal */
+  .center-page {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rectangle {
+    width: 60%;
+    height: 50%;
+    padding: 0.5rem;
+  }
+
+  .modal-text {
+    font-size: 2rem;
+  }
+
+  .modal-body {
+    font-size: 1.5rem;
+    padding: 0 3rem;
+  }
+
+  .fa-xmark {
+    transform: scale(2.5);
+    position: absolute;
+    right: 2rem;
+    top: 0;
+  }
+
+  .li-modal {
+    padding-bottom: 0.5rem;
   }
 }
