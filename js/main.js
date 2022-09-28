@@ -50,6 +50,11 @@ var $myCodex = document.querySelector('.nav-codex');
 $myCodex.addEventListener('click', function (event) {
   handleView('codex');
   $search.value = '';
+  var $gameList = document.querySelectorAll('.user-games');
+  for (var i = 0; i < $gameList.length; i++) {
+    $gameList[i].remove();
+  }
+  createCodexPage();
 });
 
 /* Search Bar */
@@ -353,6 +358,7 @@ function handleHearts(event) {
 var $codexCards = document.querySelector('.my-codex');
 function createCodex(entry) {
   var list = document.createElement('li');
+  list.className = 'user-games';
 
   var cardSmall = document.createElement('div');
   cardSmall.className = 'card-small';
