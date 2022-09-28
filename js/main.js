@@ -45,6 +45,16 @@ $games.addEventListener('click', function (event) {
   $search.value = '';
 });
 
+/* MyCodex Link */
+var $myCodex = document.querySelector('.nav-codex');
+$myCodex.addEventListener('click', function (event) {
+  handleView('codex');
+  $search.value = '';
+  for (var i = 0; i < data.entries.length; i++) {
+    createCodex(data.entries[i]);
+  }
+});
+
 /* Search Bar */
 var $search = document.querySelector('#search');
 
@@ -332,3 +342,37 @@ function handleHearts(event) {
 //     console.log(hasVal);
 //   }
 // }
+
+var $codexCards = document.querySelector('.my-codex');
+function createCodex(entry) {
+  var list = document.createElement('li');
+
+  var cardSmall = document.createElement('div');
+  cardSmall.className = 'card-small';
+  var cardContainer = list.appendChild(cardSmall);
+
+  var container = document.createElement('div');
+  container.className = 'entry-container';
+  var entryContainer = cardContainer.appendChild(container);
+
+  var img = document.createElement('img');
+  img.setAttribute('alt', 'image for the game');
+  img.setAttribute('src', entry.img);
+  entryContainer.appendChild(img);
+
+  var titleDiv = document.createElement('div');
+  titleDiv.className = 'card-title card-title-small';
+  var titleDivContainer = entryContainer.appendChild(titleDiv);
+
+  var gameTitle = document.createElement('h2');
+  gameTitle.className = 'game-title';
+  gameTitle.textContent = entry.name;
+  titleDivContainer.appendChild(gameTitle);
+
+  var heart = document.createElement('i');
+  heart.className = 'fa-solid fa-heart';
+  heart.id = entry.id;
+  titleDivContainer.appendChild(heart);
+
+  $codexCards.appendChild(list);
+}
