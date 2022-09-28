@@ -160,3 +160,50 @@ li {
 .fa-solid.fa-heart {
   color: #da0037;
 }
+
+/* Modal */
+.center-page {
+  display: flex;
+  min-height: 100vh;
+}
+
+.rectangle {
+  background-color: white;
+  border-radius: 0.5rem;
+}
+
+.modal-text {
+  text-align: center;
+}
+
+.modal-heading {
+  position: relative;
+}
+
+.fa-xmark {
+  color: #007bff;
+  cursor: pointer;
+  transition: color 0.5s;
+}
+
+.fa-xmark:hover {
+  color: #da0037;
+}
+
+.red {
+  color: #da0037;
+}
+
+.blue {
+  color: #007bff;
+}
+
+.container-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: rgb(0 0 0 / 80%);
+}
