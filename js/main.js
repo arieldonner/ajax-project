@@ -57,6 +57,17 @@ $myCodex.addEventListener('click', function (event) {
   createCodexPage();
 });
 
+/* Question Mark Icon */
+var $question = document.querySelector('.fa-circle-question');
+var $modal = document.querySelector('.container-modal');
+$question.addEventListener('click', function (event) {
+  $modal.className = 'container-modal';
+});
+var $close = document.querySelector('.fa-xmark');
+$close.addEventListener('click', function (event) {
+  $modal.className = 'container-modal hidden';
+});
+
 /* Search Bar */
 var $search = document.querySelector('#search');
 
