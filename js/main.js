@@ -27,6 +27,11 @@ function getFeatured() {
 getFeatured();
 
 /* Games Link */
+var $games = document.querySelector('.nav-games');
+$games.addEventListener('click', function (event) {
+  handleView('featured');
+  $search.value = '';
+});
 
 /* Search Bar */
 var $search = document.querySelector('#search');
@@ -113,8 +118,10 @@ function handleView(view) {
   data.view = view;
   if (view === 'games') {
     $gallery.className = 'gallery hidden';
+    $ul.className = 'ul-games';
   } else if (view === 'featured') {
     $gallery.className = 'gallery';
+    $ul.className = 'ul-games hidden';
   }
 }
 
