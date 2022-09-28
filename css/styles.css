@@ -193,11 +193,16 @@ li {
 
 .fa-xmark {
   transform: scale(2.5);
-  color: #da0037;
+  color: #007bff;
   position: absolute;
   right: 2rem;
   top: 0;
   cursor: pointer;
+  transition: color 0.5s;
+}
+
+.fa-xmark:hover {
+  color: #da0037;
 }
 
 .red {
