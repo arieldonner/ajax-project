@@ -26,6 +26,8 @@ function getFeatured() {
 }
 getFeatured();
 
+/* Games Link */
+
 /* Search Bar */
 var $search = document.querySelector('#search');
 
@@ -35,7 +37,7 @@ var xhrResponses;
 
 /* Search when clicking the button */
 $searchButton.addEventListener('click', function (event) {
-  $gallery.className = 'gallery hidden';
+  handleView('games');
   var targetUrl = encodeURIComponent('https://steamcommunity.com/actions/SearchApps/' + $search.value);
 
   var xhr = new XMLHttpRequest();
@@ -105,6 +107,15 @@ function getGameData(appId) {
   });
 
   xhr2.send();
+}
+
+function handleView(view) {
+  data.view = view;
+  if (view === 'games') {
+    $gallery.className = 'gallery hidden';
+  } else if (view === 'featured') {
+    $gallery.className = 'gallery';
+  }
 }
 
 var $ul = document.querySelector('.ul-games');
