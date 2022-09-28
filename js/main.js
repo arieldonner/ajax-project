@@ -5,6 +5,7 @@ var releases = [];
 var genres = [];
 var imgs = [];
 
+/* Get geatured games */
 function getFeatured() {
   var targetUrl3 = encodeURIComponent('https://store.steampowered.com/api/featured');
   var xhr3 = new XMLHttpRequest();
@@ -271,3 +272,12 @@ function createEntrySmall(entry) {
               </div>
             </li>
 */
+
+/* Heart icon */
+// var $heartReg = document.getElementsByClassName('fa-regular fa-heart');
+// console.log($heartReg);
+$gallery.addEventListener('click', function (event) {
+  if (event.target && event.target.tagName === 'I' && event.target.className === 'fa-regular fa-heart') {
+    event.target.className = 'fa-solid fa-heart';
+  }
+});
