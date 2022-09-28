@@ -207,3 +207,8 @@ li {
   z-index: 1000;
   background-color: rgb(0 0 0 / 80%);
 }
+
+/* Notes */
+.entry-container {
+  cursor: pointer;
+}

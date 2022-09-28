@@ -55,6 +55,14 @@ $myCodex.addEventListener('click', function (event) {
     $gameList[i].remove();
   }
   createCodexPage();
+
+  /* Clicking on a tile brings up notes page */
+  var $gameTile = document.querySelectorAll('.user-games');
+  for (var n = 0; n < $gameTile.length; n++) {
+    $gameTile[n].addEventListener('click', function (event) {
+      handleView('notes');
+    });
+  }
 });
 
 /* Question Mark Icon */
@@ -158,6 +166,7 @@ function getGameData(appId) {
 var $featuredContainer = document.querySelector('.featured-container');
 var $gamesContainer = document.querySelector('.games-container');
 var $codexContainer = document.querySelector('.codex-container');
+var $notesContainer = document.querySelector('.notes-container');
 
 function handleView(view) {
   data.view = view;
@@ -165,14 +174,22 @@ function handleView(view) {
     $featuredContainer.className = 'container featured-container hidden';
     $gamesContainer.className = 'container games-container';
     $codexContainer.className = 'container codex-container hidden';
+    $notesContainer.className = 'container notes-container hidden';
   } else if (view === 'featured') {
     $featuredContainer.className = 'container featured-container';
     $gamesContainer.className = 'container games-container hidden';
     $codexContainer.className = 'container codex-container hidden';
+    $notesContainer.className = 'container notes-container hidden';
   } else if (view === 'codex') {
     $featuredContainer.className = 'container featured-container hidden';
     $gamesContainer.className = 'container games-container hidden';
     $codexContainer.className = 'container codex-container';
+    $notesContainer.className = 'container notes-container hidden';
+  } else if (view === 'notes') {
+    $featuredContainer.className = 'container featured-container hidden';
+    $gamesContainer.className = 'container games-container hidden';
+    $codexContainer.className = 'container codex-container hidden';
+    $notesContainer.className = 'container notes-container';
   }
 }
 
@@ -357,19 +374,10 @@ function handleHearts(event) {
   }
 }
 
-// console.log($heart[i].id);
-// console.log(data.entries);
-// if (data.entries[i] !== null && data.entries[i] !== undefined) {
-//   for (var j = 0; j < $heart.length; j++) {
-//     var hasVal = Object.values(data.entries[i]).includes($heart[j].id);
-//     console.log(hasVal);
-//   }
-// }
-
 var $codexCards = document.querySelector('.my-codex');
 function createCodex(entry) {
   var list = document.createElement('li');
-  list.className = 'user-games';
+  list.className = 'user-games ' + entry.id;
 
   var cardSmall = document.createElement('div');
   cardSmall.className = 'card-small';
