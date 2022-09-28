@@ -27,6 +27,7 @@ img {
 
 .card {
   width: 90%;
+  box-shadow: 10px 10px 20px black;
 }
 
 .card-text {
@@ -60,6 +61,17 @@ img {
 
 .nav {
   padding: 0.1rem 1.3rem 1rem;
+}
+
+.card-small {
+  width: 90%;
+  height: 250px;
+  box-shadow: 10px 10px 20px black;
+}
+
+.button-sale {
+  position: absolute;
+  left: 20px;
 }
 
 @media screen and (min-width: 768px) {
@@ -138,5 +150,24 @@ img {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     object-fit: cover;
+  }
+
+  .card-small {
+    width: 500px;
+    height: 340px;
+    margin: 1rem;
+    position: relative;
+  }
+
+  .gallery {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .button-sale {
+    position: absolute;
+    left: 0;
   }
 }
