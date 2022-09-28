@@ -5,6 +5,8 @@ var releases = [];
 var genres = [];
 var imgs = [];
 
+var featured = [];
+
 /* Get geatured games */
 function getFeatured() {
   var targetUrl3 = encodeURIComponent('https://store.steampowered.com/api/featured');
@@ -17,6 +19,14 @@ function getFeatured() {
     for (var i = 0; i < xhr3Response.length; i++) {
       createEntrySmall(xhr3Response[i]);
       var $sale = document.querySelectorAll('.button-sale');
+      // var $heart = document.querySelectorAll('.fa-heart');
+
+      var values = {
+        name: xhr3Response[i].name,
+        img: xhr3Response[i].header_image,
+        id: xhr3Response[i].id
+      };
+      featured.push(values);
 
       if (xhr3Response[i].discounted === false) {
         $sale[i].className = 'button-sale hidden';
@@ -238,6 +248,7 @@ function createEntrySmall(entry) {
 
   var heart = document.createElement('i');
   heart.className = 'fa-regular fa-heart';
+  heart.id = entry.id;
   titleDivContainer.appendChild(heart);
 
   $gallery.appendChild(list);
@@ -274,10 +285,27 @@ function createEntrySmall(entry) {
 */
 
 /* Heart icon */
-// var $heartReg = document.getElementsByClassName('fa-regular fa-heart');
-// console.log($heartReg);
-$gallery.addEventListener('click', function (event) {
+$gallery.addEventListener('click', handleHearts);
+$ul.addEventListener('click', handleHearts);
+
+function handleHearts(event) {
   if (event.target && event.target.tagName === 'I' && event.target.className === 'fa-regular fa-heart') {
     event.target.className = 'fa-solid fa-heart';
+    for (var i = 0; i < featured.length; i++) {
+      if (parseInt(event.target.id) === featured[i].id) {
+        data.entries.unshift(featured[i]);
+      }
+    }
+  } else if (event.target && event.target.tagName === 'I' && event.target.className === 'fa-solid fa-heart') {
+    event.target.className = 'fa-regular fa-heart';
   }
-});
+}
+
+// console.log($heart[i].id);
+// console.log(data.entries);
+// if (data.entries[i] !== null && data.entries[i] !== undefined) {
+//   for (var j = 0; j < $heart.length; j++) {
+//     var hasVal = Object.values(data.entries[i]).includes($heart[j].id);
+//     console.log(hasVal);
+//   }
+// }
