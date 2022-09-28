@@ -5,6 +5,10 @@ var releases = [];
 var genres = [];
 var imgs = [];
 
+var featured = [];
+var searchedGames = [];
+
+/* Get geatured games */
 function getFeatured() {
   var targetUrl3 = encodeURIComponent('https://store.steampowered.com/api/featured');
   var xhr3 = new XMLHttpRequest();
@@ -16,6 +20,14 @@ function getFeatured() {
     for (var i = 0; i < xhr3Response.length; i++) {
       createEntrySmall(xhr3Response[i]);
       var $sale = document.querySelectorAll('.button-sale');
+      // var $heart = document.querySelectorAll('.fa-heart');
+
+      var values = {
+        name: xhr3Response[i].name,
+        img: xhr3Response[i].header_image,
+        id: xhr3Response[i].id
+      };
+      featured.push(values);
 
       if (xhr3Response[i].discounted === false) {
         $sale[i].className = 'button-sale hidden';
@@ -31,6 +43,18 @@ var $games = document.querySelector('.nav-games');
 $games.addEventListener('click', function (event) {
   handleView('featured');
   $search.value = '';
+});
+
+/* MyCodex Link */
+var $myCodex = document.querySelector('.nav-codex');
+$myCodex.addEventListener('click', function (event) {
+  handleView('codex');
+  $search.value = '';
+  var $gameList = document.querySelectorAll('.user-games');
+  for (var i = 0; i < $gameList.length; i++) {
+    $gameList[i].remove();
+  }
+  createCodexPage();
 });
 
 /* Search Bar */
@@ -63,7 +87,6 @@ $searchButton.addEventListener('click', function (event) {
     xhrResponses = xhr.response;
     var appId = xhr.response[0].appid;
     getGameData(appId);
-
   }
   );
 
@@ -106,6 +129,13 @@ function getGameData(appId) {
       $img[i].setAttribute('src', imgs[i]);
     }
 
+    var values = {
+      name: xhr2.response[appId].data.name,
+      img: xhr2.response[appId].data.header_image,
+      id: xhr2.response[appId].data.steam_appid
+    };
+    searchedGames.push(values);
+
     if (gameCounter < xhrResponses.length) {
       getGameData(xhrResponses[gameCounter].appid);
     }
@@ -114,14 +144,24 @@ function getGameData(appId) {
   xhr2.send();
 }
 
+var $featuredContainer = document.querySelector('.featured-container');
+var $gamesContainer = document.querySelector('.games-container');
+var $codexContainer = document.querySelector('.codex-container');
+
 function handleView(view) {
   data.view = view;
   if (view === 'games') {
-    $gallery.className = 'gallery hidden';
-    $ul.className = 'ul-games';
+    $featuredContainer.className = 'container featured-container hidden';
+    $gamesContainer.className = 'container games-container';
+    $codexContainer.className = 'container codex-container hidden';
   } else if (view === 'featured') {
-    $gallery.className = 'gallery';
-    $ul.className = 'ul-games hidden';
+    $featuredContainer.className = 'container featured-container';
+    $gamesContainer.className = 'container games-container hidden';
+    $codexContainer.className = 'container codex-container hidden';
+  } else if (view === 'codex') {
+    $featuredContainer.className = 'container featured-container hidden';
+    $gamesContainer.className = 'container games-container hidden';
+    $codexContainer.className = 'container codex-container';
   }
 }
 
@@ -161,6 +201,12 @@ function createEntry(entry) {
 
   var heart = document.createElement('i');
   heart.className = 'fa-regular fa-heart';
+  heart.id = entry.appid;
+  for (var i = 0; i < data.entries.length; i++) {
+    if (parseInt(heart.id) === data.entries[i].id) {
+      heart.className = 'fa-solid fa-heart';
+    }
+  }
   titleDivContainer.appendChild(heart);
 
   var description = document.createElement('p');
@@ -236,7 +282,13 @@ function createEntrySmall(entry) {
   titleDivContainer.appendChild(gameTitle);
 
   var heart = document.createElement('i');
+  heart.id = entry.id;
   heart.className = 'fa-regular fa-heart';
+  for (var i = 0; i < data.entries.length; i++) {
+    if (parseInt(heart.id) === data.entries[i].id) {
+      heart.className = 'fa-solid fa-heart';
+    }
+  }
   titleDivContainer.appendChild(heart);
 
   $gallery.appendChild(list);
@@ -271,3 +323,76 @@ function createEntrySmall(entry) {
               </div>
             </li>
 */
+
+/* Heart icon */
+$gallery.addEventListener('click', handleHearts);
+$ul.addEventListener('click', handleHearts);
+
+function handleHearts(event) {
+  if (event.target && event.target.tagName === 'I' && event.target.className === 'fa-regular fa-heart') {
+    event.target.className = 'fa-solid fa-heart';
+    for (var i = 0; i < featured.length; i++) {
+      if (parseInt(event.target.id) === featured[i].id) {
+        data.entries.unshift(featured[i]);
+      }
+    }
+    for (var j = 0; j < searchedGames.length; j++) {
+      if (parseInt(event.target.id) === searchedGames[j].id) {
+        data.entries.unshift(searchedGames[j]);
+      }
+    }
+  } else if (event.target && event.target.tagName === 'I' && event.target.className === 'fa-solid fa-heart') {
+    event.target.className = 'fa-regular fa-heart';
+  }
+}
+
+// console.log($heart[i].id);
+// console.log(data.entries);
+// if (data.entries[i] !== null && data.entries[i] !== undefined) {
+//   for (var j = 0; j < $heart.length; j++) {
+//     var hasVal = Object.values(data.entries[i]).includes($heart[j].id);
+//     console.log(hasVal);
+//   }
+// }
+
+var $codexCards = document.querySelector('.my-codex');
+function createCodex(entry) {
+  var list = document.createElement('li');
+  list.className = 'user-games';
+
+  var cardSmall = document.createElement('div');
+  cardSmall.className = 'card-small';
+  var cardContainer = list.appendChild(cardSmall);
+
+  var container = document.createElement('div');
+  container.className = 'entry-container';
+  var entryContainer = cardContainer.appendChild(container);
+
+  var img = document.createElement('img');
+  img.setAttribute('alt', 'image for the game');
+  img.setAttribute('src', entry.img);
+  entryContainer.appendChild(img);
+
+  var titleDiv = document.createElement('div');
+  titleDiv.className = 'card-title card-title-small';
+  var titleDivContainer = entryContainer.appendChild(titleDiv);
+
+  var gameTitle = document.createElement('h2');
+  gameTitle.className = 'game-title';
+  gameTitle.textContent = entry.name;
+  titleDivContainer.appendChild(gameTitle);
+
+  var heart = document.createElement('i');
+  heart.className = 'fa-solid fa-heart';
+  heart.id = entry.id;
+  titleDivContainer.appendChild(heart);
+
+  $codexCards.appendChild(list);
+}
+
+function createCodexPage() {
+  for (var i = 0; i < data.entries.length; i++) {
+    createCodex(data.entries[i]);
+  }
+}
+createCodexPage();

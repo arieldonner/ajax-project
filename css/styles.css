@@ -102,7 +102,7 @@ li {
 .card {
   background-color: white;
   border-radius: 0.5rem;
-  margin-top: -1.5rem;
+  margin-top: -1rem;
   margin-bottom: 3.5rem;
 }
 
@@ -127,12 +127,17 @@ li {
   transform: scale(2);
   cursor: pointer;
   margin-top: 0.4rem;
+  transition: color 0.5s;
+}
+
+.fa-heart:hover {
+  color: #da0037;
 }
 
 .card-small {
   background-color: white;
   border-radius: 0.5rem;
-  margin-top: -1.5rem;
+  margin-top: -1rem;
   margin-bottom: 3.5rem;
 }
 
@@ -150,4 +155,8 @@ li {
   margin-left: 1.4rem;
   padding-bottom: 1.7rem;
   max-width: 88%;
+}
+
+.fa-solid.fa-heart {
+  color: #da0037;
 }
