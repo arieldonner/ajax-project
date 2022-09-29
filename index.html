@@ -14,6 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 </head>
 <body>
   <header>
@@ -119,6 +120,80 @@
                         <p>Links: </p>
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container edit-container hidden" data-view="edit">
+      <div class="row">
+        <div class="column-full">
+          <h1>Editing My Notes</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column-full">
+          <ul class="my-notes">
+            <li>
+              <div class="notes-card">
+                <div class="row">
+                  <div class="column-three-sevenths">
+                    <img src="" alt="game image" class="notes-img edit-img">
+                  </div>
+                  <div class="column-four-sevenths">
+                    <div class="notes-game-heading">
+                      <h3 class="notes-title edit-title">Title</h3>
+                    </div>
+                    <div class="notes-body">
+                      <div class="rating">
+                        <p>Rating: </p>
+                        <div class="stars">
+                          <form action="">
+                            <input class="star star-5" id="star-5" type="radio" name="star" />
+                            <label class="star star-5" for="star-5"></label>
+                            <input class="star star-4" id="star-4" type="radio" name="star" />
+                            <label class="star star-4" for="star-4"></label>
+                            <input class="star star-3" id="star-3" type="radio" name="star" />
+                            <label class="star star-3" for="star-3"></label>
+                            <input class="star star-2" id="star-2" type="radio" name="star" />
+                            <label class="star star-2" for="star-2"></label>
+                            <input class="star star-1" id="star-1" type="radio" name="star" />
+                            <label class="star star-1" for="star-1"></label>
+                          </form>
+                        </div>
+                      </div>
+                      <div class="status">
+                        <p>Play Status: </p>
+                        <form>
+                          <select name="status" required>
+                            <option value="playing">Playing</option>
+                            <option value="eventually">Eventually</option>
+                            <option value="finished">Finished</option>
+                          </select>
+                        </form>
+                      </div>
+                      <div class="notes">
+                        <label for="notes">Notes: </label>
+                        <form>
+                          <textarea name="notes" id="notes" placeholder="Type any notes you have here..."></textarea>
+                        </form>
+                      </div>
+                      <div class="links">
+                        <p>Links: </p>
+                        <form>
+                          <input type="text" name="link-description" placeholder="Link Description">
+                          <input type="text" name="link-url" placeholder="Link URL">
+                          <i class="fa-solid fa-circle-plus"></i>
+                          <i class="fa-solid fa-trash"></i>
+                        </form>
+                      </div>
+                    </div>
+                    <form>
+                      <button type="submit">Submit</button>
+                    </form>
                   </div>
                 </div>
               </div>

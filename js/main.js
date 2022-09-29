@@ -70,6 +70,14 @@ $myCodex.addEventListener('click', function (event) {
           $notesImg.setAttribute('src', data.entries[j].img);
         }
       }
+      var $editIcon = document.querySelector('.fa-pen-to-square');
+      $editIcon.addEventListener('click', function (event) {
+        handleView('edit');
+        var $editImg = document.querySelector('.edit-img');
+        var $editTitle = document.querySelector('.edit-title');
+        $editTitle.textContent = $notesTitle.textContent;
+        $editImg.setAttribute('src', $notesImg.src);
+      });
     });
   }
 });
@@ -176,6 +184,7 @@ var $featuredContainer = document.querySelector('.featured-container');
 var $gamesContainer = document.querySelector('.games-container');
 var $codexContainer = document.querySelector('.codex-container');
 var $notesContainer = document.querySelector('.notes-container');
+var $editContainer = document.querySelector('.edit-container');
 
 function handleView(view) {
   data.view = view;
@@ -184,21 +193,31 @@ function handleView(view) {
     $gamesContainer.className = 'container games-container';
     $codexContainer.className = 'container codex-container hidden';
     $notesContainer.className = 'container notes-container hidden';
+    $editContainer.className = 'container edit-container hidden';
   } else if (view === 'featured') {
     $featuredContainer.className = 'container featured-container';
     $gamesContainer.className = 'container games-container hidden';
     $codexContainer.className = 'container codex-container hidden';
     $notesContainer.className = 'container notes-container hidden';
+    $editContainer.className = 'container edit-container hidden';
   } else if (view === 'codex') {
     $featuredContainer.className = 'container featured-container hidden';
     $gamesContainer.className = 'container games-container hidden';
     $codexContainer.className = 'container codex-container';
     $notesContainer.className = 'container notes-container hidden';
+    $editContainer.className = 'container edit-container hidden';
   } else if (view === 'notes') {
     $featuredContainer.className = 'container featured-container hidden';
     $gamesContainer.className = 'container games-container hidden';
     $codexContainer.className = 'container codex-container hidden';
     $notesContainer.className = 'container notes-container';
+    $editContainer.className = 'container edit-container hidden';
+  } else if (view === 'edit') {
+    $featuredContainer.className = 'container featured-container hidden';
+    $gamesContainer.className = 'container games-container hidden';
+    $codexContainer.className = 'container codex-container hidden';
+    $notesContainer.className = 'container notes-container hidden';
+    $editContainer.className = 'container edit-container';
   }
 }
 

@@ -256,5 +256,50 @@ li {
 
 .fa-star {
   margin-right: -0.5rem;
-  cursor: pointer;
+}
+
+/* Edit */
+
+div.stars {
+  width: 270px;
+  display: inline-block;
+}
+
+input.star {
+  display: none;
+}
+
+label.star {
+  float: right;
+  padding: 2px;
+  font-size: 30px;
+  color: #444;
+  transition: all 0.2s;
+}
+
+label.star::before {
+  content: "\f006";
+  font-family: FontAwesome, sans-serif;
+}
+
+input.star:checked ~ label.star::before {
+  content: "\f005";
+  color: #da0037;
+  transition: all 0.25s;
+}
+
+input.star-1:checked ~ label.star::before {
+  color: rgb(255, 240, 34);
+}
+
+input.star-2:checked ~ label.star::before {
+  color: #f62;
+}
+
+input.star-3:checked ~ label.star::before {
+  color: #f62;
+}
+
+label.star:hover {
+  transform: rotate(-15deg) scale(1.3);
 }
