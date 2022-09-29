@@ -117,8 +117,10 @@ img {
 
 .fa-pen-to-square {
   transform: scale(2);
-  top: 0.3rem;
-  right: 1rem;
+  flex: 1;
+
+  /* top: 0.3rem;
+  right: 1rem; */
 }
 
 .notes-img {
@@ -131,7 +133,7 @@ img {
   font-size: 1.6rem;
   margin-left: 0.9rem;
   margin-top: 0.9rem;
-  max-width: 85%;
+  flex: 13;
 }
 
 .notes-body {
@@ -161,8 +163,7 @@ img {
 }
 
 .form-submit-button {
-  padding: 2rem 0;
-  margin-top: 1rem;
+  padding: 1rem 0;
 }
 
 @media screen and (min-width: 768px) {
@@ -310,8 +311,9 @@ img {
 
   .fa-pen-to-square {
     transform: scale(3);
+    position: absolute;
     right: 3rem;
-    top: 1rem;
+    top: 2.7rem;
   }
 
   .notes-img {
@@ -351,16 +353,17 @@ img {
 
   .link-description {
     width: 230px;
-    height: 25px;
+    height: 35px;
+    font-size: 1rem;
   }
 
   .link-url {
     width: 310px;
-    height: 25px;
+    height: 35px;
+    font-size: 1rem;
   }
 
   .form-submit-button {
-    padding: 2rem 1.5rem;
-    margin-top: 6rem;
+    padding: 1rem 1.5rem;
   }
 }

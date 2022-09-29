@@ -23,7 +23,6 @@ function getFeatured() {
     for (var i = 0; i < xhr3Response.length; i++) {
       createEntrySmall(xhr3Response[i]);
       var $sale = document.querySelectorAll('.button-sale');
-      // var $heart = document.querySelectorAll('.fa-heart');
 
       var values = {
         name: xhr3Response[i].name,
@@ -77,6 +76,24 @@ $myCodex.addEventListener('click', function (event) {
         var $editTitle = document.querySelector('.edit-title');
         $editTitle.textContent = $notesTitle.textContent;
         $editImg.setAttribute('src', $notesImg.src);
+
+        var $addLink = document.querySelector('.button-add-links');
+        var linkNumber = 0;
+        $addLink.addEventListener('click', function (event) {
+          createNewLink(linkNumber);
+          linkNumber++;
+          var $trashCans = document.querySelectorAll('.fa-trash');
+          var $linksLine = document.querySelectorAll('.links-line');
+          for (var t = 0; t < $trashCans.length; t++) {
+            $trashCans[t].addEventListener('click', function (event) {
+              for (var l = 0; l < $linksLine.length; l++) {
+                if (event.target.getAttribute('linknumber') === $linksLine[l].getAttribute('linknumber')) {
+                  $linksLine[l].remove();
+                }
+              }
+            });
+          }
+        });
       });
     });
   }
@@ -444,3 +461,40 @@ function createCodexPage() {
   }
 }
 createCodexPage();
+
+var $linksForm = document.querySelector('.links-form');
+function createNewLink(number) {
+
+  var bothLinks = document.createElement('div');
+  bothLinks.className = 'links-line';
+  bothLinks.setAttribute('linkNumber', number);
+
+  var description = document.createElement('input');
+  description.setAttribute('type', 'text');
+  description.setAttribute('name', 'link-description');
+  description.className = 'link-description';
+  description.setAttribute('placeholder', 'Link Description');
+  bothLinks.appendChild(description);
+
+  var url = document.createElement('input');
+  url.setAttribute('type', 'text');
+  url.setAttribute('name', 'link-url');
+  url.className = 'link-url';
+  url.setAttribute('placeholder', 'Link URL');
+  bothLinks.appendChild(url);
+
+  var trashIcon = document.createElement('i');
+  trashIcon.className = 'fa-solid fa-trash';
+  trashIcon.setAttribute('linkNumber', number);
+  bothLinks.appendChild(trashIcon);
+
+  $linksForm.appendChild(bothLinks);
+}
+
+/*
+<div class="links-line">
+                            <input type="text" name="link-description" class="link-description" placeholder="Link Description">
+                            <input type="text" name="link-url" class="link-url" placeholder="Link URL">
+                            <i class="fa-solid fa-trash"></i>
+                          </div>
+*/

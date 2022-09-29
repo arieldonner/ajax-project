@@ -223,11 +223,13 @@ li {
 
 .notes-game-heading {
   position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
 }
 
 .fa-pen-to-square {
   color: #007bff;
-  position: absolute;
   cursor: pointer;
 }
 
@@ -256,6 +258,9 @@ li {
 
 .fa-star {
   margin-right: -0.5rem;
+  padding: 2px;
+  font-size: 30px;
+  color: #444;
 }
 
 /* Edit */
@@ -382,6 +387,7 @@ input.star-3:checked ~ label.star::before {
   display: flex;
   align-items: center;
   margin-top: -0.3rem;
+  margin-bottom: 0.7rem;
 }
 
 .link-url {
