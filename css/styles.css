@@ -228,6 +228,7 @@ li {
 .fa-pen-to-square {
   color: #007bff;
   position: absolute;
+  cursor: pointer;
 }
 
 .rating {
@@ -240,10 +241,20 @@ li {
   align-items: baseline;
 }
 
-.button-playing {
+.button-status {
   padding: 0.5rem 0.7rem;
   border: 1px solid #007bff;
   color: #007bff;
   border-radius: 0.2rem;
   font-size: 1rem;
+  margin-left: 0.5rem;
+}
+
+.stars {
+  margin-left: 0.5rem;
+}
+
+.fa-star {
+  margin-right: -0.5rem;
+  cursor: pointer;
 }
