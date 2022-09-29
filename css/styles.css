@@ -261,7 +261,6 @@ li {
 /* Edit */
 
 div.stars {
-  width: 270px;
   display: inline-block;
 }
 
@@ -300,6 +299,92 @@ input.star-3:checked ~ label.star::before {
   color: #f62;
 }
 
-label.star:hover {
-  transform: rotate(-15deg) scale(1.3);
+.rating-edit {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.status-edit {
+  margin-top: -0.8rem;
+}
+
+.status-dropdown {
+  margin-left: 0.9rem;
+}
+
+.notes {
+  display: flex;
+  margin-top: 1rem;
+}
+
+#notes {
+  margin-left: 0.9rem;
+  padding: 0.5rem;
+  font-size: 1.1rem;
+}
+
+#notes::placeholder {
+  font-size: 1rem;
+  font-family: Roboto, sans-serif;
+}
+
+.edit-title {
+  max-width: 100%;
+}
+
+.link-description,
+.link-url,
+#notes,
+.status-dropdown {
+  border: 1px solid black;
+  border-radius: 0.2rem;
+}
+
+.links-heading {
+  display: flex;
+}
+
+.button-add-links {
+  display: flex;
+  align-items: center;
+  margin-left: 0.5rem;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.fa-circle-plus {
+  margin-left: 0.2rem;
+  margin-top: 0.1rem;
+}
+
+.button-submit {
+  padding: 0.5rem 0.7rem;
+  border: 1px solid #007bff;
+  border-radius: 0.2rem;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.form-submit-button {
+  text-align: right;
+}
+
+.fa-trash {
+  color: #da0037;
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.links-line {
+  display: flex;
+  align-items: center;
+  margin-top: -0.3rem;
+}
+
+.link-url {
+  margin-left: 0.5rem;
+  margin-right: 0.7rem;
 }

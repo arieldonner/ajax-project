@@ -148,9 +148,9 @@
                       <h3 class="notes-title edit-title">Title</h3>
                     </div>
                     <div class="notes-body">
-                      <div class="rating">
+                      <div class="rating rating-edit">
                         <p>Rating: </p>
-                        <div class="stars">
+                        <div class="stars stars-edit">
                           <form action="">
                             <input class="star star-5" id="star-5" type="radio" name="star" />
                             <label class="star star-5" for="star-5"></label>
@@ -165,10 +165,10 @@
                           </form>
                         </div>
                       </div>
-                      <div class="status">
+                      <div class="status status-edit">
                         <p>Play Status: </p>
                         <form>
-                          <select name="status" required>
+                          <select name="status" class="status-dropdown" required>
                             <option value="playing">Playing</option>
                             <option value="eventually">Eventually</option>
                             <option value="finished">Finished</option>
@@ -182,17 +182,22 @@
                         </form>
                       </div>
                       <div class="links">
-                        <p>Links: </p>
-                        <form>
-                          <input type="text" name="link-description" placeholder="Link Description">
-                          <input type="text" name="link-url" placeholder="Link URL">
-                          <i class="fa-solid fa-circle-plus"></i>
+                        <div class="links-heading">
+                          <p>Links: </p>
+                          <div class="button-add-links">
+                            <p class="blue">Add</p>
+                            <i class="fa-solid fa-circle-plus blue"></i>
+                          </div>
+                        </div>
+                        <form class="links-line">
+                          <input type="text" name="link-description" class="link-description" placeholder="Link Description">
+                          <input type="text" name="link-url" class="link-url" placeholder="Link URL">
                           <i class="fa-solid fa-trash"></i>
                         </form>
                       </div>
                     </div>
-                    <form>
-                      <button type="submit">Submit</button>
+                    <form class="form-submit-button">
+                      <button type="submit" class="button-submit">Submit</button>
                     </form>
                   </div>
                 </div>

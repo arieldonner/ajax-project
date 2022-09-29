@@ -118,7 +118,7 @@ img {
 .fa-pen-to-square {
   transform: scale(2);
   top: 0.3rem;
-  right: -6.3rem;
+  right: 1rem;
 }
 
 .notes-img {
@@ -131,6 +131,7 @@ img {
   font-size: 1.6rem;
   margin-left: 0.9rem;
   margin-top: 0.9rem;
+  max-width: 85%;
 }
 
 .notes-body {
@@ -140,6 +141,29 @@ img {
 }
 
 /* Edit */
+.status-dropdown {
+  padding: 0.5rem 6.5rem 0.5rem 0.5rem;
+}
+
+#notes {
+  width: 245px;
+  height: 80px;
+}
+
+.link-description {
+  width: 120px;
+  height: 25px;
+}
+
+.link-url {
+  width: 160px;
+  height: 25px;
+}
+
+.form-submit-button {
+  padding: 2rem 0;
+  margin-top: 1rem;
+}
 
 @media screen and (min-width: 768px) {
   .container {
@@ -312,4 +336,31 @@ img {
   }
 
   /* Edit */
+  label.star:hover {
+    transform: rotate(-15deg) scale(1.3);
+  }
+
+  .status-dropdown {
+    padding: 0.5rem 21.5rem 0.5rem 0.5rem;
+  }
+
+  #notes {
+    width: 490px;
+    height: 100px;
+  }
+
+  .link-description {
+    width: 230px;
+    height: 25px;
+  }
+
+  .link-url {
+    width: 310px;
+    height: 25px;
+  }
+
+  .form-submit-button {
+    padding: 2rem 1.5rem;
+    margin-top: 6rem;
+  }
 }
