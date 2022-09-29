@@ -108,6 +108,24 @@ img {
   padding-bottom: 0.4rem;
 }
 
+/* Notes */
+.notes-card {
+  width: 90%;
+  height: 630px;
+}
+
+.fa-pen-to-square {
+  transform: scale(2);
+  top: 0;
+  right: -10.5rem;
+}
+
+.notes-img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     max-width: 1350px;
@@ -123,6 +141,14 @@ img {
 
   .column-three-fifths {
     width: 60%;
+  }
+
+  .column-three-sevenths {
+    width: calc(3 / 7 * 100%);
+  }
+
+  .column-four-sevenths {
+    width: calc(4 / 7 * 100%);
   }
 
   .nav {
@@ -235,5 +261,26 @@ img {
 
   .li-modal {
     padding-bottom: 0.5rem;
+  }
+
+  /* Notes */
+  .notes-card {
+    width: 90%;
+    height: 630px;
+  }
+
+  .fa-pen-to-square {
+    transform: scale(3);
+    right: 2rem;
+    top: 1rem;
+  }
+
+  .notes-img {
+    object-fit: cover;
+    width: 100%;
+    height: 500px;
+    margin-top: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }

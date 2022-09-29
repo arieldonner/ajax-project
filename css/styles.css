@@ -209,6 +209,41 @@ li {
 }
 
 /* Notes */
-.entry-container {
+.tile {
   cursor: pointer;
+}
+
+.notes-card {
+  background-color: white;
+  box-shadow: 10px 10px 20px black;
+  border-radius: 0.5rem;
+  margin-top: -1rem;
+  margin-bottom: 3.5rem;
+}
+
+.notes-game-heading {
+  position: relative;
+}
+
+.fa-pen-to-square {
+  color: #007bff;
+  position: absolute;
+}
+
+.rating {
+  display: flex;
+  align-items: baseline;
+}
+
+.status {
+  display: flex;
+  align-items: baseline;
+}
+
+.button-playing {
+  padding: 0.5rem 0.7rem;
+  border: 1px solid #007bff;
+  color: #007bff;
+  border-radius: 0.2rem;
+  font-size: 1rem;
 }

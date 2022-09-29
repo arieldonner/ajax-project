@@ -380,7 +380,7 @@ function createCodex(entry) {
   list.className = 'user-games ' + entry.id;
 
   var cardSmall = document.createElement('div');
-  cardSmall.className = 'card-small';
+  cardSmall.className = 'card-small tile';
   var cardContainer = list.appendChild(cardSmall);
 
   var container = document.createElement('div');
