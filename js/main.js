@@ -8,6 +8,9 @@ var imgs = [];
 var featured = [];
 var searchedGames = [];
 
+var $notesTitle = document.querySelector('.notes-title');
+var $notesImg = document.querySelector('.notes-img');
+
 /* Get geatured games */
 function getFeatured() {
   var targetUrl3 = encodeURIComponent('https://store.steampowered.com/api/featured');
@@ -61,6 +64,12 @@ $myCodex.addEventListener('click', function (event) {
   for (var n = 0; n < $gameTile.length; n++) {
     $gameTile[n].addEventListener('click', function (event) {
       handleView('notes');
+      for (var j = 0; j < data.entries.length; j++) {
+        if (event.target.classList.contains(data.entries[j].id)) {
+          $notesTitle.textContent = data.entries[j].name;
+          $notesImg.setAttribute('src', data.entries[j].img);
+        }
+      }
     });
   }
 });
@@ -377,7 +386,7 @@ function handleHearts(event) {
 var $codexCards = document.querySelector('.my-codex');
 function createCodex(entry) {
   var list = document.createElement('li');
-  list.className = 'user-games ' + entry.id;
+  list.className = 'user-games ';
 
   var cardSmall = document.createElement('div');
   cardSmall.className = 'card-small tile';
@@ -389,15 +398,16 @@ function createCodex(entry) {
 
   var img = document.createElement('img');
   img.setAttribute('alt', 'image for the game');
+  img.className = entry.id;
   img.setAttribute('src', entry.img);
   entryContainer.appendChild(img);
 
   var titleDiv = document.createElement('div');
-  titleDiv.className = 'card-title card-title-small';
+  titleDiv.className = 'card-title card-title-small ' + entry.id;
   var titleDivContainer = entryContainer.appendChild(titleDiv);
 
   var gameTitle = document.createElement('h2');
-  gameTitle.className = 'game-title';
+  gameTitle.className = 'game-title ' + entry.id;
   gameTitle.textContent = entry.name;
   titleDivContainer.appendChild(gameTitle);
 

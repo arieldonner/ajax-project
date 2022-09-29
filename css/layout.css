@@ -118,7 +118,7 @@ img {
 .fa-pen-to-square {
   transform: scale(2);
   top: 0.3rem;
-  right: -8rem;
+  right: -6.3rem;
 }
 
 .notes-img {
@@ -284,7 +284,7 @@ img {
 
   .fa-pen-to-square {
     transform: scale(3);
-    right: 1rem;
+    right: 3rem;
     top: 1rem;
   }
 
@@ -301,6 +301,7 @@ img {
     font-size: 2.2rem;
     margin-left: 1rem;
     margin-top: 2rem;
+    max-width: 85%;
   }
 
   .notes-body {
