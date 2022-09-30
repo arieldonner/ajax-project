@@ -245,11 +245,24 @@ li {
 
 .button-status {
   padding: 0.5rem 0.7rem;
-  border: 1px solid #007bff;
-  color: #007bff;
   border-radius: 0.2rem;
   font-size: 1rem;
   margin-left: 0.5rem;
+}
+
+.playing {
+  border: 1px solid #007bff;
+  color: #007bff;
+}
+
+.eventually {
+  border: 1px solid green;
+  color: green;
+}
+
+.finished {
+  border: 1px solid #da0037;
+  color: #da0037;
 }
 
 .stars {
@@ -261,6 +274,15 @@ li {
   padding: 2px;
   font-size: 30px;
   color: #444;
+}
+
+.fa-solid.fa-star {
+  color: #da0037;
+}
+
+.p-notes {
+  margin-left: 0.5rem;
+  color: #da0037;
 }
 
 /* Edit */

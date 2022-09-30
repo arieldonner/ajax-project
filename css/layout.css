@@ -236,6 +236,7 @@ img {
     width: 70%;
     height: 330px;
     display: flex;
+    overflow: auto;
   }
 
   .card-text {
@@ -243,7 +244,7 @@ img {
   }
 
   img {
-    width: 100%;
+    width: 100.05%;
     height: 100%;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -267,6 +268,7 @@ img {
   .button-sale {
     position: absolute;
     left: 0;
+    top: 0;
   }
 
   .top-right-round {

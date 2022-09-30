@@ -52,86 +52,6 @@ var $myCodex = document.querySelector('.nav-codex');
 $myCodex.addEventListener('click', function (event) {
   handleView('codex');
   $search.value = '';
-  var $gameList = document.querySelectorAll('.user-games');
-  for (var i = 0; i < $gameList.length; i++) {
-    $gameList[i].remove();
-  }
-  createCodexPage();
-
-  /* Clicking on a tile brings up notes page */
-  var $gameTile = document.querySelectorAll('.user-games');
-  for (var n = 0; n < $gameTile.length; n++) {
-    $gameTile[n].addEventListener('click', function (event) {
-      handleView('notes');
-      for (var j = 0; j < data.entries.length; j++) {
-        if (event.target.classList.contains(data.entries[j].id)) {
-          $notesTitle.textContent = data.entries[j].name;
-          $notesImg.setAttribute('src', data.entries[j].img);
-        }
-      }
-      var $editIcon = document.querySelector('.fa-pen-to-square');
-      $editIcon.addEventListener('click', function (event) {
-        handleView('edit');
-        var $editImg = document.querySelector('.edit-img');
-        var $editTitle = document.querySelector('.edit-title');
-        $editTitle.textContent = $notesTitle.textContent;
-        $editImg.setAttribute('src', $notesImg.src);
-
-        var $addLink = document.querySelector('.button-add-links');
-        var linkNumber = 0;
-        $addLink.addEventListener('click', function (event) {
-          createNewLink(linkNumber);
-          linkNumber++;
-          var $trashCans = document.querySelectorAll('.fa-trash');
-          var $linksLine = document.querySelectorAll('.links-line');
-          for (var t = 0; t < $trashCans.length; t++) {
-            $trashCans[t].addEventListener('click', function (event) {
-              for (var l = 0; l < $linksLine.length; l++) {
-                if (event.target.getAttribute('linknumber') === $linksLine[l].getAttribute('linknumber')) {
-                  $linksLine[l].remove();
-                }
-              }
-            });
-          }
-        });
-
-        var $submitNotes = document.querySelector('.edit-form');
-        $submitNotes.addEventListener('submit', function (event) {
-          event.preventDefault();
-
-          var $radio = document.getElementsByName('star');
-          var checked;
-          for (var s = 0; s < $radio.length; s++) {
-            if ($radio[s].checked === true) {
-              checked = $radio[s].value;
-            }
-          }
-
-          var values = {
-            rating: checked,
-            status: document.forms[0].elements.status.value,
-            notes: document.forms[0].elements.notes.value,
-            linkDescriptions: [],
-            linkUrls: []
-          };
-
-          var $linkDescription = document.querySelectorAll('.link-description');
-          var $linkUrl = document.querySelectorAll('.link-url');
-          for (var k = 0; k < $linkDescription.length; k++) {
-            values.linkDescriptions.push($linkDescription[k].value);
-            values.linkUrls.push($linkUrl[k].value);
-          }
-
-          for (var g = 0; g < data.entries.length; g++) {
-            if ($editTitle.textContent === data.entries[g].name) {
-              data.entries[g].enteredNote = values;
-            }
-          }
-
-        });
-      });
-    });
-  }
 });
 
 /* Question Mark Icon */
@@ -443,11 +363,13 @@ function handleHearts(event) {
     for (var i = 0; i < featured.length; i++) {
       if (parseInt(event.target.id) === featured[i].id) {
         data.entries.unshift(featured[i]);
+        // createCodex(featured[i]);
       }
     }
     for (var j = 0; j < searchedGames.length; j++) {
       if (parseInt(event.target.id) === searchedGames[j].id) {
         data.entries.unshift(searchedGames[j]);
+        // createCodex(searchedGames[j]);
       }
     }
   } else if (event.target && event.target.tagName === 'I' && event.target.className === 'fa-solid fa-heart') {
@@ -497,6 +419,104 @@ function createCodexPage() {
   }
 }
 createCodexPage();
+
+var $gameList = document.querySelectorAll('.user-games');
+
+var $editIcon = document.querySelector('.fa-pen-to-square');
+
+/* Clicking on a tile brings up notes page */
+for (var n = 0; n < $gameList.length; n++) {
+  $gameList[n].addEventListener('click', function (event) {
+    handleView('notes');
+    for (var j = 0; j < data.entries.length; j++) {
+      if (event.target.classList.contains(data.entries[j].id)) {
+        $notesTitle.textContent = data.entries[j].name;
+        $notesImg.setAttribute('src', data.entries[j].img);
+
+        // var $rating = document.querySelectorAll('.fa-star');
+        // var $status = document.querySelector('.button-status');
+        // var $notes = document.querySelector('.p-notes');
+        // var $links = document.querySelector('.links-list');
+
+        // if (data.entries[j].enteredNote !== undefined) {
+        //   for (var y = 0; y < $rating.length; y++) {
+        //     if (data.entries[j].enteredNote.rating > y) {
+        //       $rating[y].className = 'fa-solid fa-star';
+        //     }
+        //   }
+        //   $notes.textContent = data.entries[j].enteredNote.notes;
+        // }
+
+      }
+    }
+  });
+}
+
+var $editImg = document.querySelector('.edit-img');
+var $editTitle = document.querySelector('.edit-title');
+/* Edit notes */
+$editIcon.addEventListener('click', function (event) {
+  handleView('edit');
+  $editTitle.textContent = $notesTitle.textContent;
+  $editImg.setAttribute('src', $notesImg.src);
+});
+
+/* Adds more links */
+var $addLink = document.querySelector('.button-add-links');
+var linkNumber = 0;
+$addLink.addEventListener('click', function (event) {
+  createNewLink(linkNumber);
+  linkNumber++;
+  var $trashCans = document.querySelectorAll('.fa-trash');
+  var $linksLine = document.querySelectorAll('.links-line');
+  for (var t = 0; t < $trashCans.length; t++) {
+    $trashCans[t].addEventListener('click', function (event) {
+      for (var l = 0; l < $linksLine.length; l++) {
+        if (event.target.getAttribute('linknumber') === $linksLine[l].getAttribute('linknumber')) {
+          $linksLine[l].remove();
+        }
+      }
+    });
+  }
+});
+
+/* Submit */
+var $submitNotes = document.querySelector('.edit-form');
+$submitNotes.addEventListener('submit', function (event) {
+  event.preventDefault();
+
+  var $radio = document.getElementsByName('star');
+  var checked;
+  for (var s = 0; s < $radio.length; s++) {
+    if ($radio[s].checked === true) {
+      checked = $radio[s].value;
+    }
+  }
+
+  var values = {
+    rating: checked,
+    status: document.forms[0].elements.status.value,
+    notes: document.forms[0].elements.notes.value,
+    linkDescriptions: [],
+    linkUrls: []
+  };
+
+  var $linkDescription = document.querySelectorAll('.link-description');
+  var $linkUrl = document.querySelectorAll('.link-url');
+  for (var k = 0; k < $linkDescription.length; k++) {
+    values.linkDescriptions.push($linkDescription[k].value);
+    values.linkUrls.push($linkUrl[k].value);
+  }
+
+  for (var g = 0; g < data.entries.length; g++) {
+    if ($editTitle.textContent === data.entries[g].name) {
+      data.entries[g].enteredNote = values;
+    }
+  }
+
+  handleView('notes');
+  $submitNotes.reset();
+});
 
 var $linksForm = document.querySelector('.links-form');
 function createNewLink(number) {
