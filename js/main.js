@@ -431,6 +431,7 @@ var $links = document.querySelector('.links-list');
 
 function addLiLink(event) {
   var li = document.createElement('li');
+  li.className = 'liCont';
   var a = document.createElement('a');
   a.className = 'liLink';
   li.appendChild(a);
@@ -459,6 +460,10 @@ for (var n = 0; n < $gameList.length; n++) {
           $status.textContent = data.entries[j].enteredNote.status[0].toUpperCase() + data.entries[j].enteredNote.status.slice(1);
           $notes.textContent = data.entries[j].enteredNote.notes;
 
+          var $li = document.querySelectorAll('.liCont');
+          for (var z = 0; z < $li.length; z++) {
+            $li[z].remove();
+          }
           for (var x = 0; x < data.entries[j].enteredNote.linkDescriptions.length; x++) {
             addLiLink();
             var $a = document.querySelectorAll('.liLink');
