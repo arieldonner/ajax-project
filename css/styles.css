@@ -220,6 +220,7 @@ li {
   margin-top: -1rem;
   margin-bottom: 3.5rem;
   position: relative;
+  overflow: auto;
 }
 
 .notes-game-heading {
@@ -434,5 +435,5 @@ input.star-3:checked ~ label.star::before {
 Need to fix:
 2. Codex hearts
 3. Try border for img on desktop
-4. Adding links without refreshing the page
+4. Adding favorite games without refreshing
 */

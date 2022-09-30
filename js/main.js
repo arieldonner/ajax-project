@@ -470,6 +470,14 @@ for (var n = 0; n < $gameList.length; n++) {
             $a[x].textContent = data.entries[j].enteredNote.linkDescriptions[x];
             $a[x].setAttribute('href', data.entries[j].enteredNote.linkUrls[x]);
           }
+        } else {
+          $status.className = 'button-status playing';
+          $status.textContent = 'Playing';
+          $notes.textContent = '';
+          var $li2 = document.querySelectorAll('.liCont');
+          for (var a = 0; a < $li2.length; a++) {
+            $li2[a].remove();
+          }
         }
 
       }

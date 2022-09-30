@@ -165,7 +165,7 @@ img {
 }
 
 .form-submit-button {
-  padding: 1rem 0;
+  padding: 1rem;
 }
 
 @media screen and (min-width: 768px) {
@@ -378,5 +378,4 @@ img {
   .form-submit-button {
     padding: 1rem 1.5rem;
   }
-}
 }
