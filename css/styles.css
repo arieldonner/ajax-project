@@ -219,10 +219,10 @@ li {
   border-radius: 0.5rem;
   margin-top: -1rem;
   margin-bottom: 3.5rem;
+  position: relative;
 }
 
 .notes-game-heading {
-  position: relative;
   display: flex;
   align-items: baseline;
   gap: 0.5rem;
@@ -394,3 +394,11 @@ input.star-3:checked ~ label.star::before {
   margin-left: 0.5rem;
   margin-right: 0.7rem;
 }
+
+/*
+Need to fix:
+1. Game and Codex image top right corner
+2. Codex hearts
+3. Try border for img on desktop
+4. Adding links without refreshing the page
+*/

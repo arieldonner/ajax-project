@@ -117,10 +117,9 @@ img {
 
 .fa-pen-to-square {
   transform: scale(2);
-  flex: 1;
-
-  /* top: 0.3rem;
-  right: 1rem; */
+  position: absolute;
+  top: 16.4rem;
+  right: 1.3rem;
 }
 
 .notes-img {
@@ -130,10 +129,9 @@ img {
 }
 
 .notes-title {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   margin-left: 0.9rem;
-  margin-top: 0.9rem;
-  flex: 13;
+  max-width: 86%;
 }
 
 .notes-body {

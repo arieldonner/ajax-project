@@ -94,6 +94,29 @@ $myCodex.addEventListener('click', function (event) {
             });
           }
         });
+
+        var $submitNotes = document.querySelector('.edit-form');
+        $submitNotes.addEventListener('submit', function (event) {
+          event.preventDefault();
+          var values = {
+            rating: document.forms[0].elements.id,
+            status: document.forms[0].elements.status.value,
+            notes: document.forms[0].elements.notes.value,
+            linkDescriptions: [],
+            linkUrls: []
+          };
+          // { description: document.forms[0]['links-description'].value, url: document.forms[0]['links-url'].value }
+          // var $linkDescription = document.querySelectorAll('.link-description');
+          // for (var k = 0; k < $linkDescription.length; k++) {
+
+          // }
+          for (var g = 0; g < data.entries.length; g++) {
+            if ($editTitle.textContent === data.entries[g].name) {
+              data.entries[g].enteredNote = values;
+            }
+          }
+          // data.entries[j].push(values);
+        });
       });
     });
   }

@@ -147,11 +147,11 @@
                     <div class="notes-game-heading">
                       <h3 class="notes-title edit-title">Title</h3>
                     </div>
-                    <div class="notes-body">
-                      <div class="rating rating-edit">
-                        <p>Rating: </p>
-                        <div class="stars stars-edit">
-                          <form action="">
+                    <form class="edit-form">
+                      <div class="notes-body">
+                        <div class="rating rating-edit">
+                          <p>Rating: </p>
+                          <div class="stars stars-edit">
                             <input class="star star-5" id="star-5" type="radio" name="star" />
                             <label class="star star-5" for="star-5"></label>
                             <input class="star star-4" id="star-4" type="radio" name="star" />
@@ -162,40 +162,38 @@
                             <label class="star star-2" for="star-2"></label>
                             <input class="star star-1" id="star-1" type="radio" name="star" />
                             <label class="star star-1" for="star-1"></label>
-                          </form>
-                        </div>
-                      </div>
-                      <div class="status status-edit">
-                        <p>Play Status: </p>
-                        <form>
-                          <select name="status" class="status-dropdown" required>
-                            <option value="playing">Playing</option>
-                            <option value="eventually">Eventually</option>
-                            <option value="finished">Finished</option>
-                          </select>
-                        </form>
-                      </div>
-                      <div class="notes">
-                        <label for="notes">Notes: </label>
-                        <form>
-                          <textarea name="notes" id="notes" placeholder="Type any notes you have here..."></textarea>
-                        </form>
-                      </div>
-                      <div class="links">
-                        <div class="links-heading">
-                          <p>Links: </p>
-                          <div class="button-add-links">
-                            <p class="blue">Add</p>
-                            <i class="fa-solid fa-circle-plus blue"></i>
                           </div>
                         </div>
-                        <form class="links-form">
+                        <div class="status status-edit">
+                          <p>Play Status: </p>
+                          <div>
+                            <select name="status" class="status-dropdown" required>
+                              <option value="playing">Playing</option>
+                              <option value="eventually">Eventually</option>
+                              <option value="finished">Finished</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="notes">
+                          <label for="notes">Notes: </label>
+                          <textarea name="notes" id="notes" placeholder="Type any notes you have here..."></textarea>
+                        </div>
+                        <div class="links">
+                          <div class="links-heading">
+                            <p>Links: </p>
+                            <div class="button-add-links">
+                              <p class="blue">Add</p>
+                              <i class="fa-solid fa-circle-plus blue"></i>
+                            </div>
+                          </div>
+                          <div class="links-form">
 
-                        </form>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <form class="form-submit-button">
-                      <button type="submit" class="button-submit">Submit</button>
+                      <div class="form-submit-button">
+                        <button type="submit" class="button-submit">Submit</button>
+                      </div>
                     </form>
                   </div>
                 </div>
