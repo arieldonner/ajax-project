@@ -479,17 +479,59 @@ for (var n = 0; n < $gameList.length; n++) {
 
 var $editImg = document.querySelector('.edit-img');
 var $editTitle = document.querySelector('.edit-title');
+
+var $editStars = document.getElementsByName('star');
+var $editStatus = document.querySelector('.status-dropdown');
+var $editNotes = document.querySelector('#notes');
+
 /* Edit notes */
 $editIcon.addEventListener('click', function (event) {
   handleView('edit');
   $editTitle.textContent = $notesTitle.textContent;
   $editImg.setAttribute('src', $notesImg.src);
+
+  for (var j = 0; j < data.entries.length; j++) {
+    if ($editTitle.textContent === data.entries[j].name) {
+      if (data.entries[j].enteredNote !== undefined) {
+        /* Stars */
+        for (var s = 0; s < $editStars.length; s++) {
+          if (parseInt(data.entries[j].enteredNote.rating) === 1) {
+            $editStars[4].checked = true;
+          } else if (parseInt(data.entries[j].enteredNote.rating) === 2) {
+            $editStars[3].checked = true;
+          } else if (parseInt(data.entries[j].enteredNote.rating) === 3) {
+            $editStars[2].checked = true;
+          } else if (parseInt(data.entries[j].enteredNote.rating) === 4) {
+            $editStars[1].checked = true;
+          } else if (parseInt(data.entries[j].enteredNote.rating) === 5) {
+            $editStars[0].checked = true;
+          }
+        }
+        /* Status */
+        $editStatus.value = data.entries[j].enteredNote.status;
+        /* Notes */
+        $editNotes.value = data.entries[j].enteredNote.notes;
+        /* Description and URL */
+        for (var l = 0; l < data.entries[j].enteredNote.linkDescriptions.length; l++) {
+          createEntireLink();
+          var $editDescription = document.querySelectorAll('.link-description');
+          var $editUrl = document.querySelectorAll('.link-url');
+          $editDescription[l].value = data.entries[j].enteredNote.linkDescriptions[l];
+          $editUrl[l].value = data.entries[j].enteredNote.linkUrls[l];
+        }
+      }
+    }
+  }
 });
 
 /* Adds more links */
 var $addLink = document.querySelector('.button-add-links');
 var linkNumber = 0;
 $addLink.addEventListener('click', function (event) {
+  createEntireLink();
+});
+
+function createEntireLink() {
   createNewLink(linkNumber);
   linkNumber++;
   var $trashCans = document.querySelectorAll('.fa-trash');
@@ -503,7 +545,7 @@ $addLink.addEventListener('click', function (event) {
       }
     });
   }
-});
+}
 
 /* Submit */
 var $submitNotes = document.querySelector('.edit-form');
@@ -558,7 +600,7 @@ function createNewLink(number) {
   bothLinks.appendChild(description);
 
   var url = document.createElement('input');
-  url.setAttribute('type', 'text');
+  url.setAttribute('type', 'url');
   url.setAttribute('name', 'link-url');
   url.className = 'link-url';
   url.setAttribute('placeholder', 'Link URL');
