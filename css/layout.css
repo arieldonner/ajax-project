@@ -269,6 +269,10 @@ img {
     left: 0;
   }
 
+  .top-right-round {
+    border-top-right-radius: 0.5rem;
+  }
+
   /* Modal */
   .center-page {
     align-items: center;

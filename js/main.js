@@ -98,24 +98,36 @@ $myCodex.addEventListener('click', function (event) {
         var $submitNotes = document.querySelector('.edit-form');
         $submitNotes.addEventListener('submit', function (event) {
           event.preventDefault();
+
+          var $radio = document.getElementsByName('star');
+          var checked;
+          for (var s = 0; s < $radio.length; s++) {
+            if ($radio[s].checked === true) {
+              checked = $radio[s].value;
+            }
+          }
+
           var values = {
-            rating: document.forms[0].elements.id,
+            rating: checked,
             status: document.forms[0].elements.status.value,
             notes: document.forms[0].elements.notes.value,
             linkDescriptions: [],
             linkUrls: []
           };
-          // { description: document.forms[0]['links-description'].value, url: document.forms[0]['links-url'].value }
-          // var $linkDescription = document.querySelectorAll('.link-description');
-          // for (var k = 0; k < $linkDescription.length; k++) {
 
-          // }
+          var $linkDescription = document.querySelectorAll('.link-description');
+          var $linkUrl = document.querySelectorAll('.link-url');
+          for (var k = 0; k < $linkDescription.length; k++) {
+            values.linkDescriptions.push($linkDescription[k].value);
+            values.linkUrls.push($linkUrl[k].value);
+          }
+
           for (var g = 0; g < data.entries.length; g++) {
             if ($editTitle.textContent === data.entries[g].name) {
               data.entries[g].enteredNote = values;
             }
           }
-          // data.entries[j].push(values);
+
         });
       });
     });
@@ -361,6 +373,7 @@ function createEntrySmall(entry) {
   var img = document.createElement('img');
   img.setAttribute('alt', 'image for the game');
   img.setAttribute('src', entry.header_image);
+  img.className = 'top-right-round';
   entryContainer.appendChild(img);
 
   var button = document.createElement('button');
@@ -457,7 +470,7 @@ function createCodex(entry) {
 
   var img = document.createElement('img');
   img.setAttribute('alt', 'image for the game');
-  img.className = entry.id;
+  img.className = 'top-right-round ' + entry.id;
   img.setAttribute('src', entry.img);
   entryContainer.appendChild(img);
 
