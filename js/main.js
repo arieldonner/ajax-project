@@ -512,6 +512,10 @@ $editIcon.addEventListener('click', function (event) {
         /* Notes */
         $editNotes.value = data.entries[j].enteredNote.notes;
         /* Description and URL */
+        var $list = document.querySelectorAll('.links-line');
+        for (var n = 0; n < $list.length; n++) {
+          $list[n].remove();
+        }
         for (var l = 0; l < data.entries[j].enteredNote.linkDescriptions.length; l++) {
           createEntireLink();
           var $editDescription = document.querySelectorAll('.link-description');

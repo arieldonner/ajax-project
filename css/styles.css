@@ -349,6 +349,7 @@ input.star-3:checked ~ label.star::before {
   margin-left: 0.9rem;
   padding: 0.5rem;
   font-size: 1.1rem;
+  font-family: Roboto, sans-serif;
 }
 
 #notes::placeholder {
