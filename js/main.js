@@ -424,6 +424,19 @@ var $gameList = document.querySelectorAll('.user-games');
 
 var $editIcon = document.querySelector('.fa-pen-to-square');
 
+var $rating = document.querySelectorAll('.fa-star');
+var $status = document.querySelector('.button-status');
+var $notes = document.querySelector('.p-notes');
+var $links = document.querySelector('.links-list');
+
+function addLiLink(event) {
+  var li = document.createElement('li');
+  var a = document.createElement('a');
+  a.className = 'liLink';
+  li.appendChild(a);
+  $links.appendChild(li);
+}
+
 /* Clicking on a tile brings up notes page */
 for (var n = 0; n < $gameList.length; n++) {
   $gameList[n].addEventListener('click', function (event) {
@@ -433,19 +446,26 @@ for (var n = 0; n < $gameList.length; n++) {
         $notesTitle.textContent = data.entries[j].name;
         $notesImg.setAttribute('src', data.entries[j].img);
 
-        // var $rating = document.querySelectorAll('.fa-star');
-        // var $status = document.querySelector('.button-status');
-        // var $notes = document.querySelector('.p-notes');
-        // var $links = document.querySelector('.links-list');
+        for (var y = 0; y < $rating.length; y++) {
+          if (data.entries[j].enteredNote !== undefined && data.entries[j].enteredNote.rating > y) {
+            $rating[y].className = 'fa-solid fa-star';
+          } else {
+            $rating[y].className = 'fa-regular fa-star';
+          }
+        }
 
-        // if (data.entries[j].enteredNote !== undefined) {
-        //   for (var y = 0; y < $rating.length; y++) {
-        //     if (data.entries[j].enteredNote.rating > y) {
-        //       $rating[y].className = 'fa-solid fa-star';
-        //     }
-        //   }
-        //   $notes.textContent = data.entries[j].enteredNote.notes;
-        // }
+        if (data.entries[j].enteredNote !== undefined) {
+          $status.className = 'button-status ' + data.entries[j].enteredNote.status;
+          $status.textContent = data.entries[j].enteredNote.status[0].toUpperCase() + data.entries[j].enteredNote.status.slice(1);
+          $notes.textContent = data.entries[j].enteredNote.notes;
+
+          for (var x = 0; x < data.entries[j].enteredNote.linkDescriptions.length; x++) {
+            addLiLink();
+            var $a = document.querySelectorAll('.liLink');
+            $a[x].textContent = data.entries[j].enteredNote.linkDescriptions[x];
+            $a[x].setAttribute('href', data.entries[j].enteredNote.linkUrls[x]);
+          }
+        }
 
       }
     }
@@ -514,7 +534,7 @@ $submitNotes.addEventListener('submit', function (event) {
     }
   }
 
-  handleView('notes');
+  handleView('codex');
   $submitNotes.reset();
 });
 

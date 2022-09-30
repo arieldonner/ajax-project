@@ -140,6 +140,10 @@ img {
   margin-top: -1rem;
 }
 
+.links-list li a {
+  font-size: 1.2rem;
+}
+
 /* Edit */
 .status-dropdown {
   padding: 0.5rem 6.5rem 0.5rem 0.5rem;
@@ -341,6 +345,10 @@ img {
     margin-left: 1rem;
   }
 
+  .links-list li a {
+    font-size: 1.4rem;
+  }
+
   /* Edit */
   label.star:hover {
     transform: rotate(-15deg) scale(1.3);
@@ -370,4 +378,5 @@ img {
   .form-submit-button {
     padding: 1rem 1.5rem;
   }
+}
 }

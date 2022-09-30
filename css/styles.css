@@ -417,9 +417,20 @@ input.star-3:checked ~ label.star::before {
   margin-right: 0.7rem;
 }
 
+.links-list li {
+  display: list-item;
+  list-style: circle;
+  justify-content: left;
+  margin-left: 4rem;
+}
+
+.links-list li a {
+  color: #007bff;
+  font-weight: 500;
+}
+
 /*
 Need to fix:
-1. Game and Codex image top right corner
 2. Codex hearts
 3. Try border for img on desktop
 4. Adding links without refreshing the page
