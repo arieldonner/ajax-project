@@ -363,13 +363,17 @@ function handleHearts(event) {
     for (var i = 0; i < featured.length; i++) {
       if (parseInt(event.target.id) === featured[i].id) {
         data.entries.unshift(featured[i]);
-        // createCodex(featured[i]);
+        createCodex(featured[i]);
+        var $games = document.querySelectorAll('.user-games');
+        $games[$games.length - 1].addEventListener('click', handleTiles);
       }
     }
     for (var j = 0; j < searchedGames.length; j++) {
       if (parseInt(event.target.id) === searchedGames[j].id) {
         data.entries.unshift(searchedGames[j]);
-        // createCodex(searchedGames[j]);
+        createCodex(searchedGames[j]);
+        var $games2 = document.querySelectorAll('.user-games');
+        $games[$games2.length - 1].addEventListener('click', handleTiles);
       }
     }
   } else if (event.target && event.target.tagName === 'I' && event.target.className === 'fa-solid fa-heart') {
@@ -440,7 +444,11 @@ function addLiLink(event) {
 
 /* Clicking on a tile brings up notes page */
 for (var n = 0; n < $gameList.length; n++) {
-  $gameList[n].addEventListener('click', function (event) {
+  $gameList[n].addEventListener('click', handleTiles);
+}
+
+function handleTiles(event) {
+  if (event.target.tagName !== 'I') {
     handleView('notes');
     for (var j = 0; j < data.entries.length; j++) {
       if (event.target.classList.contains(data.entries[j].id)) {
@@ -482,7 +490,7 @@ for (var n = 0; n < $gameList.length; n++) {
 
       }
     }
-  });
+  }
 }
 
 var $editImg = document.querySelector('.edit-img');
@@ -632,4 +640,35 @@ function createNewLink(number) {
                             <input type="text" name="link-url" class="link-url" placeholder="Link URL">
                             <i class="fa-solid fa-trash"></i>
                           </div>
+*/
+
+// $gallery.addEventListener('click', handleDelete);
+// $ul.addEventListener('click', handleDelete);
+$codexCards.addEventListener('click', handleDelete);
+
+function handleDelete(event) {
+  if (event.target.tagName === 'I' && event.target.className === 'fa-solid fa-heart') {
+    event.target.className = 'fa-solid fa-heart';
+    for (var i = 0; i < data.entries.length; i++) {
+      if (parseInt(event.target.id) === data.entries[i].id) {
+        data.entries.splice(i, 1);
+        var $toDelete = document.querySelectorAll('.user-games ');
+        $toDelete[i].remove();
+      }
+    }
+  }
+}
+
+/*
+if (event.target && event.target.tagName === 'I' && event.target.className === 'fa-regular fa-heart') {
+    event.target.className = 'fa-solid fa-heart';
+    for (var i = 0; i < featured.length; i++) {
+      if (parseInt(event.target.id) === featured[i].id) {
+        data.entries.unshift(featured[i]);
+        createCodex(featured[i]);
+        console.log($gameList);
+        var $games = document.querySelectorAll('.user-games');
+        $games[$games.length - 1].addEventListener('click', handleTiles);
+      }
+    }
 */
