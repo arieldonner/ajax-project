@@ -11,6 +11,13 @@ var searchedGames = [];
 var $notesTitle = document.querySelector('.notes-title');
 var $notesImg = document.querySelector('.notes-img');
 
+var $deleteModal = document.querySelector('.delete-modal');
+var $deleteCancel = document.querySelector('.delete-cancel');
+var $deleteConfirm = document.querySelector('.delete-confirm');
+var currentHeartId = 0;
+
+var $emptyCodex = document.querySelector('.empty-codex');
+
 /* Get geatured games */
 function getFeatured() {
   var targetUrl3 = encodeURIComponent('https://store.steampowered.com/api/featured');
@@ -53,6 +60,10 @@ $myCodex.addEventListener('click', function (event) {
   handleView('codex');
   $search.value = '';
 });
+
+if (data.entries.length === 0) {
+  $emptyCodex.className = 'empty-codex';
+}
 
 /* Question Mark Icon */
 var $question = document.querySelector('.fa-circle-question');
@@ -363,18 +374,65 @@ function handleHearts(event) {
     for (var i = 0; i < featured.length; i++) {
       if (parseInt(event.target.id) === featured[i].id) {
         data.entries.unshift(featured[i]);
-        // createCodex(featured[i]);
+        createSingleEntry(featured[i]);
+        var $games = document.querySelectorAll('.user-games');
+        $games[0].addEventListener('click', handleTiles);
+        if ($emptyCodex.className === 'empty-codex') {
+          $emptyCodex.className = 'empty-codex hidden';
+        }
       }
     }
     for (var j = 0; j < searchedGames.length; j++) {
       if (parseInt(event.target.id) === searchedGames[j].id) {
         data.entries.unshift(searchedGames[j]);
-        // createCodex(searchedGames[j]);
+        createSingleEntry(searchedGames[j]);
+        var $games2 = document.querySelectorAll('.user-games');
+        $games2[0].addEventListener('click', handleTiles);
+        if ($emptyCodex.className === 'empty-codex') {
+          $emptyCodex.className = 'empty-codex hidden';
+        }
       }
     }
   } else if (event.target && event.target.tagName === 'I' && event.target.className === 'fa-solid fa-heart') {
-    event.target.className = 'fa-regular fa-heart';
+    currentHeartId = event.target.id;
+    $deleteModal.className = 'delete-modal';
   }
+}
+
+/* For prepending a new game tile when hearting without refreshing page */
+function createSingleEntry(entry) {
+  var list = document.createElement('li');
+  list.className = 'user-games ';
+
+  var cardSmall = document.createElement('div');
+  cardSmall.className = 'card-small tile';
+  var cardContainer = list.appendChild(cardSmall);
+
+  var container = document.createElement('div');
+  container.className = 'entry-container';
+  var entryContainer = cardContainer.appendChild(container);
+
+  var img = document.createElement('img');
+  img.setAttribute('alt', 'image for the game');
+  img.className = 'top-right-round ' + entry.id;
+  img.setAttribute('src', entry.img);
+  entryContainer.appendChild(img);
+
+  var titleDiv = document.createElement('div');
+  titleDiv.className = 'card-title card-title-small ' + entry.id;
+  var titleDivContainer = entryContainer.appendChild(titleDiv);
+
+  var gameTitle = document.createElement('h2');
+  gameTitle.className = 'game-title ' + entry.id;
+  gameTitle.textContent = entry.name;
+  titleDivContainer.appendChild(gameTitle);
+
+  var heart = document.createElement('i');
+  heart.className = 'fa-solid fa-heart';
+  heart.id = entry.id;
+  titleDivContainer.appendChild(heart);
+
+  $codexCards.prepend(list);
 }
 
 var $codexCards = document.querySelector('.my-codex');
@@ -440,7 +498,11 @@ function addLiLink(event) {
 
 /* Clicking on a tile brings up notes page */
 for (var n = 0; n < $gameList.length; n++) {
-  $gameList[n].addEventListener('click', function (event) {
+  $gameList[n].addEventListener('click', handleTiles);
+}
+
+function handleTiles(event) {
+  if (event.target.tagName !== 'I') {
     handleView('notes');
     for (var j = 0; j < data.entries.length; j++) {
       if (event.target.classList.contains(data.entries[j].id)) {
@@ -482,7 +544,7 @@ for (var n = 0; n < $gameList.length; n++) {
 
       }
     }
-  });
+  }
 }
 
 var $editImg = document.querySelector('.edit-img');
@@ -632,4 +694,43 @@ function createNewLink(number) {
                             <input type="text" name="link-url" class="link-url" placeholder="Link URL">
                             <i class="fa-solid fa-trash"></i>
                           </div>
+*/
+
+$codexCards.addEventListener('click', handleDelete);
+
+function handleDelete(event) {
+  if (event.target.tagName === 'I' && event.target.className === 'fa-solid fa-heart') {
+    $deleteModal.className = 'delete-modal';
+    currentHeartId = event.target.id;
+  }
+}
+
+$deleteCancel.addEventListener('click', function (event) {
+  $deleteModal.className = 'delete-modal hidden';
+});
+$deleteConfirm.addEventListener('click', function (event) {
+  var $filledHeart = document.querySelectorAll('.fa-solid.fa-heart');
+  for (var h = 0; h < $filledHeart.length; h++) {
+    if (parseInt(currentHeartId) === parseInt($filledHeart[h].id)) {
+      $filledHeart[h].className = 'fa-regular fa-heart';
+    }
+  }
+  for (var i = 0; i < data.entries.length; i++) {
+    if (parseInt(currentHeartId) === data.entries[i].id) {
+      data.entries.splice(i, 1);
+      var $toDelete = document.querySelectorAll('.user-games ');
+      $toDelete[i].remove();
+      currentHeartId = 0;
+      $deleteModal.className = 'delete-modal hidden';
+      if (data.entries.length === 0) {
+        $emptyCodex.className = 'empty-codex';
+      }
+    }
+  }
+});
+
+/*
+Deleted game hearts need to go back to unfilled in featured games
+Need to add play status to MyCodex
+Need to add buttons to MyCodex
 */
