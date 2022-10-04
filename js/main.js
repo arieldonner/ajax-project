@@ -16,6 +16,8 @@ var $deleteCancel = document.querySelector('.delete-cancel');
 var $deleteConfirm = document.querySelector('.delete-confirm');
 var currentHeartId = 0;
 
+var $emptyCodex = document.querySelector('.empty-codex');
+
 /* Get geatured games */
 function getFeatured() {
   var targetUrl3 = encodeURIComponent('https://store.steampowered.com/api/featured');
@@ -58,6 +60,10 @@ $myCodex.addEventListener('click', function (event) {
   handleView('codex');
   $search.value = '';
 });
+
+if (data.entries.length === 0) {
+  $emptyCodex.className = 'empty-codex';
+}
 
 /* Question Mark Icon */
 var $question = document.querySelector('.fa-circle-question');
@@ -371,6 +377,9 @@ function handleHearts(event) {
         createSingleEntry(featured[i]);
         var $games = document.querySelectorAll('.user-games');
         $games[0].addEventListener('click', handleTiles);
+        if ($emptyCodex.className === 'empty-codex') {
+          $emptyCodex.className = 'empty-codex hidden';
+        }
       }
     }
     for (var j = 0; j < searchedGames.length; j++) {
@@ -379,6 +388,9 @@ function handleHearts(event) {
         createSingleEntry(searchedGames[j]);
         var $games2 = document.querySelectorAll('.user-games');
         $games2[0].addEventListener('click', handleTiles);
+        if ($emptyCodex.className === 'empty-codex') {
+          $emptyCodex.className = 'empty-codex hidden';
+        }
       }
     }
   } else if (event.target && event.target.tagName === 'I' && event.target.className === 'fa-solid fa-heart') {
@@ -729,9 +741,13 @@ $deleteConfirm.addEventListener('click', function (event) {
       $toDelete[i].remove();
       currentHeartId = 0;
       $deleteModal.className = 'delete-modal hidden';
+      if (data.entries.length === 0) {
+        $emptyCodex.className = 'empty-codex';
+      }
     }
   }
 });
+
 /*
 Deleted game hearts need to go back to unfilled in featured games
 Need to add play status to MyCodex

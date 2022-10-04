@@ -478,6 +478,21 @@ input.star-3:checked ~ label.star::before {
   font-size: 0.9rem;
 }
 
+/* Empty Codex */
+.empty-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  margin-top: -1rem;
+  margin-bottom: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 2rem;
+}
+
+.empty-title {
+  text-align: center;
+}
+
 /*
 Need to fix:
 2. Codex hearts
