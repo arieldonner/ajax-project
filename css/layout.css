@@ -168,6 +168,14 @@ img {
   padding: 1rem;
 }
 
+/* Delete Modal */
+.rectangle-small {
+  width: 330px;
+  max-height: 180px;
+  padding: 0.5rem;
+  margin-top: 200px;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     max-width: 1350px;
