@@ -66,8 +66,17 @@
     </div>
     <div class="container codex-container hidden" data-view="codex">
       <div class="row">
-        <div class="column-full">
+        <div class="column-full codex-heading">
           <h1>MyCodex</h1>
+          <form class="codex-buttons">
+            <button class="add-button">Add+</button>
+            <select name="order" class="order-button">
+              <option value="order-playing">Order...</option>
+              <option value="order-playing">Playing</option>
+              <option value="order-eventually">Eventually</option>
+              <option value="order-finished">Finished</option>
+            </select>
+          </form>
         </div>
       </div>
       <div class="row">
@@ -83,7 +92,7 @@
               space and add personal notes.</p>
               <p>To get started, click on <span class="blue">Games</span> to view currently
               featured games on Steam. Or use the <span class="blue">search bar</span> to search
-              for a specific game that you are playing. You can also click on <span class="blue">Add a Game +</span> to add one manually.</p>
+              for a specific game that you are playing. You can also click on <span class="blue">Add+</span> to add one manually.</p>
             </li>
           </ul>
         </div>

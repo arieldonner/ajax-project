@@ -496,6 +496,29 @@ input.star-3:checked ~ label.star::before {
   font-weight: bold;
 }
 
+/* Add Game */
+.add-button {
+  padding: 0.5rem 0.7rem;
+  border: 1px solid #007bff;
+  border-radius: 0.2rem;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+  box-shadow: 5px 5px 10px black;
+}
+
+.order-button {
+  padding: 0.5rem 0.7rem;
+  border: 1px solid #da0037;
+  border-radius: 0.2rem;
+  background-color: #da0037;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+  box-shadow: 5px 5px 10px black;
+}
+
 /*
 Need to fix:
 2. Codex hearts

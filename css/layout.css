@@ -186,6 +186,27 @@ img {
   width: 355px;
 }
 
+/* Add Game */
+.codex-heading {
+  position: relative;
+}
+
+.add-button {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  width: 83px;
+  height: 38px;
+}
+
+.order-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 83px;
+  height: 38px;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     max-width: 1350px;
@@ -406,5 +427,32 @@ img {
   /* Empty Codex */
   .empty-card {
     width: 850px;
+  }
+
+  /* Add Game */
+  .codex-heading {
+    position: relative;
+  }
+
+  .codex-buttons {
+    display: flex;
+    justify-content: baseline;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+  }
+
+  .add-button {
+    position: static;
+    margin-right: 1rem;
+    width: 120px;
+    height: 40px;
+  }
+
+  .order-button {
+    position: static;
+    width: 115px;
+    height: 41px;
+    text-align: center;
   }
 }
