@@ -396,14 +396,6 @@ function handleHearts(event) {
   } else if (event.target && event.target.tagName === 'I' && event.target.className === 'fa-solid fa-heart') {
     currentHeartId = event.target.id;
     $deleteModal.className = 'delete-modal';
-    // event.target.className = 'fa-regular fa-heart';
-    // for (var h = 0; h < data.entries.length; h++) {
-    //   if (parseInt(event.target.id) === data.entries[h].id) {
-    //     data.entries.splice(h, 1);
-    //     var $toDelete = document.querySelectorAll('.user-games ');
-    //     $toDelete[h].remove();
-    //   }
-    // }
   }
 }
 
@@ -704,23 +696,12 @@ function createNewLink(number) {
                           </div>
 */
 
-// $gallery.addEventListener('click', handleDelete);
-// $ul.addEventListener('click', handleDelete);
-
 $codexCards.addEventListener('click', handleDelete);
 
 function handleDelete(event) {
   if (event.target.tagName === 'I' && event.target.className === 'fa-solid fa-heart') {
     $deleteModal.className = 'delete-modal';
     currentHeartId = event.target.id;
-    // event.target.className = 'fa-regular fa-heart';
-    // for (var i = 0; i < data.entries.length; i++) {
-    //   if (parseInt(event.target.id) === data.entries[i].id) {
-    //     data.entries.splice(i, 1);
-    //     var $toDelete = document.querySelectorAll('.user-games ');
-    //     $toDelete[i].remove();
-    //   }
-    // }
   }
 }
 
