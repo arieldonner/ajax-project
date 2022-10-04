@@ -176,6 +176,16 @@ img {
   margin-top: 200px;
 }
 
+/* Empty Codex */
+.empty-codex {
+  display: flex;
+  justify-content: center;
+}
+
+.empty-card {
+  width: 355px;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     max-width: 1350px;
@@ -391,5 +401,10 @@ img {
   .rectangle-small {
     width: 370px;
     padding: 0.5rem;
+  }
+
+  /* Empty Codex */
+  .empty-card {
+    width: 850px;
   }
 }
