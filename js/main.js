@@ -363,7 +363,7 @@ function handleHearts(event) {
     for (var i = 0; i < featured.length; i++) {
       if (parseInt(event.target.id) === featured[i].id) {
         data.entries.unshift(featured[i]);
-        createCodex(featured[i]);
+        createSingleEntry(featured[i]);
         var $games = document.querySelectorAll('.user-games');
         $games[$games.length - 1].addEventListener('click', handleTiles);
       }
@@ -371,14 +371,57 @@ function handleHearts(event) {
     for (var j = 0; j < searchedGames.length; j++) {
       if (parseInt(event.target.id) === searchedGames[j].id) {
         data.entries.unshift(searchedGames[j]);
-        createCodex(searchedGames[j]);
+        createSingleEntry(searchedGames[j]);
         var $games2 = document.querySelectorAll('.user-games');
         $games[$games2.length - 1].addEventListener('click', handleTiles);
       }
     }
   } else if (event.target && event.target.tagName === 'I' && event.target.className === 'fa-solid fa-heart') {
     event.target.className = 'fa-regular fa-heart';
+    for (var h = 0; h < data.entries.length; h++) {
+      if (parseInt(event.target.id) === data.entries[h].id) {
+        data.entries.splice(h, 1);
+        var $toDelete = document.querySelectorAll('.user-games ');
+        $toDelete[h].remove();
+      }
+    }
   }
+}
+
+/* For prepending a new game tile when hearting without refreshing page */
+function createSingleEntry(entry) {
+  var list = document.createElement('li');
+  list.className = 'user-games ';
+
+  var cardSmall = document.createElement('div');
+  cardSmall.className = 'card-small tile';
+  var cardContainer = list.appendChild(cardSmall);
+
+  var container = document.createElement('div');
+  container.className = 'entry-container';
+  var entryContainer = cardContainer.appendChild(container);
+
+  var img = document.createElement('img');
+  img.setAttribute('alt', 'image for the game');
+  img.className = 'top-right-round ' + entry.id;
+  img.setAttribute('src', entry.img);
+  entryContainer.appendChild(img);
+
+  var titleDiv = document.createElement('div');
+  titleDiv.className = 'card-title card-title-small ' + entry.id;
+  var titleDivContainer = entryContainer.appendChild(titleDiv);
+
+  var gameTitle = document.createElement('h2');
+  gameTitle.className = 'game-title ' + entry.id;
+  gameTitle.textContent = entry.name;
+  titleDivContainer.appendChild(gameTitle);
+
+  var heart = document.createElement('i');
+  heart.className = 'fa-solid fa-heart';
+  heart.id = entry.id;
+  titleDivContainer.appendChild(heart);
+
+  $codexCards.prepend(list);
 }
 
 var $codexCards = document.querySelector('.my-codex');
@@ -644,11 +687,12 @@ function createNewLink(number) {
 
 // $gallery.addEventListener('click', handleDelete);
 // $ul.addEventListener('click', handleDelete);
+
 $codexCards.addEventListener('click', handleDelete);
 
 function handleDelete(event) {
   if (event.target.tagName === 'I' && event.target.className === 'fa-solid fa-heart') {
-    event.target.className = 'fa-solid fa-heart';
+    event.target.className = 'fa-regular fa-heart';
     for (var i = 0; i < data.entries.length; i++) {
       if (parseInt(event.target.id) === data.entries[i].id) {
         data.entries.splice(i, 1);
@@ -660,15 +704,6 @@ function handleDelete(event) {
 }
 
 /*
-if (event.target && event.target.tagName === 'I' && event.target.className === 'fa-regular fa-heart') {
-    event.target.className = 'fa-solid fa-heart';
-    for (var i = 0; i < featured.length; i++) {
-      if (parseInt(event.target.id) === featured[i].id) {
-        data.entries.unshift(featured[i]);
-        createCodex(featured[i]);
-        console.log($gameList);
-        var $games = document.querySelectorAll('.user-games');
-        $games[$games.length - 1].addEventListener('click', handleTiles);
-      }
-    }
+Deleted game hearts need to go back to unfilled in games
+Need to be able to unheart from games, probably query select filled in hearts
 */
