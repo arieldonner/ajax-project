@@ -11,6 +11,11 @@ var searchedGames = [];
 var $notesTitle = document.querySelector('.notes-title');
 var $notesImg = document.querySelector('.notes-img');
 
+var $deleteModal = document.querySelector('.delete-modal');
+var $deleteCancel = document.querySelector('.delete-cancel');
+var $deleteConfirm = document.querySelector('.delete-confirm');
+var currentHeartId = 0;
+
 /* Get geatured games */
 function getFeatured() {
   var targetUrl3 = encodeURIComponent('https://store.steampowered.com/api/featured');
@@ -365,7 +370,7 @@ function handleHearts(event) {
         data.entries.unshift(featured[i]);
         createSingleEntry(featured[i]);
         var $games = document.querySelectorAll('.user-games');
-        $games[$games.length - 1].addEventListener('click', handleTiles);
+        $games[0].addEventListener('click', handleTiles);
       }
     }
     for (var j = 0; j < searchedGames.length; j++) {
@@ -373,18 +378,20 @@ function handleHearts(event) {
         data.entries.unshift(searchedGames[j]);
         createSingleEntry(searchedGames[j]);
         var $games2 = document.querySelectorAll('.user-games');
-        $games[$games2.length - 1].addEventListener('click', handleTiles);
+        $games2[0].addEventListener('click', handleTiles);
       }
     }
   } else if (event.target && event.target.tagName === 'I' && event.target.className === 'fa-solid fa-heart') {
-    event.target.className = 'fa-regular fa-heart';
-    for (var h = 0; h < data.entries.length; h++) {
-      if (parseInt(event.target.id) === data.entries[h].id) {
-        data.entries.splice(h, 1);
-        var $toDelete = document.querySelectorAll('.user-games ');
-        $toDelete[h].remove();
-      }
-    }
+    currentHeartId = event.target.id;
+    $deleteModal.className = 'delete-modal';
+    // event.target.className = 'fa-regular fa-heart';
+    // for (var h = 0; h < data.entries.length; h++) {
+    //   if (parseInt(event.target.id) === data.entries[h].id) {
+    //     data.entries.splice(h, 1);
+    //     var $toDelete = document.querySelectorAll('.user-games ');
+    //     $toDelete[h].remove();
+    //   }
+    // }
   }
 }
 
@@ -692,18 +699,41 @@ $codexCards.addEventListener('click', handleDelete);
 
 function handleDelete(event) {
   if (event.target.tagName === 'I' && event.target.className === 'fa-solid fa-heart') {
-    event.target.className = 'fa-regular fa-heart';
-    for (var i = 0; i < data.entries.length; i++) {
-      if (parseInt(event.target.id) === data.entries[i].id) {
-        data.entries.splice(i, 1);
-        var $toDelete = document.querySelectorAll('.user-games ');
-        $toDelete[i].remove();
-      }
-    }
+    $deleteModal.className = 'delete-modal';
+    currentHeartId = event.target.id;
+    // event.target.className = 'fa-regular fa-heart';
+    // for (var i = 0; i < data.entries.length; i++) {
+    //   if (parseInt(event.target.id) === data.entries[i].id) {
+    //     data.entries.splice(i, 1);
+    //     var $toDelete = document.querySelectorAll('.user-games ');
+    //     $toDelete[i].remove();
+    //   }
+    // }
   }
 }
 
+$deleteCancel.addEventListener('click', function (event) {
+  $deleteModal.className = 'delete-modal hidden';
+});
+$deleteConfirm.addEventListener('click', function (event) {
+  var $filledHeart = document.querySelectorAll('.fa-solid.fa-heart');
+  for (var h = 0; h < $filledHeart.length; h++) {
+    if (parseInt(currentHeartId) === parseInt($filledHeart[h].id)) {
+      $filledHeart[h].className = 'fa-regular fa-heart';
+    }
+  }
+  for (var i = 0; i < data.entries.length; i++) {
+    if (parseInt(currentHeartId) === data.entries[i].id) {
+      data.entries.splice(i, 1);
+      var $toDelete = document.querySelectorAll('.user-games ');
+      $toDelete[i].remove();
+      currentHeartId = 0;
+      $deleteModal.className = 'delete-modal hidden';
+    }
+  }
+});
 /*
-Deleted game hearts need to go back to unfilled in games
-Need to be able to unheart from games, probably query select filled in hearts
+Deleted game hearts need to go back to unfilled in featured games
+Need to add play status to MyCodex
+Need to add buttons to MyCodex
 */

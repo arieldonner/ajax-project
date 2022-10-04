@@ -378,4 +378,10 @@ img {
   .form-submit-button {
     padding: 1rem 1.5rem;
   }
+
+  /* Delete Modal */
+  .rectangle-small {
+    width: 370px;
+    padding: 0.5rem;
+  }
 }
