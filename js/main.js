@@ -765,7 +765,7 @@ $newGameForm.addEventListener('submit', function (event) {
     img: document.forms[1].elements['new-img'].value,
     id: newGameId
   };
-  newGameId++;
+  newGameId += 1;
   data.entries.unshift(values);
 
   $addedImg.setAttribute('src', '../images/Placeholder_view_vector.svg .png');

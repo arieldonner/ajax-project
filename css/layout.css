@@ -27,7 +27,7 @@ img {
 }
 
 .card {
-  width: 90%;
+  width: 351px;
   box-shadow: 10px 10px 20px black;
 }
 
@@ -65,7 +65,7 @@ img {
 }
 
 .card-small {
-  width: 90%;
+  width: 351px;
   height: 250px;
   box-shadow: 10px 10px 20px black;
 }
@@ -328,6 +328,11 @@ img {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     object-fit: cover;
+  }
+
+  .search-img {
+    width: 378px;
+    height: 330px;
   }
 
   .card-small {
