@@ -66,7 +66,6 @@ img {
 
 .card-small {
   width: 351px;
-  height: 250px;
   box-shadow: 10px 10px 20px black;
 }
 
@@ -215,7 +214,8 @@ img {
 }
 
 .placeholder {
-  width: 100%;
+  width: 351px;
+  height: 237.7px;
   margin-top: 0;
   margin-left: 0;
 }
