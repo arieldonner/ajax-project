@@ -207,6 +207,12 @@ img {
   height: 38px;
 }
 
+.placeholder {
+  width: 100%;
+  margin-top: 0;
+  margin-left: 0;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     max-width: 1350px;
@@ -454,5 +460,16 @@ img {
     width: 115px;
     height: 41px;
     text-align: center;
+  }
+
+  .placeholder {
+    width: 540px;
+    height: 540px;
+    margin-left: 2rem;
+  }
+
+  .placeholder-container {
+    display: flex;
+    align-items: center;
   }
 }
