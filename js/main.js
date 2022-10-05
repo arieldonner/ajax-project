@@ -768,6 +768,8 @@ $newGameForm.addEventListener('submit', function (event) {
   newGameId++;
   data.entries.unshift(values);
 
+  $addedImg.setAttribute('src', '../images/Placeholder_view_vector.svg .png');
+
   $newGameForm.reset();
 
   createSingleEntry(data.entries[0]);
