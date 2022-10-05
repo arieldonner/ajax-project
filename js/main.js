@@ -168,6 +168,7 @@ var $gamesContainer = document.querySelector('.games-container');
 var $codexContainer = document.querySelector('.codex-container');
 var $notesContainer = document.querySelector('.notes-container');
 var $editContainer = document.querySelector('.edit-container');
+var $addGameContainer = document.querySelector('.addGame-container');
 
 function handleView(view) {
   data.view = view;
@@ -177,30 +178,42 @@ function handleView(view) {
     $codexContainer.className = 'container codex-container hidden';
     $notesContainer.className = 'container notes-container hidden';
     $editContainer.className = 'container edit-container hidden';
+    $addGameContainer.className = 'container addGame-container hidden';
   } else if (view === 'featured') {
     $featuredContainer.className = 'container featured-container';
     $gamesContainer.className = 'container games-container hidden';
     $codexContainer.className = 'container codex-container hidden';
     $notesContainer.className = 'container notes-container hidden';
     $editContainer.className = 'container edit-container hidden';
+    $addGameContainer.className = 'container addGame-container hidden';
   } else if (view === 'codex') {
     $featuredContainer.className = 'container featured-container hidden';
     $gamesContainer.className = 'container games-container hidden';
     $codexContainer.className = 'container codex-container';
     $notesContainer.className = 'container notes-container hidden';
     $editContainer.className = 'container edit-container hidden';
+    $addGameContainer.className = 'container addGame-container hidden';
   } else if (view === 'notes') {
     $featuredContainer.className = 'container featured-container hidden';
     $gamesContainer.className = 'container games-container hidden';
     $codexContainer.className = 'container codex-container hidden';
     $notesContainer.className = 'container notes-container';
     $editContainer.className = 'container edit-container hidden';
+    $addGameContainer.className = 'container addGame-container hidden';
   } else if (view === 'edit') {
     $featuredContainer.className = 'container featured-container hidden';
     $gamesContainer.className = 'container games-container hidden';
     $codexContainer.className = 'container codex-container hidden';
     $notesContainer.className = 'container notes-container hidden';
     $editContainer.className = 'container edit-container';
+    $addGameContainer.className = 'container addGame-container hidden';
+  } else if (view === 'addGame') {
+    $featuredContainer.className = 'container featured-container hidden';
+    $gamesContainer.className = 'container games-container hidden';
+    $codexContainer.className = 'container codex-container hidden';
+    $notesContainer.className = 'container notes-container hidden';
+    $editContainer.className = 'container edit-container hidden';
+    $addGameContainer.className = 'container addGame-container';
   }
 }
 
@@ -729,8 +742,45 @@ $deleteConfirm.addEventListener('click', function (event) {
   }
 });
 
+/* Takes user to add a new game with manual inputs */
+var $addButton = document.querySelector('.add-button');
+$addButton.addEventListener('click', function (event) {
+  handleView('addGame');
+});
+
+/* Replaces placeholder image with user entered URL */
+var $newImg = document.querySelector('#new-img');
+var $addedImg = document.querySelector('.placeholder');
+$newImg.addEventListener('input', function (event) {
+  $addedImg.setAttribute('src', event.target.value);
+});
+
+/* Adds new game to local data */
+
+var $newGameForm = document.querySelector('.add-game-form');
+$newGameForm.addEventListener('submit', function (event) {
+  event.preventDefault();
+  var values = {
+    name: document.forms[1].elements['new-name'].value,
+    img: document.forms[1].elements['new-img'].value,
+    id: data.nextEntryId
+  };
+  data.nextEntryId += 1;
+  data.entries.unshift(values);
+
+  $addedImg.setAttribute('src', '../images/Placeholder_view_vector.svg .png');
+
+  $newGameForm.reset();
+
+  createSingleEntry(data.entries[0]);
+  var $games3 = document.querySelectorAll('.user-games');
+  $games3[0].addEventListener('click', handleTiles);
+  if ($emptyCodex.className === 'empty-codex') {
+    $emptyCodex.className = 'empty-codex hidden';
+  }
+
+  handleView('codex');
+});
 /*
-Deleted game hearts need to go back to unfilled in featured games
 Need to add play status to MyCodex
-Need to add buttons to MyCodex
 */

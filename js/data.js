@@ -2,7 +2,8 @@
 
 var data = {
   view: 'games',
-  entries: []
+  entries: [],
+  nextEntryId: 1
 };
 
 var previousJSON = localStorage.getItem('javascript-local-storage');
