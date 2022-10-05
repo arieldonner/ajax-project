@@ -519,6 +519,21 @@ input.star-3:checked ~ label.star::before {
   box-shadow: 5px 5px 10px black;
 }
 
+.new-submit {
+  padding: 0.5rem 0.7rem;
+  border: 1px solid #007bff;
+  border-radius: 0.2rem;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.new-submit-div {
+  text-align: right;
+  position: relative;
+}
+
 /*
 Need to fix:
 2. Codex hearts
