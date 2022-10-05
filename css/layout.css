@@ -147,6 +147,11 @@ img {
 }
 
 /* Edit */
+
+.edit-img {
+  margin-bottom: -0.5rem;
+}
+
 .status-dropdown {
   padding: 0.5rem 6.5rem 0.5rem 0.5rem;
 }
@@ -404,12 +409,18 @@ img {
     top: 2.7rem;
   }
 
+  .notes-img-cont {
+    display: flex;
+    align-items: center;
+  }
+
   .notes-img {
     object-fit: cover;
     width: 530px;
     height: 530px;
     margin-left: 1.5rem;
     margin-right: 5rem;
+    margin-bottom: 0;
   }
 
   .notes-title {
@@ -429,6 +440,20 @@ img {
   }
 
   /* Edit */
+
+  .edit-img-cont {
+    display: flex;
+    align-items: center;
+  }
+
+  .edit-title {
+    margin-left: 4rem;
+  }
+
+  .edit-body {
+    margin-left: 4rem;
+  }
+
   label.star:hover {
     transform: rotate(-15deg) scale(1.3);
   }
