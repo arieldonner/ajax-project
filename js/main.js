@@ -756,16 +756,16 @@ $newImg.addEventListener('input', function (event) {
 });
 
 /* Adds new game to local data */
-var newGameId = 1;
+
 var $newGameForm = document.querySelector('.add-game-form');
 $newGameForm.addEventListener('submit', function (event) {
   event.preventDefault();
   var values = {
     name: document.forms[1].elements['new-name'].value,
     img: document.forms[1].elements['new-img'].value,
-    id: newGameId
+    id: data.nextEntryId
   };
-  newGameId += 1;
+  data.nextEntryId += 1;
   data.entries.unshift(values);
 
   $addedImg.setAttribute('src', '../images/Placeholder_view_vector.svg .png');
