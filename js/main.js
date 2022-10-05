@@ -742,11 +742,43 @@ $deleteConfirm.addEventListener('click', function (event) {
   }
 });
 
+/* Takes user to add a new game with manual inputs */
 var $addButton = document.querySelector('.add-button');
 $addButton.addEventListener('click', function (event) {
   handleView('addGame');
 });
 
+/* Replaces placeholder image with user entered URL */
+var $newImg = document.querySelector('#new-img');
+var $addedImg = document.querySelector('.placeholder');
+$newImg.addEventListener('input', function (event) {
+  $addedImg.setAttribute('src', event.target.value);
+});
+
+/* Adds new game to local data */
+var newGameId = 1;
+var $newGameForm = document.querySelector('.add-game-form');
+$newGameForm.addEventListener('submit', function (event) {
+  event.preventDefault();
+  var values = {
+    name: document.forms[1].elements['new-name'].value,
+    img: document.forms[1].elements['new-img'].value,
+    id: newGameId
+  };
+  newGameId++;
+  data.entries.unshift(values);
+
+  $newGameForm.reset();
+
+  createSingleEntry(data.entries[0]);
+  var $games3 = document.querySelectorAll('.user-games');
+  $games3[0].addEventListener('click', handleTiles);
+  if ($emptyCodex.className === 'empty-codex') {
+    $emptyCodex.className = 'empty-codex hidden';
+  }
+
+  handleView('codex');
+});
 /*
 Need to add play status to MyCodex
 */

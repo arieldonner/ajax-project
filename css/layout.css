@@ -321,8 +321,8 @@ img {
   }
 
   img {
-    width: 100.05%;
-    height: 100%;
+    width: 500.5px;
+    height: 234px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     object-fit: cover;
