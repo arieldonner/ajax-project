@@ -79,7 +79,13 @@ $close.addEventListener('click', function (event) {
 /* Random Icon */
 var $random = document.querySelector('.fa-shuffle');
 $random.addEventListener('click', function (event) {
-  getRandGame();
+  var $randLi = document.querySelector('.rand-game');
+  if ($randLi === null) {
+    getRandGame();
+  } else {
+    $randLi.remove();
+    getRandGame();
+  }
   handleView('random');
 });
 
@@ -807,7 +813,7 @@ $newGameForm.addEventListener('submit', function (event) {
 var $ulRand = document.querySelector('.ul-games-random');
 function createRandEntry(entry) {
   var list = document.createElement('li');
-  list.className = 'game';
+  list.className = 'rand-game';
 
   var card = document.createElement('div');
   card.className = 'card';
