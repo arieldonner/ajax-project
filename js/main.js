@@ -18,6 +18,8 @@ var currentHeartId = 0;
 
 var $emptyCodex = document.querySelector('.empty-codex');
 
+var randData = [];
+
 /* Get geatured games */
 function getFeatured() {
   var targetUrl3 = encodeURIComponent('https://store.steampowered.com/api/featured');
@@ -74,6 +76,21 @@ $question.addEventListener('click', function (event) {
 var $close = document.querySelector('.fa-xmark');
 $close.addEventListener('click', function (event) {
   $modal.className = 'container-modal hidden';
+});
+
+/* Random Icon */
+var $random = document.querySelector('.fa-shuffle');
+$random.addEventListener('click', function (event) {
+  var $randLi = document.querySelector('.rand-game');
+  if ($randLi === null) {
+    getRandGame();
+    $ulRand.addEventListener('click', handleHeartRand);
+  } else {
+    $randLi.remove();
+    getRandGame();
+    $ulRand.addEventListener('click', handleHeartRand);
+  }
+  handleView('random');
 });
 
 /* Search Bar */
@@ -169,6 +186,7 @@ var $codexContainer = document.querySelector('.codex-container');
 var $notesContainer = document.querySelector('.notes-container');
 var $editContainer = document.querySelector('.edit-container');
 var $addGameContainer = document.querySelector('.addGame-container');
+var $randomContainer = document.querySelector('.random-container');
 
 function handleView(view) {
   data.view = view;
@@ -179,6 +197,7 @@ function handleView(view) {
     $notesContainer.className = 'container notes-container hidden';
     $editContainer.className = 'container edit-container hidden';
     $addGameContainer.className = 'container addGame-container hidden';
+    $randomContainer.className = 'container random-container hidden';
   } else if (view === 'featured') {
     $featuredContainer.className = 'container featured-container';
     $gamesContainer.className = 'container games-container hidden';
@@ -186,6 +205,7 @@ function handleView(view) {
     $notesContainer.className = 'container notes-container hidden';
     $editContainer.className = 'container edit-container hidden';
     $addGameContainer.className = 'container addGame-container hidden';
+    $randomContainer.className = 'container random-container hidden';
   } else if (view === 'codex') {
     $featuredContainer.className = 'container featured-container hidden';
     $gamesContainer.className = 'container games-container hidden';
@@ -193,6 +213,7 @@ function handleView(view) {
     $notesContainer.className = 'container notes-container hidden';
     $editContainer.className = 'container edit-container hidden';
     $addGameContainer.className = 'container addGame-container hidden';
+    $randomContainer.className = 'container random-container hidden';
   } else if (view === 'notes') {
     $featuredContainer.className = 'container featured-container hidden';
     $gamesContainer.className = 'container games-container hidden';
@@ -200,6 +221,7 @@ function handleView(view) {
     $notesContainer.className = 'container notes-container';
     $editContainer.className = 'container edit-container hidden';
     $addGameContainer.className = 'container addGame-container hidden';
+    $randomContainer.className = 'container random-container hidden';
   } else if (view === 'edit') {
     $featuredContainer.className = 'container featured-container hidden';
     $gamesContainer.className = 'container games-container hidden';
@@ -207,6 +229,7 @@ function handleView(view) {
     $notesContainer.className = 'container notes-container hidden';
     $editContainer.className = 'container edit-container';
     $addGameContainer.className = 'container addGame-container hidden';
+    $randomContainer.className = 'container random-container hidden';
   } else if (view === 'addGame') {
     $featuredContainer.className = 'container featured-container hidden';
     $gamesContainer.className = 'container games-container hidden';
@@ -214,6 +237,15 @@ function handleView(view) {
     $notesContainer.className = 'container notes-container hidden';
     $editContainer.className = 'container edit-container hidden';
     $addGameContainer.className = 'container addGame-container';
+    $randomContainer.className = 'container random-container hidden';
+  } else if (view === 'random') {
+    $featuredContainer.className = 'container featured-container hidden';
+    $gamesContainer.className = 'container games-container hidden';
+    $codexContainer.className = 'container codex-container hidden';
+    $notesContainer.className = 'container notes-container hidden';
+    $editContainer.className = 'container edit-container hidden';
+    $addGameContainer.className = 'container addGame-container hidden';
+    $randomContainer.className = 'container random-container';
   }
 }
 
@@ -781,6 +813,131 @@ $newGameForm.addEventListener('submit', function (event) {
 
   handleView('codex');
 });
+
+/* Creates a new game tile for Random */
+
+var $ulRand = document.querySelector('.ul-games-random');
+function createRandEntry(entry) {
+  var list = document.createElement('li');
+  list.className = 'rand-game';
+
+  var card = document.createElement('div');
+  card.className = 'card';
+  var cardContainer = list.appendChild(card);
+
+  var col2 = document.createElement('div');
+  col2.className = 'column-two-fifths';
+  var col2div = cardContainer.appendChild(col2);
+
+  var img = document.createElement('img');
+  img.className = 'search-img';
+  img.setAttribute('alt', 'image for the game');
+  img.setAttribute('src', entry.header_image);
+  col2div.appendChild(img);
+
+  var col3 = document.createElement('div');
+  col3.className = 'column-three-fifths card-text';
+  var col3div = cardContainer.appendChild(col3);
+
+  var titleDiv = document.createElement('div');
+  titleDiv.className = 'card-title';
+  var titleDivContainer = col3div.appendChild(titleDiv);
+
+  var gameTitle = document.createElement('h2');
+  gameTitle.className = 'game-title';
+  gameTitle.textContent = entry.name;
+  titleDivContainer.appendChild(gameTitle);
+
+  var heart = document.createElement('i');
+  heart.className = 'fa-regular fa-heart';
+  heart.id = entry.steam_appid;
+  for (var i = 0; i < data.entries.length; i++) {
+    if (parseInt(heart.id) === data.entries[i].id) {
+      heart.className = 'fa-solid fa-heart';
+    }
+  }
+  titleDivContainer.appendChild(heart);
+
+  var description = document.createElement('p');
+  description.className = 'description';
+  description.textContent = 'Description: ' + entry.short_description;
+  col3.appendChild(description);
+
+  var release = document.createElement('p');
+  release.className = 'release';
+  release.textContent = 'Release: ' + entry.release_date.date;
+  col3.appendChild(release);
+
+  var genre = document.createElement('p');
+  genre.className = 'genre';
+  genre.textContent = 'Genre: ' + entry.genres[0].description;
+  col3.appendChild(genre);
+
+  $ulRand.appendChild(list);
+}
+
+function getRandGame() {
+  var possibleGenres = ['action', 'rpg', 'strategy', 'racing', 'casual', 'puzzle', 'metroidvania'];
+  var randGenreNum = Math.floor(Math.random() * possibleGenres.length);
+  var randGenre = possibleGenres[randGenreNum];
+  var randArrNum = Math.floor(Math.random() * 10);
+  var randId = 0;
+
+  var targetUrlRand = encodeURIComponent('https://store.steampowered.com/api/getappsingenre/?genre=' + randGenre);
+  var xhrRand = new XMLHttpRequest();
+  xhrRand.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrlRand);
+  xhrRand.setRequestHeader('token', 'abc123');
+  xhrRand.responseType = 'json';
+  xhrRand.addEventListener('load', function () {
+    randId = xhrRand.response.tabs.topsellers.items[randArrNum].id;
+    getRandGameData(randId);
+  });
+  xhrRand.send();
+}
+
+function getRandGameData(randId) {
+  var targetUrlRandData = encodeURIComponent('https://store.steampowered.com/api/appdetails?appids=' + randId);
+
+  var xhrRandData = new XMLHttpRequest();
+  xhrRandData.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrlRandData);
+  xhrRandData.setRequestHeader('token', 'abc123');
+  xhrRandData.responseType = 'json';
+  xhrRandData.addEventListener('load', function () {
+    if (xhrRandData.response[randId].success === false) {
+      getRandGame();
+    } else {
+      createRandEntry(xhrRandData.response[randId].data);
+
+      var randValue = {
+        id: xhrRandData.response[randId].data.steam_appid,
+        img: xhrRandData.response[randId].data.header_image,
+        name: xhrRandData.response[randId].data.name
+      };
+
+      randData.unshift(randValue);
+    }
+  });
+
+  xhrRandData.send();
+}
+
+function handleHeartRand(event) {
+  if (event.target && event.target.tagName === 'I' && event.target.className === 'fa-regular fa-heart') {
+    event.target.className = 'fa-solid fa-heart';
+    for (var i = 0; i < randData.length; i++) {
+      if (parseInt(event.target.id) === randData[i].id) {
+        data.entries.unshift(randData[i]);
+        createSingleEntry(randData[i]);
+        var $games = document.querySelectorAll('.user-games');
+        $games[0].addEventListener('click', handleTiles);
+        if ($emptyCodex.className === 'empty-codex') {
+          $emptyCodex.className = 'empty-codex hidden';
+        }
+      }
+    }
+  }
+}
 /*
 Need to add play status to MyCodex
+Add a cancel button when in codex
 */
