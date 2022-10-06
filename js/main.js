@@ -802,7 +802,95 @@ $newGameForm.addEventListener('submit', function (event) {
 
   handleView('codex');
 });
+
+/* Generate a random game from steam */
+function getRandomGame() {
+  var min = 1000000;
+  var max = 1999999;
+  var randNum = Math.floor(Math.random() * (max - min + 1) + min);
+  var targetUrlRandom = encodeURIComponent('https://store.steampowered.com/api/appdetails?appids=' + randNum);
+
+  var xhrRand = new XMLHttpRequest();
+  xhrRand.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrlRandom);
+  xhrRand.setRequestHeader('token', 'abc123');
+  xhrRand.responseType = 'json';
+  xhrRand.addEventListener('load', function () {
+    // console.log(xhrRand.response);
+    if (xhrRand.response[randNum].success === false) {
+      getRandomGame();
+    } else {
+      createRandEntry(xhrRand.response[randNum].data);
+    }
+  });
+
+  xhrRand.send();
+}
+
+getRandomGame();
+
+var $ulRand = document.querySelector('.ul-games-random');
+function createRandEntry(entry) {
+  var list = document.createElement('li');
+  list.className = 'game';
+
+  var card = document.createElement('div');
+  card.className = 'card';
+  var cardContainer = list.appendChild(card);
+
+  var col2 = document.createElement('div');
+  col2.className = 'column-two-fifths';
+  var col2div = cardContainer.appendChild(col2);
+
+  var img = document.createElement('img');
+  img.className = 'search-img';
+  img.setAttribute('alt', 'image for the game');
+  img.setAttribute('src', entry.header_image);
+  col2div.appendChild(img);
+
+  var col3 = document.createElement('div');
+  col3.className = 'column-three-fifths card-text';
+  var col3div = cardContainer.appendChild(col3);
+
+  var titleDiv = document.createElement('div');
+  titleDiv.className = 'card-title';
+  var titleDivContainer = col3div.appendChild(titleDiv);
+
+  var gameTitle = document.createElement('h2');
+  gameTitle.className = 'game-title';
+  gameTitle.textContent = entry.name;
+  titleDivContainer.appendChild(gameTitle);
+
+  var heart = document.createElement('i');
+  heart.className = 'fa-regular fa-heart';
+  heart.id = entry.appid;
+  for (var i = 0; i < data.entries.length; i++) {
+    if (parseInt(heart.id) === data.entries[i].id) {
+      heart.className = 'fa-solid fa-heart';
+    }
+  }
+  titleDivContainer.appendChild(heart);
+
+  var description = document.createElement('p');
+  description.className = 'description';
+  description.textContent = 'Description: ' + entry.short_description;
+  col3.appendChild(description);
+
+  var release = document.createElement('p');
+  release.className = 'release';
+  release.textContent = 'Release: ' + entry.release_date.date;
+  col3.appendChild(release);
+
+  var genre = document.createElement('p');
+  genre.className = 'genre';
+  genre.textContent = 'Genre: ' + entry.genres[0].description;
+  col3.appendChild(genre);
+
+  $ulRand.appendChild(list);
+}
+
 /*
 Need to add play status to MyCodex
 Add a cancel button when in codex
+Please wait screen
+Heart and save games from Random Event section
 */
