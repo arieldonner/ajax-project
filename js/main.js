@@ -18,6 +18,8 @@ var currentHeartId = 0;
 
 var $emptyCodex = document.querySelector('.empty-codex');
 
+var randData = [];
+
 /* Get geatured games */
 function getFeatured() {
   var targetUrl3 = encodeURIComponent('https://store.steampowered.com/api/featured');
@@ -82,9 +84,11 @@ $random.addEventListener('click', function (event) {
   var $randLi = document.querySelector('.rand-game');
   if ($randLi === null) {
     getRandGame();
+    $ulRand.addEventListener('click', handleHeartRand);
   } else {
     $randLi.remove();
     getRandGame();
+    $ulRand.addEventListener('click', handleHeartRand);
   }
   handleView('random');
 });
@@ -810,6 +814,8 @@ $newGameForm.addEventListener('submit', function (event) {
   handleView('codex');
 });
 
+/* Creates a new game tile for Random */
+
 var $ulRand = document.querySelector('.ul-games-random');
 function createRandEntry(entry) {
   var list = document.createElement('li');
@@ -844,7 +850,7 @@ function createRandEntry(entry) {
 
   var heart = document.createElement('i');
   heart.className = 'fa-regular fa-heart';
-  heart.id = entry.appid;
+  heart.id = entry.steam_appid;
   for (var i = 0; i < data.entries.length; i++) {
     if (parseInt(heart.id) === data.entries[i].id) {
       heart.className = 'fa-solid fa-heart';
@@ -883,8 +889,6 @@ function getRandGame() {
   xhrRand.setRequestHeader('token', 'abc123');
   xhrRand.responseType = 'json';
   xhrRand.addEventListener('load', function () {
-    // console.log(xhrRand.response);
-    // console.log(xhrRand.response.tabs.topsellers.items[randArrNum].id);
     randId = xhrRand.response.tabs.topsellers.items[randArrNum].id;
     getRandGameData(randId);
   });
@@ -903,13 +907,36 @@ function getRandGameData(randId) {
       getRandGame();
     } else {
       createRandEntry(xhrRandData.response[randId].data);
+
+      var randValue = {
+        id: xhrRandData.response[randId].data.steam_appid,
+        img: xhrRandData.response[randId].data.header_image,
+        name: xhrRandData.response[randId].data.name
+      };
+
+      randData.unshift(randValue);
     }
-    // console.log(xhrRandData.response[randId]);
   });
 
   xhrRandData.send();
 }
 
+function handleHeartRand(event) {
+  if (event.target && event.target.tagName === 'I' && event.target.className === 'fa-regular fa-heart') {
+    event.target.className = 'fa-solid fa-heart';
+    for (var i = 0; i < randData.length; i++) {
+      if (parseInt(event.target.id) === randData[i].id) {
+        data.entries.unshift(randData[i]);
+        createSingleEntry(randData[i]);
+        var $games = document.querySelectorAll('.user-games');
+        $games[0].addEventListener('click', handleTiles);
+        if ($emptyCodex.className === 'empty-codex') {
+          $emptyCodex.className = 'empty-codex hidden';
+        }
+      }
+    }
+  }
+}
 /*
 Need to add play status to MyCodex
 Add a cancel button when in codex
