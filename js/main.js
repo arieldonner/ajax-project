@@ -877,7 +877,7 @@ function createRandEntry(entry) {
 }
 
 function getRandGame() {
-  var possibleGenres = ['action', 'rpg', 'strategy', 'racing', 'casual', 'puzzle'];
+  var possibleGenres = ['action', 'rpg', 'strategy', 'racing', 'casual', 'puzzle', 'metroidvania'];
   var randGenreNum = Math.floor(Math.random() * possibleGenres.length);
   var randGenre = possibleGenres[randGenreNum];
   var randArrNum = Math.floor(Math.random() * 10);
@@ -940,5 +940,4 @@ function handleHeartRand(event) {
 /*
 Need to add play status to MyCodex
 Add a cancel button when in codex
-Heart and save games from Random Event section
 */
