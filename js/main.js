@@ -76,6 +76,12 @@ $close.addEventListener('click', function (event) {
   $modal.className = 'container-modal hidden';
 });
 
+/* Random Icon */
+var $random = document.querySelector('.fa-shuffle');
+$random.addEventListener('click', function (event) {
+  handleView('random');
+});
+
 /* Search Bar */
 var $search = document.querySelector('#search');
 
@@ -169,6 +175,7 @@ var $codexContainer = document.querySelector('.codex-container');
 var $notesContainer = document.querySelector('.notes-container');
 var $editContainer = document.querySelector('.edit-container');
 var $addGameContainer = document.querySelector('.addGame-container');
+var $randomContainer = document.querySelector('.random-container');
 
 function handleView(view) {
   data.view = view;
@@ -179,6 +186,7 @@ function handleView(view) {
     $notesContainer.className = 'container notes-container hidden';
     $editContainer.className = 'container edit-container hidden';
     $addGameContainer.className = 'container addGame-container hidden';
+    $randomContainer.className = 'container random-container hidden';
   } else if (view === 'featured') {
     $featuredContainer.className = 'container featured-container';
     $gamesContainer.className = 'container games-container hidden';
@@ -186,6 +194,7 @@ function handleView(view) {
     $notesContainer.className = 'container notes-container hidden';
     $editContainer.className = 'container edit-container hidden';
     $addGameContainer.className = 'container addGame-container hidden';
+    $randomContainer.className = 'container random-container hidden';
   } else if (view === 'codex') {
     $featuredContainer.className = 'container featured-container hidden';
     $gamesContainer.className = 'container games-container hidden';
@@ -193,6 +202,7 @@ function handleView(view) {
     $notesContainer.className = 'container notes-container hidden';
     $editContainer.className = 'container edit-container hidden';
     $addGameContainer.className = 'container addGame-container hidden';
+    $randomContainer.className = 'container random-container hidden';
   } else if (view === 'notes') {
     $featuredContainer.className = 'container featured-container hidden';
     $gamesContainer.className = 'container games-container hidden';
@@ -200,6 +210,7 @@ function handleView(view) {
     $notesContainer.className = 'container notes-container';
     $editContainer.className = 'container edit-container hidden';
     $addGameContainer.className = 'container addGame-container hidden';
+    $randomContainer.className = 'container random-container hidden';
   } else if (view === 'edit') {
     $featuredContainer.className = 'container featured-container hidden';
     $gamesContainer.className = 'container games-container hidden';
@@ -207,6 +218,7 @@ function handleView(view) {
     $notesContainer.className = 'container notes-container hidden';
     $editContainer.className = 'container edit-container';
     $addGameContainer.className = 'container addGame-container hidden';
+    $randomContainer.className = 'container random-container hidden';
   } else if (view === 'addGame') {
     $featuredContainer.className = 'container featured-container hidden';
     $gamesContainer.className = 'container games-container hidden';
@@ -214,6 +226,15 @@ function handleView(view) {
     $notesContainer.className = 'container notes-container hidden';
     $editContainer.className = 'container edit-container hidden';
     $addGameContainer.className = 'container addGame-container';
+    $randomContainer.className = 'container random-container hidden';
+  } else if (view === 'random') {
+    $featuredContainer.className = 'container featured-container hidden';
+    $gamesContainer.className = 'container games-container hidden';
+    $codexContainer.className = 'container codex-container hidden';
+    $notesContainer.className = 'container notes-container hidden';
+    $editContainer.className = 'container edit-container hidden';
+    $addGameContainer.className = 'container addGame-container hidden';
+    $randomContainer.className = 'container random-container';
   }
 }
 
@@ -783,4 +804,5 @@ $newGameForm.addEventListener('submit', function (event) {
 });
 /*
 Need to add play status to MyCodex
+Add a cancel button when in codex
 */
