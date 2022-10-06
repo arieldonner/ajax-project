@@ -79,6 +79,7 @@ $close.addEventListener('click', function (event) {
 /* Random Icon */
 var $random = document.querySelector('.fa-shuffle');
 $random.addEventListener('click', function (event) {
+  getRandGame();
   handleView('random');
 });
 
@@ -803,31 +804,6 @@ $newGameForm.addEventListener('submit', function (event) {
   handleView('codex');
 });
 
-/* Generate a random game from steam */
-function getRandomGame() {
-  var min = 1000000;
-  var max = 1999999;
-  var randNum = Math.floor(Math.random() * (max - min + 1) + min);
-  var targetUrlRandom = encodeURIComponent('https://store.steampowered.com/api/appdetails?appids=' + randNum);
-
-  var xhrRand = new XMLHttpRequest();
-  xhrRand.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrlRandom);
-  xhrRand.setRequestHeader('token', 'abc123');
-  xhrRand.responseType = 'json';
-  xhrRand.addEventListener('load', function () {
-    // console.log(xhrRand.response);
-    if (xhrRand.response[randNum].success === false) {
-      getRandomGame();
-    } else {
-      createRandEntry(xhrRand.response[randNum].data);
-    }
-  });
-
-  xhrRand.send();
-}
-
-getRandomGame();
-
 var $ulRand = document.querySelector('.ul-games-random');
 function createRandEntry(entry) {
   var list = document.createElement('li');
@@ -888,9 +864,48 @@ function createRandEntry(entry) {
   $ulRand.appendChild(list);
 }
 
+function getRandGame() {
+  var possibleGenres = ['action', 'rpg', 'strategy', 'racing', 'casual', 'puzzle'];
+  var randGenreNum = Math.floor(Math.random() * possibleGenres.length);
+  var randGenre = possibleGenres[randGenreNum];
+  var randArrNum = Math.floor(Math.random() * 10);
+  var randId = 0;
+
+  var targetUrlRand = encodeURIComponent('https://store.steampowered.com/api/getappsingenre/?genre=' + randGenre);
+  var xhrRand = new XMLHttpRequest();
+  xhrRand.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrlRand);
+  xhrRand.setRequestHeader('token', 'abc123');
+  xhrRand.responseType = 'json';
+  xhrRand.addEventListener('load', function () {
+    // console.log(xhrRand.response);
+    // console.log(xhrRand.response.tabs.topsellers.items[randArrNum].id);
+    randId = xhrRand.response.tabs.topsellers.items[randArrNum].id;
+    getRandGameData(randId);
+  });
+  xhrRand.send();
+}
+
+function getRandGameData(randId) {
+  var targetUrlRandData = encodeURIComponent('https://store.steampowered.com/api/appdetails?appids=' + randId);
+
+  var xhrRandData = new XMLHttpRequest();
+  xhrRandData.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrlRandData);
+  xhrRandData.setRequestHeader('token', 'abc123');
+  xhrRandData.responseType = 'json';
+  xhrRandData.addEventListener('load', function () {
+    if (xhrRandData.response[randId].success === false) {
+      getRandGame();
+    } else {
+      createRandEntry(xhrRandData.response[randId].data);
+    }
+    // console.log(xhrRandData.response[randId]);
+  });
+
+  xhrRandData.send();
+}
+
 /*
 Need to add play status to MyCodex
 Add a cancel button when in codex
-Please wait screen
 Heart and save games from Random Event section
 */
