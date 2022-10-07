@@ -562,12 +562,3 @@ input.star-3:checked ~ label.star::before {
   font-size: 1rem;
   cursor: pointer;
 }
-
-/* .links-list {
-  margin-bottom: 1.5rem;
-} */
-
-/*
-Need to fix:
-3. Try border for img on desktop
-*/

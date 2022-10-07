@@ -313,26 +313,6 @@ function createEntry(entry) {
   gameList.push(list);
 }
 
-/* <li class="game">
-  <div class="card">
-    <div class="column-two-fifths">
-      <img
-        src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/en_US/games/switch/r/rune-factory-5-switch/hero"
-        alt="game image">
-    </div>
-    <div class="column-three-fifths card-text">
-      <div class="card-title">
-        <h2 class="game-title">Rune Factory 5</h2>
-        <i class="fa-regular fa-heart"></i>
-      </div>
-      <p>Description: As the newest ranger of a peacekeeping organization known as SEED, protect your community by rounding up rowdy monsters
-        and going on special missions. Cultivate your farm and friendships alike while unravelling rune-related mysteries!</p>
-      <p>Release Date: Jul 13, 2022</p>
-      <p>Genre: Adventure, RPG, Simulation</p>
-    </div>
-  </div>
-</li> */
-
 /* Create game entry small version with Dom */
 var $gallery = document.querySelector('.gallery');
 function createEntrySmall(entry) {
@@ -378,36 +358,6 @@ function createEntrySmall(entry) {
 
   $gallery.appendChild(list);
 }
-/*
-<li>
-              <div class="card-small">
-                <div class="entry-container">
-                  <img
-                    src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/en_US/games/switch/r/rune-factory-5-switch/hero"
-                    alt="game image">
-                  <button class="button-sale">Sale</button>
-                  <div class="card-title card-title-small">
-                    <h2 class="game-title">Rune Factory 5</h2>
-                    <i class="fa-regular fa-heart"></i>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="card-small">
-                <div class="entry-container">
-                  <img
-                    src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/en_US/games/switch/r/rune-factory-5-switch/hero"
-                    alt="game image">
-                  <button class="button-sale">Sale</button>
-                  <div class="card-title card-title-small">
-                    <h2 class="game-title">Rune Factory 5</h2>
-                    <i class="fa-regular fa-heart"></i>
-                  </div>
-                </div>
-              </div>
-            </li>
-*/
 
 /* Heart icon */
 $gallery.addEventListener('click', handleHearts);
@@ -778,14 +728,6 @@ function createNewLink(number) {
 
   $linksForm.appendChild(bothLinks);
 }
-
-/*
-<div class="links-line">
-                            <input type="text" name="link-description" class="link-description" placeholder="Link Description">
-                            <input type="text" name="link-url" class="link-url" placeholder="Link URL">
-                            <i class="fa-solid fa-trash"></i>
-                          </div>
-*/
 
 $codexCards.addEventListener('click', handleDelete);
 
