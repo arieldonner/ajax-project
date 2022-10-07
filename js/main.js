@@ -463,6 +463,11 @@ function createSingleEntry(entry) {
   img.setAttribute('src', entry.img);
   entryContainer.appendChild(img);
 
+  var button = document.createElement('button');
+  button.className = 'button-position hidden';
+  button.textContent = 'Playing';
+  entryContainer.appendChild(button);
+
   var titleDiv = document.createElement('div');
   titleDiv.className = 'card-title card-title-small ' + entry.id;
   var titleDivContainer = entryContainer.appendChild(titleDiv);
@@ -499,6 +504,11 @@ function createCodex(entry) {
   img.setAttribute('src', entry.img);
   entryContainer.appendChild(img);
 
+  var button = document.createElement('button');
+  button.className = 'button-position hidden';
+  button.textContent = 'Playing';
+  entryContainer.appendChild(button);
+
   var titleDiv = document.createElement('div');
   titleDiv.className = 'card-title card-title-small ' + entry.id;
   var titleDivContainer = entryContainer.appendChild(titleDiv);
@@ -519,6 +529,17 @@ function createCodex(entry) {
 function createCodexPage() {
   for (var i = 0; i < data.entries.length; i++) {
     createCodex(data.entries[i]);
+    var $statusButton = document.querySelectorAll('.button-position');
+    if (data.entries[i].enteredNote !== undefined && data.entries[i].enteredNote.status === 'playing') {
+      $statusButton[i].textContent = 'Playing';
+      $statusButton[i].className = 'button-position playing';
+    } else if (data.entries[i].enteredNote !== undefined && data.entries[i].enteredNote.status === 'eventually') {
+      $statusButton[i].textContent = 'Eventually';
+      $statusButton[i].className = 'button-position eventually';
+    } else if (data.entries[i].enteredNote !== undefined && data.entries[i].enteredNote.status === 'finished') {
+      $statusButton[i].textContent = 'Finished';
+      $statusButton[i].className = 'button-position finished';
+    }
   }
 }
 createCodexPage();
@@ -697,6 +718,20 @@ $submitNotes.addEventListener('submit', function (event) {
   for (var g = 0; g < data.entries.length; g++) {
     if ($editTitle.textContent === data.entries[g].name) {
       data.entries[g].enteredNote = values;
+    }
+  }
+
+  for (var i = 0; i < data.entries.length; i++) {
+    var $statusButton = document.querySelectorAll('.button-position');
+    if (data.entries[i].enteredNote !== undefined && data.entries[i].enteredNote.status === 'playing') {
+      $statusButton[i].textContent = 'Playing';
+      $statusButton[i].className = 'button-position playing';
+    } else if (data.entries[i].enteredNote !== undefined && data.entries[i].enteredNote.status === 'eventually') {
+      $statusButton[i].textContent = 'Eventually';
+      $statusButton[i].className = 'button-position eventually';
+    } else if (data.entries[i].enteredNote !== undefined && data.entries[i].enteredNote.status === 'finished') {
+      $statusButton[i].textContent = 'Finished';
+      $statusButton[i].className = 'button-position finished';
     }
   }
 

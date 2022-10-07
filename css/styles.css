@@ -245,10 +245,11 @@ li {
 }
 
 .button-status {
-  padding: 0.5rem 0.7rem;
+  padding: 0.7rem;
   border-radius: 0.2rem;
   font-size: 1rem;
   margin-left: 0.5rem;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .playing {
@@ -534,8 +535,15 @@ input.star-3:checked ~ label.star::before {
   position: relative;
 }
 
+.button-position {
+  padding: 0.7rem;
+  border-radius: 0.2rem;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  background-color: rgba(0, 0, 0, 0);
+}
+
 /*
 Need to fix:
-2. Codex hearts
 3. Try border for img on desktop
 */
