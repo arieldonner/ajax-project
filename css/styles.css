@@ -220,7 +220,6 @@ li {
   margin-top: -1rem;
   margin-bottom: 3.5rem;
   position: relative;
-  overflow: auto;
 }
 
 .notes-game-heading {
@@ -552,6 +551,21 @@ input.star-3:checked ~ label.star::before {
   margin-right: 1.5rem;
   font-size: 1.1rem;
 }
+
+/* Back Button */
+.back {
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+  padding: 0.5rem 0.7rem;
+  border-radius: 0.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* .links-list {
+  margin-bottom: 1.5rem;
+} */
 
 /*
 Need to fix:

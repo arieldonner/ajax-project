@@ -613,6 +613,11 @@ function handleTiles(event) {
   }
 }
 
+var $back = document.querySelector('.back');
+$back.addEventListener('click', function (event) {
+  handleView('codex');
+});
+
 var $editImg = document.querySelector('.edit-img');
 var $editTitle = document.querySelector('.edit-title');
 
