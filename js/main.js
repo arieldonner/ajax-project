@@ -814,40 +814,6 @@ $newGameForm.addEventListener('submit', function (event) {
   handleView('codex');
 });
 
-/* Filter game by play status */
-var $filter = document.querySelector('.order-button');
-var $currentCodex = document.querySelectorAll('.user-games');
-
-$filter.addEventListener('change', handleSelection);
-
-function handleSelection() {
-  if ($filter.value === 'order-playing') {
-    for (var p = 0; p < data.entries.length; p++) {
-      $currentCodex[p].className = 'user-game';
-      if (data.entries[p].enteredNote === undefined || data.entries[p].enteredNote.status !== 'playing') {
-        $currentCodex[p].className = 'user-game hidden';
-      }
-    }
-  } else if ($filter.value === 'order-eventually') {
-    for (var e = 0; e < data.entries.length; e++) {
-      $currentCodex[e].className = 'user-game';
-      if (data.entries[e].enteredNote === undefined || data.entries[e].enteredNote.status !== 'eventually') {
-        $currentCodex[e].className = 'user-game hidden';
-      }
-    }
-  } else if ($filter.value === 'order-finished') {
-    for (var f = 0; f < data.entries.length; f++) {
-      $currentCodex[f].className = 'user-game';
-      if (data.entries[f].enteredNote === undefined || data.entries[f].enteredNote.status !== 'finished') {
-        $currentCodex[f].className = 'user-game hidden';
-      }
-    }
-  } else if ($filter.value === 'order-all') {
-    for (var a = 0; a < data.entries.length; a++) {
-      $currentCodex[a].className = 'user-game';
-    }
-  }
-}
 /* Creates a new game tile for Random */
 
 var $ulRand = document.querySelector('.ul-games-random');
@@ -971,6 +937,42 @@ function handleHeartRand(event) {
     }
   }
 }
+
+/* Filter game by play status */
+var $filter = document.querySelector('.order-button');
+
+$filter.addEventListener('change', handleSelection);
+
+function handleSelection() {
+  var $currentCodex = document.querySelectorAll('.user-games');
+  if ($filter.value === 'order-playing') {
+    for (var p = 0; p < data.entries.length; p++) {
+      $currentCodex[p].className = 'user-games';
+      if (data.entries[p].enteredNote === undefined || data.entries[p].enteredNote.status !== 'playing') {
+        $currentCodex[p].className = 'user-games hidden';
+      }
+    }
+  } else if ($filter.value === 'order-eventually') {
+    for (var e = 0; e < data.entries.length; e++) {
+      $currentCodex[e].className = 'user-games';
+      if (data.entries[e].enteredNote === undefined || data.entries[e].enteredNote.status !== 'eventually') {
+        $currentCodex[e].className = 'user-games hidden';
+      }
+    }
+  } else if ($filter.value === 'order-finished') {
+    for (var f = 0; f < data.entries.length; f++) {
+      $currentCodex[f].className = 'user-games';
+      if (data.entries[f].enteredNote === undefined || data.entries[f].enteredNote.status !== 'finished') {
+        $currentCodex[f].className = 'user-games hidden';
+      }
+    }
+  } else if ($filter.value === 'order-filter') {
+    for (var a = 0; a < data.entries.length; a++) {
+      $currentCodex[a].className = 'user-games';
+    }
+  }
+}
+
 /*
 Need to add play status to MyCodex
 Add a cancel button when in codex
