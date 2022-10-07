@@ -313,26 +313,6 @@ function createEntry(entry) {
   gameList.push(list);
 }
 
-/* <li class="game">
-  <div class="card">
-    <div class="column-two-fifths">
-      <img
-        src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/en_US/games/switch/r/rune-factory-5-switch/hero"
-        alt="game image">
-    </div>
-    <div class="column-three-fifths card-text">
-      <div class="card-title">
-        <h2 class="game-title">Rune Factory 5</h2>
-        <i class="fa-regular fa-heart"></i>
-      </div>
-      <p>Description: As the newest ranger of a peacekeeping organization known as SEED, protect your community by rounding up rowdy monsters
-        and going on special missions. Cultivate your farm and friendships alike while unravelling rune-related mysteries!</p>
-      <p>Release Date: Jul 13, 2022</p>
-      <p>Genre: Adventure, RPG, Simulation</p>
-    </div>
-  </div>
-</li> */
-
 /* Create game entry small version with Dom */
 var $gallery = document.querySelector('.gallery');
 function createEntrySmall(entry) {
@@ -378,36 +358,6 @@ function createEntrySmall(entry) {
 
   $gallery.appendChild(list);
 }
-/*
-<li>
-              <div class="card-small">
-                <div class="entry-container">
-                  <img
-                    src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/en_US/games/switch/r/rune-factory-5-switch/hero"
-                    alt="game image">
-                  <button class="button-sale">Sale</button>
-                  <div class="card-title card-title-small">
-                    <h2 class="game-title">Rune Factory 5</h2>
-                    <i class="fa-regular fa-heart"></i>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="card-small">
-                <div class="entry-container">
-                  <img
-                    src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/en_US/games/switch/r/rune-factory-5-switch/hero"
-                    alt="game image">
-                  <button class="button-sale">Sale</button>
-                  <div class="card-title card-title-small">
-                    <h2 class="game-title">Rune Factory 5</h2>
-                    <i class="fa-regular fa-heart"></i>
-                  </div>
-                </div>
-              </div>
-            </li>
-*/
 
 /* Heart icon */
 $gallery.addEventListener('click', handleHearts);
@@ -463,6 +413,11 @@ function createSingleEntry(entry) {
   img.setAttribute('src', entry.img);
   entryContainer.appendChild(img);
 
+  var button = document.createElement('button');
+  button.className = 'button-position hidden';
+  button.textContent = 'Playing';
+  entryContainer.appendChild(button);
+
   var titleDiv = document.createElement('div');
   titleDiv.className = 'card-title card-title-small ' + entry.id;
   var titleDivContainer = entryContainer.appendChild(titleDiv);
@@ -499,6 +454,11 @@ function createCodex(entry) {
   img.setAttribute('src', entry.img);
   entryContainer.appendChild(img);
 
+  var button = document.createElement('button');
+  button.className = 'button-position hidden';
+  button.textContent = 'Playing';
+  entryContainer.appendChild(button);
+
   var titleDiv = document.createElement('div');
   titleDiv.className = 'card-title card-title-small ' + entry.id;
   var titleDivContainer = entryContainer.appendChild(titleDiv);
@@ -519,6 +479,17 @@ function createCodex(entry) {
 function createCodexPage() {
   for (var i = 0; i < data.entries.length; i++) {
     createCodex(data.entries[i]);
+    var $statusButton = document.querySelectorAll('.button-position');
+    if (data.entries[i].enteredNote !== undefined && data.entries[i].enteredNote.status === 'playing') {
+      $statusButton[i].textContent = 'Playing';
+      $statusButton[i].className = 'button-position playing';
+    } else if (data.entries[i].enteredNote !== undefined && data.entries[i].enteredNote.status === 'eventually') {
+      $statusButton[i].textContent = 'Eventually';
+      $statusButton[i].className = 'button-position eventually';
+    } else if (data.entries[i].enteredNote !== undefined && data.entries[i].enteredNote.status === 'finished') {
+      $statusButton[i].textContent = 'Finished';
+      $statusButton[i].className = 'button-position finished';
+    }
   }
 }
 createCodexPage();
@@ -591,6 +562,11 @@ function handleTiles(event) {
     }
   }
 }
+
+var $back = document.querySelector('.back');
+$back.addEventListener('click', function (event) {
+  handleView('codex');
+});
 
 var $editImg = document.querySelector('.edit-img');
 var $editTitle = document.querySelector('.edit-title');
@@ -666,6 +642,12 @@ function createEntireLink() {
   }
 }
 
+/* Cancel */
+var $cancel = document.querySelector('.cancel');
+$cancel.addEventListener('click', function (event) {
+  handleView('codex');
+});
+
 /* Submit */
 var $submitNotes = document.querySelector('.edit-form');
 $submitNotes.addEventListener('submit', function (event) {
@@ -697,6 +679,20 @@ $submitNotes.addEventListener('submit', function (event) {
   for (var g = 0; g < data.entries.length; g++) {
     if ($editTitle.textContent === data.entries[g].name) {
       data.entries[g].enteredNote = values;
+    }
+  }
+
+  for (var i = 0; i < data.entries.length; i++) {
+    var $statusButton = document.querySelectorAll('.button-position');
+    if (data.entries[i].enteredNote !== undefined && data.entries[i].enteredNote.status === 'playing') {
+      $statusButton[i].textContent = 'Playing';
+      $statusButton[i].className = 'button-position playing';
+    } else if (data.entries[i].enteredNote !== undefined && data.entries[i].enteredNote.status === 'eventually') {
+      $statusButton[i].textContent = 'Eventually';
+      $statusButton[i].className = 'button-position eventually';
+    } else if (data.entries[i].enteredNote !== undefined && data.entries[i].enteredNote.status === 'finished') {
+      $statusButton[i].textContent = 'Finished';
+      $statusButton[i].className = 'button-position finished';
     }
   }
 
@@ -732,14 +728,6 @@ function createNewLink(number) {
 
   $linksForm.appendChild(bothLinks);
 }
-
-/*
-<div class="links-line">
-                            <input type="text" name="link-description" class="link-description" placeholder="Link Description">
-                            <input type="text" name="link-url" class="link-url" placeholder="Link URL">
-                            <i class="fa-solid fa-trash"></i>
-                          </div>
-*/
 
 $codexCards.addEventListener('click', handleDelete);
 
@@ -937,7 +925,38 @@ function handleHeartRand(event) {
     }
   }
 }
-/*
-Need to add play status to MyCodex
-Add a cancel button when in codex
-*/
+
+/* Filter game by play status */
+var $filter = document.querySelector('.order-button');
+
+$filter.addEventListener('change', handleSelection);
+
+function handleSelection() {
+  var $currentCodex = document.querySelectorAll('.user-games');
+  if ($filter.value === 'order-playing') {
+    for (var p = 0; p < data.entries.length; p++) {
+      $currentCodex[p].className = 'user-games';
+      if (data.entries[p].enteredNote === undefined || data.entries[p].enteredNote.status !== 'playing') {
+        $currentCodex[p].className = 'user-games hidden';
+      }
+    }
+  } else if ($filter.value === 'order-eventually') {
+    for (var e = 0; e < data.entries.length; e++) {
+      $currentCodex[e].className = 'user-games';
+      if (data.entries[e].enteredNote === undefined || data.entries[e].enteredNote.status !== 'eventually') {
+        $currentCodex[e].className = 'user-games hidden';
+      }
+    }
+  } else if ($filter.value === 'order-finished') {
+    for (var f = 0; f < data.entries.length; f++) {
+      $currentCodex[f].className = 'user-games';
+      if (data.entries[f].enteredNote === undefined || data.entries[f].enteredNote.status !== 'finished') {
+        $currentCodex[f].className = 'user-games hidden';
+      }
+    }
+  } else if ($filter.value === 'order-filter') {
+    for (var a = 0; a < data.entries.length; a++) {
+      $currentCodex[a].className = 'user-games';
+    }
+  }
+}

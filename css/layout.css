@@ -110,7 +110,7 @@ img {
 
 /* Notes */
 .notes-card {
-  width: 90%;
+  width: 351px;
   height: 630px;
   display: flex;
 }
@@ -126,7 +126,7 @@ img {
   object-fit: cover;
   width: 351px;
   height: 237.7px;
-  margin-bottom: -5rem;
+  margin-bottom: -3.5rem;
 }
 
 .notes-title {
@@ -139,10 +139,17 @@ img {
   font-size: 1.2rem;
   margin-left: 0.9rem;
   margin-top: -1rem;
+  height: 300px;
+  width: 340px;
+  overflow: auto;
 }
 
 .links-list li a {
   font-size: 1.2rem;
+}
+
+.back {
+  margin-left: 5rem;
 }
 
 /* Edit */
@@ -248,6 +255,12 @@ img {
   margin-top: 0.5rem;
 }
 
+/* Status */
+.button-position {
+  position: absolute;
+  left: 0.7rem;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     max-width: 1350px;
@@ -317,7 +330,7 @@ img {
   }
 
   .card {
-    width: 70%;
+    width: 945px;
     height: 330px;
     display: flex;
     overflow: auto;
@@ -398,8 +411,9 @@ img {
 
   /* Notes */
   .notes-card {
-    width: 90%;
+    width: 1215px;
     height: 630px;
+    overflow: auto;
   }
 
   .fa-pen-to-square {
@@ -421,22 +435,31 @@ img {
     margin-left: 1.5rem;
     margin-right: 5rem;
     margin-bottom: 0;
+    border: 1px solid black;
+    border-radius: 0.5rem;
   }
 
   .notes-title {
     font-size: 2.2rem;
-    margin-left: 9rem;
+    margin-left: 5rem;
     margin-top: 2rem;
     max-width: 85%;
   }
 
   .notes-body {
     font-size: 1.4rem;
-    margin-left: 9rem;
+    margin-left: 5rem;
+    height: 530px;
+    width: 614px;
+    overflow: auto;
   }
 
   .links-list li a {
     font-size: 1.4rem;
+  }
+
+  .back {
+    margin-left: 12rem;
   }
 
   /* Edit */
@@ -561,5 +584,12 @@ img {
   .new-submit {
     position: absolute;
     right: -300px;
+  }
+
+  /* Play Status */
+  .button-position {
+    position: absolute;
+    left: -0.5rem;
+    top: 0;
   }
 }

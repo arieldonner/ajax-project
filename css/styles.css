@@ -220,7 +220,6 @@ li {
   margin-top: -1rem;
   margin-bottom: 3.5rem;
   position: relative;
-  overflow: auto;
 }
 
 .notes-game-heading {
@@ -245,10 +244,11 @@ li {
 }
 
 .button-status {
-  padding: 0.5rem 0.7rem;
+  padding: 0.7rem;
   border-radius: 0.2rem;
   font-size: 1rem;
   margin-left: 0.5rem;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .playing {
@@ -534,8 +534,31 @@ input.star-3:checked ~ label.star::before {
   position: relative;
 }
 
-/*
-Need to fix:
-2. Codex hearts
-3. Try border for img on desktop
-*/
+.button-position {
+  padding: 0.7rem;
+  border-radius: 0.2rem;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+/* Cancel Button */
+.cancel {
+  border: none;
+  color: #da0037;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-right: 1.5rem;
+  font-size: 1.1rem;
+}
+
+/* Back Button */
+.back {
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+  padding: 0.5rem 0.7rem;
+  border-radius: 0.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
