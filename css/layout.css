@@ -110,7 +110,7 @@ img {
 
 /* Notes */
 .notes-card {
-  width: 90%;
+  width: 351px;
   height: 630px;
   display: flex;
 }
@@ -317,7 +317,7 @@ img {
   }
 
   .card {
-    width: 70%;
+    width: 945px;
     height: 330px;
     display: flex;
     overflow: auto;
@@ -398,7 +398,7 @@ img {
 
   /* Notes */
   .notes-card {
-    width: 90%;
+    width: 1215px;
     height: 630px;
   }
 
