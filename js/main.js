@@ -687,6 +687,12 @@ function createEntireLink() {
   }
 }
 
+/* Cancel */
+var $cancel = document.querySelector('.cancel');
+$cancel.addEventListener('click', function (event) {
+  handleView('codex');
+});
+
 /* Submit */
 var $submitNotes = document.querySelector('.edit-form');
 $submitNotes.addEventListener('submit', function (event) {
@@ -1007,8 +1013,3 @@ function handleSelection() {
     }
   }
 }
-
-/*
-Need to add play status to MyCodex
-Add a cancel button when in codex
-*/

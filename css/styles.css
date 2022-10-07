@@ -543,6 +543,16 @@ input.star-3:checked ~ label.star::before {
   background-color: rgba(0, 0, 0, 0);
 }
 
+/* Cancel Button */
+.cancel {
+  border: none;
+  color: #da0037;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-right: 1.5rem;
+  font-size: 1.1rem;
+}
+
 /*
 Need to fix:
 3. Try border for img on desktop
