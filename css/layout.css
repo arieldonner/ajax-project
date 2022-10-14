@@ -67,6 +67,8 @@ img {
 .card-small {
   width: 351px;
   box-shadow: 10px 10px 20px black;
+  margin-top: -1rem;
+  margin-bottom: 3.5rem;
 }
 
 .button-sale {
@@ -356,7 +358,7 @@ img {
   .card-small {
     width: 500px;
     height: 340px;
-    margin: 1rem;
+    margin: 0.7rem 1rem;
     position: relative;
   }
 
