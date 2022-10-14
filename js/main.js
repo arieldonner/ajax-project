@@ -100,8 +100,16 @@ const $searchButton = document.querySelector('.button-search');
 let gameCounter = 0;
 let xhrResponses;
 
+$search.addEventListener('keypress', function (event) {
+  if (event.key === 'Enter') {
+    handleSearch(event);
+  }
+});
+
 /* Search when clicking the button */
-$searchButton.addEventListener('click', function (event) {
+$searchButton.addEventListener('click', handleSearch);
+
+function handleSearch(event) {
   handleView('games');
   const targetUrl = encodeURIComponent('https://steamcommunity.com/actions/SearchApps/' + $search.value);
 
@@ -127,7 +135,7 @@ $searchButton.addEventListener('click', function (event) {
   );
 
   xhr.send();
-});
+}
 
 function getGameData(appId) {
   if (gameCounter >= xhrResponses.length || appId === undefined) {
