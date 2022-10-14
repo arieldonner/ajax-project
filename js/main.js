@@ -523,6 +523,7 @@ function addLiLink(event) {
   li.className = 'liCont';
   const a = document.createElement('a');
   a.className = 'liLink';
+  a.setAttribute('target', '_blank');
   li.appendChild(a);
   $links.appendChild(li);
 }
