@@ -44,6 +44,11 @@ function getFeatured() {
         $sale[i].className = 'button-sale hidden';
       }
     }
+
+    const $featured = document.querySelectorAll('.featured-games');
+    for (let f = 0; f < $featured.length; f++) {
+      $featured[f].addEventListener('click', handleFeaturedTiles);
+    }
   });
   xhr3.send();
 }
@@ -326,6 +331,7 @@ function createEntry(entry) {
 const $gallery = document.querySelector('.gallery');
 function createEntrySmall(entry) {
   const list = document.createElement('li');
+  list.className = 'featured-games';
 
   const cardSmall = document.createElement('div');
   cardSmall.className = 'card-small';
@@ -338,7 +344,7 @@ function createEntrySmall(entry) {
   const img = document.createElement('img');
   img.setAttribute('alt', 'image for the game');
   img.setAttribute('src', entry.header_image);
-  img.className = 'top-right-round';
+  img.className = 'top-right-round ' + entry.id;
   entryContainer.appendChild(img);
 
   const button = document.createElement('button');
@@ -347,11 +353,11 @@ function createEntrySmall(entry) {
   entryContainer.appendChild(button);
 
   const titleDiv = document.createElement('div');
-  titleDiv.className = 'card-title card-title-small';
+  titleDiv.className = 'card-title card-title-small ' + entry.id;
   const titleDivContainer = entryContainer.appendChild(titleDiv);
 
   const gameTitle = document.createElement('h2');
-  gameTitle.className = 'game-title';
+  gameTitle.className = 'game-title ' + entry.id;
   gameTitle.textContent = entry.name;
   titleDivContainer.appendChild(gameTitle);
 
@@ -966,6 +972,18 @@ function handleSelection() {
   } else if ($filter.value === 'order-filter') {
     for (let a = 0; a < data.entries.length; a++) {
       $currentCodex[a].className = 'user-games';
+    }
+  }
+}
+
+/* Feature Games Search When Clicked */
+function handleFeaturedTiles(event) {
+  if (event.target.tagName !== 'I') {
+    for (var i = 0; i < featured.length; i++) {
+      if (event.target.classList.contains(featured[i].id)) {
+        $search.value = featured[i].name;
+        handleSearch(event);
+      }
     }
   }
 }

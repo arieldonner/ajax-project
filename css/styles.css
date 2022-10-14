@@ -139,6 +139,7 @@ li {
   border-radius: 0.5rem;
   margin-top: -1rem;
   margin-bottom: 3.5rem;
+  cursor: pointer;
 }
 
 .button-sale {
