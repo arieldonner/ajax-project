@@ -69,11 +69,12 @@ img {
   box-shadow: 10px 10px 20px black;
   margin-top: -1rem;
   margin-bottom: 3.5rem;
+  position: relative;
 }
 
 .button-sale {
   position: absolute;
-  left: 20px;
+  left: 0;
 }
 
 /* Modal */
@@ -266,7 +267,7 @@ img {
 /* Status */
 .button-position {
   position: absolute;
-  left: 0.7rem;
+  left: 0;
 }
 
 @media screen and (min-width: 768px) {
@@ -598,7 +599,7 @@ img {
   /* Play Status */
   .button-position {
     position: absolute;
-    left: -0.5rem;
+    left: 0;
     top: 0;
   }
 }

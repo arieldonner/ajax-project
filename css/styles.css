@@ -536,7 +536,6 @@ input.star-3:checked ~ label.star::before {
   padding: 0.7rem;
   border-radius: 0.2rem;
   font-size: 1rem;
-  margin-left: 0.5rem;
   background-color: rgba(0, 0, 0, 0);
 }
 
