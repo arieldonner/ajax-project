@@ -1,39 +1,39 @@
-var gameList = [];
+const gameList = [];
 
-var descriptions = [];
-var releases = [];
-var genres = [];
-var imgs = [];
+let descriptions = [];
+let releases = [];
+let genres = [];
+let imgs = [];
 
-var featured = [];
-var searchedGames = [];
+const featured = [];
+const searchedGames = [];
 
-var $notesTitle = document.querySelector('.notes-title');
-var $notesImg = document.querySelector('.notes-img');
+const $notesTitle = document.querySelector('.notes-title');
+const $notesImg = document.querySelector('.notes-img');
 
-var $deleteModal = document.querySelector('.delete-modal');
-var $deleteCancel = document.querySelector('.delete-cancel');
-var $deleteConfirm = document.querySelector('.delete-confirm');
-var currentHeartId = 0;
+const $deleteModal = document.querySelector('.delete-modal');
+const $deleteCancel = document.querySelector('.delete-cancel');
+const $deleteConfirm = document.querySelector('.delete-confirm');
+let currentHeartId = 0;
 
-var $emptyCodex = document.querySelector('.empty-codex');
+const $emptyCodex = document.querySelector('.empty-codex');
 
-var randData = [];
+const randData = [];
 
 /* Get geatured games */
 function getFeatured() {
-  var targetUrl3 = encodeURIComponent('https://store.steampowered.com/api/featured');
-  var xhr3 = new XMLHttpRequest();
+  const targetUrl3 = encodeURIComponent('https://store.steampowered.com/api/featured');
+  const xhr3 = new XMLHttpRequest();
   xhr3.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrl3);
   xhr3.setRequestHeader('token', 'abc123');
   xhr3.responseType = 'json';
   xhr3.addEventListener('load', function () {
-    var xhr3Response = xhr3.response.featured_win;
-    for (var i = 0; i < xhr3Response.length; i++) {
+    const xhr3Response = xhr3.response.featured_win;
+    for (let i = 0; i < xhr3Response.length; i++) {
       createEntrySmall(xhr3Response[i]);
-      var $sale = document.querySelectorAll('.button-sale');
+      const $sale = document.querySelectorAll('.button-sale');
 
-      var values = {
+      const values = {
         name: xhr3Response[i].name,
         img: xhr3Response[i].header_image,
         id: xhr3Response[i].id
@@ -44,20 +44,25 @@ function getFeatured() {
         $sale[i].className = 'button-sale hidden';
       }
     }
+
+    const $featured = document.querySelectorAll('.featured-games');
+    for (let f = 0; f < $featured.length; f++) {
+      $featured[f].addEventListener('click', handleFeaturedTiles);
+    }
   });
   xhr3.send();
 }
 getFeatured();
 
 /* Games Link */
-var $games = document.querySelector('.nav-games');
+const $games = document.querySelector('.nav-games');
 $games.addEventListener('click', function (event) {
   handleView('featured');
   $search.value = '';
 });
 
 /* MyCodex Link */
-var $myCodex = document.querySelector('.nav-codex');
+const $myCodex = document.querySelector('.nav-codex');
 $myCodex.addEventListener('click', function (event) {
   handleView('codex');
   $search.value = '';
@@ -68,20 +73,20 @@ if (data.entries.length === 0) {
 }
 
 /* Question Mark Icon */
-var $question = document.querySelector('.fa-circle-question');
-var $modal = document.querySelector('.container-modal');
+const $question = document.querySelector('.fa-circle-question');
+const $modal = document.querySelector('.container-modal');
 $question.addEventListener('click', function (event) {
   $modal.className = 'container-modal';
 });
-var $close = document.querySelector('.fa-xmark');
+const $close = document.querySelector('.fa-xmark');
 $close.addEventListener('click', function (event) {
   $modal.className = 'container-modal hidden';
 });
 
 /* Random Icon */
-var $random = document.querySelector('.fa-shuffle');
+const $random = document.querySelector('.fa-shuffle');
 $random.addEventListener('click', function (event) {
-  var $randLi = document.querySelector('.rand-game');
+  const $randLi = document.querySelector('.rand-game');
   if ($randLi === null) {
     getRandGame();
     $ulRand.addEventListener('click', handleHeartRand);
@@ -94,24 +99,32 @@ $random.addEventListener('click', function (event) {
 });
 
 /* Search Bar */
-var $search = document.querySelector('#search');
+const $search = document.querySelector('#search');
 
-var $searchButton = document.querySelector('.button-search');
-var gameCounter = 0;
-var xhrResponses;
+const $searchButton = document.querySelector('.button-search');
+let gameCounter = 0;
+let xhrResponses;
+
+$search.addEventListener('keypress', function (event) {
+  if (event.key === 'Enter') {
+    handleSearch(event);
+  }
+});
 
 /* Search when clicking the button */
-$searchButton.addEventListener('click', function (event) {
-  handleView('games');
-  var targetUrl = encodeURIComponent('https://steamcommunity.com/actions/SearchApps/' + $search.value);
+$searchButton.addEventListener('click', handleSearch);
 
-  var xhr = new XMLHttpRequest();
+function handleSearch(event) {
+  handleView('games');
+  const targetUrl = encodeURIComponent('https://steamcommunity.com/actions/SearchApps/' + $search.value);
+
+  const xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrl);
   xhr.setRequestHeader('token', 'abc123');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     /* Removes games when searching again */
-    for (var j = 0; j < gameList.length; j++) {
+    for (let j = 0; j < gameList.length; j++) {
       gameList[j].remove();
       descriptions = [];
       releases = [];
@@ -121,13 +134,13 @@ $searchButton.addEventListener('click', function (event) {
     }
 
     xhrResponses = xhr.response;
-    var appId = xhr.response[0].appid;
+    const appId = xhr.response[0].appid;
     getGameData(appId);
   }
   );
 
   xhr.send();
-});
+}
 
 function getGameData(appId) {
   if (gameCounter >= xhrResponses.length || appId === undefined) {
@@ -136,9 +149,9 @@ function getGameData(appId) {
     return;
   }
 
-  var targetUrl2 = encodeURIComponent('https://store.steampowered.com/api/appdetails?appids=' + appId);
+  const targetUrl2 = encodeURIComponent('https://store.steampowered.com/api/appdetails?appids=' + appId);
 
-  var xhr2 = new XMLHttpRequest();
+  const xhr2 = new XMLHttpRequest();
   xhr2.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrl2);
   xhr2.setRequestHeader('token', 'abc123');
   xhr2.responseType = 'json';
@@ -146,26 +159,26 @@ function getGameData(appId) {
   xhr2.addEventListener('load', function () {
     gameCounter++;
 
-    var $description = document.querySelectorAll('.description');
+    const $description = document.querySelectorAll('.description');
     descriptions.push(xhr2.response[appId].data.short_description);
 
-    var $release = document.querySelectorAll('.release');
+    const $release = document.querySelectorAll('.release');
     releases.push(xhr2.response[appId].data.release_date.date);
 
-    var $genre = document.querySelectorAll('.genre');
+    const $genre = document.querySelectorAll('.genre');
     genres.push(xhr2.response[appId].data.genres[0].description);
 
-    var $img = document.querySelectorAll('.search-img');
+    const $img = document.querySelectorAll('.search-img');
     imgs.push(xhr2.response[appId].data.header_image);
 
-    for (var i = 0; i < $description.length; i++) {
+    for (let i = 0; i < $description.length; i++) {
       $description[i].textContent = 'Description: ' + descriptions[i];
       $release[i].textContent = 'Release Date: ' + releases[i];
       $genre[i].textContent = 'Genre: ' + genres[i];
       $img[i].setAttribute('src', imgs[i]);
     }
 
-    var values = {
+    const values = {
       name: xhr2.response[appId].data.name,
       img: xhr2.response[appId].data.header_image,
       id: xhr2.response[appId].data.steam_appid
@@ -180,13 +193,14 @@ function getGameData(appId) {
   xhr2.send();
 }
 
-var $featuredContainer = document.querySelector('.featured-container');
-var $gamesContainer = document.querySelector('.games-container');
-var $codexContainer = document.querySelector('.codex-container');
-var $notesContainer = document.querySelector('.notes-container');
-var $editContainer = document.querySelector('.edit-container');
-var $addGameContainer = document.querySelector('.addGame-container');
-var $randomContainer = document.querySelector('.random-container');
+/* Changes page view */
+const $featuredContainer = document.querySelector('.featured-container');
+const $gamesContainer = document.querySelector('.games-container');
+const $codexContainer = document.querySelector('.codex-container');
+const $notesContainer = document.querySelector('.notes-container');
+const $editContainer = document.querySelector('.edit-container');
+const $addGameContainer = document.querySelector('.addGame-container');
+const $randomContainer = document.querySelector('.random-container');
 
 function handleView(view) {
   data.view = view;
@@ -249,61 +263,61 @@ function handleView(view) {
   }
 }
 
-var $ul = document.querySelector('.ul-games');
+const $ul = document.querySelector('.ul-games');
 
 /* Create Game Entry with Dom */
 function createEntry(entry) {
 
-  var list = document.createElement('li');
+  const list = document.createElement('li');
   list.className = 'game';
 
-  var card = document.createElement('div');
+  const card = document.createElement('div');
   card.className = 'card';
-  var cardContainer = list.appendChild(card);
+  const cardContainer = list.appendChild(card);
 
-  var col2 = document.createElement('div');
+  const col2 = document.createElement('div');
   col2.className = 'column-two-fifths';
-  var col2div = cardContainer.appendChild(col2);
+  const col2div = cardContainer.appendChild(col2);
 
-  var img = document.createElement('img');
+  const img = document.createElement('img');
   img.className = 'search-img';
   img.setAttribute('alt', 'image for the game');
   col2div.appendChild(img);
 
-  var col3 = document.createElement('div');
+  const col3 = document.createElement('div');
   col3.className = 'column-three-fifths card-text';
-  var col3div = cardContainer.appendChild(col3);
+  const col3div = cardContainer.appendChild(col3);
 
-  var titleDiv = document.createElement('div');
+  const titleDiv = document.createElement('div');
   titleDiv.className = 'card-title';
-  var titleDivContainer = col3div.appendChild(titleDiv);
+  const titleDivContainer = col3div.appendChild(titleDiv);
 
-  var gameTitle = document.createElement('h2');
+  const gameTitle = document.createElement('h2');
   gameTitle.className = 'game-title';
   gameTitle.textContent = entry.name;
   titleDivContainer.appendChild(gameTitle);
 
-  var heart = document.createElement('i');
+  const heart = document.createElement('i');
   heart.className = 'fa-regular fa-heart';
   heart.id = entry.appid;
-  for (var i = 0; i < data.entries.length; i++) {
+  for (let i = 0; i < data.entries.length; i++) {
     if (parseInt(heart.id) === data.entries[i].id) {
       heart.className = 'fa-solid fa-heart';
     }
   }
   titleDivContainer.appendChild(heart);
 
-  var description = document.createElement('p');
+  const description = document.createElement('p');
   description.className = 'description';
   description.textContent = '';
   col3.appendChild(description);
 
-  var release = document.createElement('p');
+  const release = document.createElement('p');
   release.className = 'release';
   release.textContent = '';
   col3.appendChild(release);
 
-  var genre = document.createElement('p');
+  const genre = document.createElement('p');
   genre.className = 'genre';
   genre.textContent = '';
   col3.appendChild(genre);
@@ -314,42 +328,43 @@ function createEntry(entry) {
 }
 
 /* Create game entry small version with Dom */
-var $gallery = document.querySelector('.gallery');
+const $gallery = document.querySelector('.gallery');
 function createEntrySmall(entry) {
-  var list = document.createElement('li');
+  const list = document.createElement('li');
+  list.className = 'featured-games';
 
-  var cardSmall = document.createElement('div');
+  const cardSmall = document.createElement('div');
   cardSmall.className = 'card-small';
-  var cardContainer = list.appendChild(cardSmall);
+  const cardContainer = list.appendChild(cardSmall);
 
-  var container = document.createElement('div');
+  const container = document.createElement('div');
   container.className = 'entry-container';
-  var entryContainer = cardContainer.appendChild(container);
+  const entryContainer = cardContainer.appendChild(container);
 
-  var img = document.createElement('img');
+  const img = document.createElement('img');
   img.setAttribute('alt', 'image for the game');
   img.setAttribute('src', entry.header_image);
-  img.className = 'top-right-round';
+  img.className = 'top-right-round ' + entry.id;
   entryContainer.appendChild(img);
 
-  var button = document.createElement('button');
+  const button = document.createElement('button');
   button.className = 'button-sale';
   button.textContent = 'Sale';
   entryContainer.appendChild(button);
 
-  var titleDiv = document.createElement('div');
-  titleDiv.className = 'card-title card-title-small';
-  var titleDivContainer = entryContainer.appendChild(titleDiv);
+  const titleDiv = document.createElement('div');
+  titleDiv.className = 'card-title card-title-small ' + entry.id;
+  const titleDivContainer = entryContainer.appendChild(titleDiv);
 
-  var gameTitle = document.createElement('h2');
-  gameTitle.className = 'game-title';
+  const gameTitle = document.createElement('h2');
+  gameTitle.className = 'game-title ' + entry.id;
   gameTitle.textContent = entry.name;
   titleDivContainer.appendChild(gameTitle);
 
-  var heart = document.createElement('i');
+  const heart = document.createElement('i');
   heart.id = entry.id;
   heart.className = 'fa-regular fa-heart';
-  for (var i = 0; i < data.entries.length; i++) {
+  for (let i = 0; i < data.entries.length; i++) {
     if (parseInt(heart.id) === data.entries[i].id) {
       heart.className = 'fa-solid fa-heart';
     }
@@ -366,22 +381,22 @@ $ul.addEventListener('click', handleHearts);
 function handleHearts(event) {
   if (event.target && event.target.tagName === 'I' && event.target.className === 'fa-regular fa-heart') {
     event.target.className = 'fa-solid fa-heart';
-    for (var i = 0; i < featured.length; i++) {
+    for (let i = 0; i < featured.length; i++) {
       if (parseInt(event.target.id) === featured[i].id) {
         data.entries.unshift(featured[i]);
         createSingleEntry(featured[i]);
-        var $games = document.querySelectorAll('.user-games');
+        const $games = document.querySelectorAll('.user-games');
         $games[0].addEventListener('click', handleTiles);
         if ($emptyCodex.className === 'empty-codex') {
           $emptyCodex.className = 'empty-codex hidden';
         }
       }
     }
-    for (var j = 0; j < searchedGames.length; j++) {
+    for (let j = 0; j < searchedGames.length; j++) {
       if (parseInt(event.target.id) === searchedGames[j].id) {
         data.entries.unshift(searchedGames[j]);
         createSingleEntry(searchedGames[j]);
-        var $games2 = document.querySelectorAll('.user-games');
+        const $games2 = document.querySelectorAll('.user-games');
         $games2[0].addEventListener('click', handleTiles);
         if ($emptyCodex.className === 'empty-codex') {
           $emptyCodex.className = 'empty-codex hidden';
@@ -396,38 +411,38 @@ function handleHearts(event) {
 
 /* For prepending a new game tile when hearting without refreshing page */
 function createSingleEntry(entry) {
-  var list = document.createElement('li');
+  const list = document.createElement('li');
   list.className = 'user-games ';
 
-  var cardSmall = document.createElement('div');
+  const cardSmall = document.createElement('div');
   cardSmall.className = 'card-small tile';
-  var cardContainer = list.appendChild(cardSmall);
+  const cardContainer = list.appendChild(cardSmall);
 
-  var container = document.createElement('div');
+  const container = document.createElement('div');
   container.className = 'entry-container';
-  var entryContainer = cardContainer.appendChild(container);
+  const entryContainer = cardContainer.appendChild(container);
 
-  var img = document.createElement('img');
+  const img = document.createElement('img');
   img.setAttribute('alt', 'image for the game');
   img.className = 'top-right-round ' + entry.id;
   img.setAttribute('src', entry.img);
   entryContainer.appendChild(img);
 
-  var button = document.createElement('button');
+  const button = document.createElement('button');
   button.className = 'button-position hidden';
   button.textContent = 'Playing';
   entryContainer.appendChild(button);
 
-  var titleDiv = document.createElement('div');
+  const titleDiv = document.createElement('div');
   titleDiv.className = 'card-title card-title-small ' + entry.id;
-  var titleDivContainer = entryContainer.appendChild(titleDiv);
+  const titleDivContainer = entryContainer.appendChild(titleDiv);
 
-  var gameTitle = document.createElement('h2');
+  const gameTitle = document.createElement('h2');
   gameTitle.className = 'game-title ' + entry.id;
   gameTitle.textContent = entry.name;
   titleDivContainer.appendChild(gameTitle);
 
-  var heart = document.createElement('i');
+  const heart = document.createElement('i');
   heart.className = 'fa-solid fa-heart';
   heart.id = entry.id;
   titleDivContainer.appendChild(heart);
@@ -435,40 +450,40 @@ function createSingleEntry(entry) {
   $codexCards.prepend(list);
 }
 
-var $codexCards = document.querySelector('.my-codex');
+const $codexCards = document.querySelector('.my-codex');
 function createCodex(entry) {
-  var list = document.createElement('li');
+  const list = document.createElement('li');
   list.className = 'user-games ';
 
-  var cardSmall = document.createElement('div');
+  const cardSmall = document.createElement('div');
   cardSmall.className = 'card-small tile';
-  var cardContainer = list.appendChild(cardSmall);
+  const cardContainer = list.appendChild(cardSmall);
 
-  var container = document.createElement('div');
+  const container = document.createElement('div');
   container.className = 'entry-container';
-  var entryContainer = cardContainer.appendChild(container);
+  const entryContainer = cardContainer.appendChild(container);
 
-  var img = document.createElement('img');
+  const img = document.createElement('img');
   img.setAttribute('alt', 'image for the game');
   img.className = 'top-right-round ' + entry.id;
   img.setAttribute('src', entry.img);
   entryContainer.appendChild(img);
 
-  var button = document.createElement('button');
+  const button = document.createElement('button');
   button.className = 'button-position hidden';
   button.textContent = 'Playing';
   entryContainer.appendChild(button);
 
-  var titleDiv = document.createElement('div');
+  const titleDiv = document.createElement('div');
   titleDiv.className = 'card-title card-title-small ' + entry.id;
-  var titleDivContainer = entryContainer.appendChild(titleDiv);
+  const titleDivContainer = entryContainer.appendChild(titleDiv);
 
-  var gameTitle = document.createElement('h2');
+  const gameTitle = document.createElement('h2');
   gameTitle.className = 'game-title ' + entry.id;
   gameTitle.textContent = entry.name;
   titleDivContainer.appendChild(gameTitle);
 
-  var heart = document.createElement('i');
+  const heart = document.createElement('i');
   heart.className = 'fa-solid fa-heart';
   heart.id = entry.id;
   titleDivContainer.appendChild(heart);
@@ -477,9 +492,9 @@ function createCodex(entry) {
 }
 
 function createCodexPage() {
-  for (var i = 0; i < data.entries.length; i++) {
+  for (let i = 0; i < data.entries.length; i++) {
     createCodex(data.entries[i]);
-    var $statusButton = document.querySelectorAll('.button-position');
+    const $statusButton = document.querySelectorAll('.button-position');
     if (data.entries[i].enteredNote !== undefined && data.entries[i].enteredNote.status === 'playing') {
       $statusButton[i].textContent = 'Playing';
       $statusButton[i].className = 'button-position playing';
@@ -494,38 +509,39 @@ function createCodexPage() {
 }
 createCodexPage();
 
-var $gameList = document.querySelectorAll('.user-games');
+const $gameList = document.querySelectorAll('.user-games');
 
-var $editIcon = document.querySelector('.fa-pen-to-square');
+const $editIcon = document.querySelector('.fa-pen-to-square');
 
-var $rating = document.querySelectorAll('.fa-star');
-var $status = document.querySelector('.button-status');
-var $notes = document.querySelector('.p-notes');
-var $links = document.querySelector('.links-list');
+const $rating = document.querySelectorAll('.fa-star');
+const $status = document.querySelector('.button-status');
+const $notes = document.querySelector('.p-notes');
+const $links = document.querySelector('.links-list');
 
 function addLiLink(event) {
-  var li = document.createElement('li');
+  const li = document.createElement('li');
   li.className = 'liCont';
-  var a = document.createElement('a');
+  const a = document.createElement('a');
   a.className = 'liLink';
+  a.setAttribute('target', '_blank');
   li.appendChild(a);
   $links.appendChild(li);
 }
 
 /* Clicking on a tile brings up notes page */
-for (var n = 0; n < $gameList.length; n++) {
+for (let n = 0; n < $gameList.length; n++) {
   $gameList[n].addEventListener('click', handleTiles);
 }
 
 function handleTiles(event) {
   if (event.target.tagName !== 'I') {
     handleView('notes');
-    for (var j = 0; j < data.entries.length; j++) {
+    for (let j = 0; j < data.entries.length; j++) {
       if (event.target.classList.contains(data.entries[j].id)) {
         $notesTitle.textContent = data.entries[j].name;
         $notesImg.setAttribute('src', data.entries[j].img);
 
-        for (var y = 0; y < $rating.length; y++) {
+        for (let y = 0; y < $rating.length; y++) {
           if (data.entries[j].enteredNote !== undefined && data.entries[j].enteredNote.rating > y) {
             $rating[y].className = 'fa-solid fa-star';
           } else {
@@ -538,13 +554,13 @@ function handleTiles(event) {
           $status.textContent = data.entries[j].enteredNote.status[0].toUpperCase() + data.entries[j].enteredNote.status.slice(1);
           $notes.textContent = data.entries[j].enteredNote.notes;
 
-          var $li = document.querySelectorAll('.liCont');
-          for (var z = 0; z < $li.length; z++) {
+          const $li = document.querySelectorAll('.liCont');
+          for (let z = 0; z < $li.length; z++) {
             $li[z].remove();
           }
-          for (var x = 0; x < data.entries[j].enteredNote.linkDescriptions.length; x++) {
+          for (let x = 0; x < data.entries[j].enteredNote.linkDescriptions.length; x++) {
             addLiLink();
-            var $a = document.querySelectorAll('.liLink');
+            const $a = document.querySelectorAll('.liLink');
             $a[x].textContent = data.entries[j].enteredNote.linkDescriptions[x];
             $a[x].setAttribute('href', data.entries[j].enteredNote.linkUrls[x]);
           }
@@ -552,8 +568,8 @@ function handleTiles(event) {
           $status.className = 'button-status playing';
           $status.textContent = 'Playing';
           $notes.textContent = '';
-          var $li2 = document.querySelectorAll('.liCont');
-          for (var a = 0; a < $li2.length; a++) {
+          const $li2 = document.querySelectorAll('.liCont');
+          for (let a = 0; a < $li2.length; a++) {
             $li2[a].remove();
           }
         }
@@ -563,17 +579,17 @@ function handleTiles(event) {
   }
 }
 
-var $back = document.querySelector('.back');
+const $back = document.querySelector('.back');
 $back.addEventListener('click', function (event) {
   handleView('codex');
 });
 
-var $editImg = document.querySelector('.edit-img');
-var $editTitle = document.querySelector('.edit-title');
+const $editImg = document.querySelector('.edit-img');
+const $editTitle = document.querySelector('.edit-title');
 
-var $editStars = document.getElementsByName('star');
-var $editStatus = document.querySelector('.status-dropdown');
-var $editNotes = document.querySelector('#notes');
+const $editStars = document.getElementsByName('star');
+const $editStatus = document.querySelector('.status-dropdown');
+const $editNotes = document.querySelector('#notes');
 
 /* Edit notes */
 $editIcon.addEventListener('click', function (event) {
@@ -581,11 +597,11 @@ $editIcon.addEventListener('click', function (event) {
   $editTitle.textContent = $notesTitle.textContent;
   $editImg.setAttribute('src', $notesImg.src);
 
-  for (var j = 0; j < data.entries.length; j++) {
+  for (let j = 0; j < data.entries.length; j++) {
     if ($editTitle.textContent === data.entries[j].name) {
       if (data.entries[j].enteredNote !== undefined) {
         /* Stars */
-        for (var s = 0; s < $editStars.length; s++) {
+        for (let s = 0; s < $editStars.length; s++) {
           if (parseInt(data.entries[j].enteredNote.rating) === 1) {
             $editStars[4].checked = true;
           } else if (parseInt(data.entries[j].enteredNote.rating) === 2) {
@@ -603,14 +619,14 @@ $editIcon.addEventListener('click', function (event) {
         /* Notes */
         $editNotes.value = data.entries[j].enteredNote.notes;
         /* Description and URL */
-        var $list = document.querySelectorAll('.links-line');
-        for (var n = 0; n < $list.length; n++) {
+        const $list = document.querySelectorAll('.links-line');
+        for (let n = 0; n < $list.length; n++) {
           $list[n].remove();
         }
-        for (var l = 0; l < data.entries[j].enteredNote.linkDescriptions.length; l++) {
+        for (let l = 0; l < data.entries[j].enteredNote.linkDescriptions.length; l++) {
           createEntireLink();
-          var $editDescription = document.querySelectorAll('.link-description');
-          var $editUrl = document.querySelectorAll('.link-url');
+          const $editDescription = document.querySelectorAll('.link-description');
+          const $editUrl = document.querySelectorAll('.link-url');
           $editDescription[l].value = data.entries[j].enteredNote.linkDescriptions[l];
           $editUrl[l].value = data.entries[j].enteredNote.linkUrls[l];
         }
@@ -620,8 +636,8 @@ $editIcon.addEventListener('click', function (event) {
 });
 
 /* Adds more links */
-var $addLink = document.querySelector('.button-add-links');
-var linkNumber = 0;
+const $addLink = document.querySelector('.button-add-links');
+let linkNumber = 0;
 $addLink.addEventListener('click', function (event) {
   createEntireLink();
 });
@@ -629,11 +645,11 @@ $addLink.addEventListener('click', function (event) {
 function createEntireLink() {
   createNewLink(linkNumber);
   linkNumber++;
-  var $trashCans = document.querySelectorAll('.fa-trash');
-  var $linksLine = document.querySelectorAll('.links-line');
-  for (var t = 0; t < $trashCans.length; t++) {
+  const $trashCans = document.querySelectorAll('.fa-trash');
+  const $linksLine = document.querySelectorAll('.links-line');
+  for (let t = 0; t < $trashCans.length; t++) {
     $trashCans[t].addEventListener('click', function (event) {
-      for (var l = 0; l < $linksLine.length; l++) {
+      for (let l = 0; l < $linksLine.length; l++) {
         if (event.target.getAttribute('linknumber') === $linksLine[l].getAttribute('linknumber')) {
           $linksLine[l].remove();
         }
@@ -643,25 +659,25 @@ function createEntireLink() {
 }
 
 /* Cancel */
-var $cancel = document.querySelector('.cancel');
+const $cancel = document.querySelector('.cancel');
 $cancel.addEventListener('click', function (event) {
   handleView('codex');
 });
 
 /* Submit */
-var $submitNotes = document.querySelector('.edit-form');
+const $submitNotes = document.querySelector('.edit-form');
 $submitNotes.addEventListener('submit', function (event) {
   event.preventDefault();
 
-  var $radio = document.getElementsByName('star');
-  var checked;
-  for (var s = 0; s < $radio.length; s++) {
+  const $radio = document.getElementsByName('star');
+  let checked;
+  for (let s = 0; s < $radio.length; s++) {
     if ($radio[s].checked === true) {
       checked = $radio[s].value;
     }
   }
 
-  var values = {
+  const values = {
     rating: checked,
     status: document.forms[0].elements.status.value,
     notes: document.forms[0].elements.notes.value,
@@ -669,21 +685,21 @@ $submitNotes.addEventListener('submit', function (event) {
     linkUrls: []
   };
 
-  var $linkDescription = document.querySelectorAll('.link-description');
-  var $linkUrl = document.querySelectorAll('.link-url');
-  for (var k = 0; k < $linkDescription.length; k++) {
+  const $linkDescription = document.querySelectorAll('.link-description');
+  const $linkUrl = document.querySelectorAll('.link-url');
+  for (let k = 0; k < $linkDescription.length; k++) {
     values.linkDescriptions.push($linkDescription[k].value);
     values.linkUrls.push($linkUrl[k].value);
   }
 
-  for (var g = 0; g < data.entries.length; g++) {
+  for (let g = 0; g < data.entries.length; g++) {
     if ($editTitle.textContent === data.entries[g].name) {
       data.entries[g].enteredNote = values;
     }
   }
 
-  for (var i = 0; i < data.entries.length; i++) {
-    var $statusButton = document.querySelectorAll('.button-position');
+  for (let i = 0; i < data.entries.length; i++) {
+    const $statusButton = document.querySelectorAll('.button-position');
     if (data.entries[i].enteredNote !== undefined && data.entries[i].enteredNote.status === 'playing') {
       $statusButton[i].textContent = 'Playing';
       $statusButton[i].className = 'button-position playing';
@@ -700,28 +716,28 @@ $submitNotes.addEventListener('submit', function (event) {
   $submitNotes.reset();
 });
 
-var $linksForm = document.querySelector('.links-form');
+const $linksForm = document.querySelector('.links-form');
 function createNewLink(number) {
 
-  var bothLinks = document.createElement('div');
+  const bothLinks = document.createElement('div');
   bothLinks.className = 'links-line';
   bothLinks.setAttribute('linkNumber', number);
 
-  var description = document.createElement('input');
+  const description = document.createElement('input');
   description.setAttribute('type', 'text');
   description.setAttribute('name', 'link-description');
   description.className = 'link-description';
   description.setAttribute('placeholder', 'Link Description');
   bothLinks.appendChild(description);
 
-  var url = document.createElement('input');
+  const url = document.createElement('input');
   url.setAttribute('type', 'url');
   url.setAttribute('name', 'link-url');
   url.className = 'link-url';
   url.setAttribute('placeholder', 'Link URL');
   bothLinks.appendChild(url);
 
-  var trashIcon = document.createElement('i');
+  const trashIcon = document.createElement('i');
   trashIcon.className = 'fa-solid fa-trash';
   trashIcon.setAttribute('linkNumber', number);
   bothLinks.appendChild(trashIcon);
@@ -742,16 +758,16 @@ $deleteCancel.addEventListener('click', function (event) {
   $deleteModal.className = 'delete-modal hidden';
 });
 $deleteConfirm.addEventListener('click', function (event) {
-  var $filledHeart = document.querySelectorAll('.fa-solid.fa-heart');
-  for (var h = 0; h < $filledHeart.length; h++) {
+  const $filledHeart = document.querySelectorAll('.fa-solid.fa-heart');
+  for (let h = 0; h < $filledHeart.length; h++) {
     if (parseInt(currentHeartId) === parseInt($filledHeart[h].id)) {
       $filledHeart[h].className = 'fa-regular fa-heart';
     }
   }
-  for (var i = 0; i < data.entries.length; i++) {
+  for (let i = 0; i < data.entries.length; i++) {
     if (parseInt(currentHeartId) === data.entries[i].id) {
       data.entries.splice(i, 1);
-      var $toDelete = document.querySelectorAll('.user-games ');
+      const $toDelete = document.querySelectorAll('.user-games ');
       $toDelete[i].remove();
       currentHeartId = 0;
       $deleteModal.className = 'delete-modal hidden';
@@ -763,24 +779,24 @@ $deleteConfirm.addEventListener('click', function (event) {
 });
 
 /* Takes user to add a new game with manual inputs */
-var $addButton = document.querySelector('.add-button');
+const $addButton = document.querySelector('.add-button');
 $addButton.addEventListener('click', function (event) {
   handleView('addGame');
 });
 
 /* Replaces placeholder image with user entered URL */
-var $newImg = document.querySelector('#new-img');
-var $addedImg = document.querySelector('.placeholder');
+const $newImg = document.querySelector('#new-img');
+const $addedImg = document.querySelector('.placeholder');
 $newImg.addEventListener('input', function (event) {
   $addedImg.setAttribute('src', event.target.value);
 });
 
 /* Adds new game to local data */
 
-var $newGameForm = document.querySelector('.add-game-form');
+const $newGameForm = document.querySelector('.add-game-form');
 $newGameForm.addEventListener('submit', function (event) {
   event.preventDefault();
-  var values = {
+  const values = {
     name: document.forms[1].elements['new-name'].value,
     img: document.forms[1].elements['new-img'].value,
     id: data.nextEntryId
@@ -793,7 +809,7 @@ $newGameForm.addEventListener('submit', function (event) {
   $newGameForm.reset();
 
   createSingleEntry(data.entries[0]);
-  var $games3 = document.querySelectorAll('.user-games');
+  const $games3 = document.querySelectorAll('.user-games');
   $games3[0].addEventListener('click', handleTiles);
   if ($emptyCodex.className === 'empty-codex') {
     $emptyCodex.className = 'empty-codex hidden';
@@ -804,59 +820,59 @@ $newGameForm.addEventListener('submit', function (event) {
 
 /* Creates a new game tile for Random */
 
-var $ulRand = document.querySelector('.ul-games-random');
+const $ulRand = document.querySelector('.ul-games-random');
 function createRandEntry(entry) {
-  var list = document.createElement('li');
+  const list = document.createElement('li');
   list.className = 'rand-game';
 
-  var card = document.createElement('div');
+  const card = document.createElement('div');
   card.className = 'card';
-  var cardContainer = list.appendChild(card);
+  const cardContainer = list.appendChild(card);
 
-  var col2 = document.createElement('div');
+  const col2 = document.createElement('div');
   col2.className = 'column-two-fifths';
-  var col2div = cardContainer.appendChild(col2);
+  const col2div = cardContainer.appendChild(col2);
 
-  var img = document.createElement('img');
+  const img = document.createElement('img');
   img.className = 'search-img';
   img.setAttribute('alt', 'image for the game');
   img.setAttribute('src', entry.header_image);
   col2div.appendChild(img);
 
-  var col3 = document.createElement('div');
+  const col3 = document.createElement('div');
   col3.className = 'column-three-fifths card-text';
-  var col3div = cardContainer.appendChild(col3);
+  const col3div = cardContainer.appendChild(col3);
 
-  var titleDiv = document.createElement('div');
+  const titleDiv = document.createElement('div');
   titleDiv.className = 'card-title';
-  var titleDivContainer = col3div.appendChild(titleDiv);
+  const titleDivContainer = col3div.appendChild(titleDiv);
 
-  var gameTitle = document.createElement('h2');
+  const gameTitle = document.createElement('h2');
   gameTitle.className = 'game-title';
   gameTitle.textContent = entry.name;
   titleDivContainer.appendChild(gameTitle);
 
-  var heart = document.createElement('i');
+  const heart = document.createElement('i');
   heart.className = 'fa-regular fa-heart';
   heart.id = entry.steam_appid;
-  for (var i = 0; i < data.entries.length; i++) {
+  for (let i = 0; i < data.entries.length; i++) {
     if (parseInt(heart.id) === data.entries[i].id) {
       heart.className = 'fa-solid fa-heart';
     }
   }
   titleDivContainer.appendChild(heart);
 
-  var description = document.createElement('p');
+  const description = document.createElement('p');
   description.className = 'description';
   description.textContent = 'Description: ' + entry.short_description;
   col3.appendChild(description);
 
-  var release = document.createElement('p');
+  const release = document.createElement('p');
   release.className = 'release';
   release.textContent = 'Release: ' + entry.release_date.date;
   col3.appendChild(release);
 
-  var genre = document.createElement('p');
+  const genre = document.createElement('p');
   genre.className = 'genre';
   genre.textContent = 'Genre: ' + entry.genres[0].description;
   col3.appendChild(genre);
@@ -865,14 +881,14 @@ function createRandEntry(entry) {
 }
 
 function getRandGame() {
-  var possibleGenres = ['action', 'rpg', 'strategy', 'racing', 'casual', 'puzzle', 'metroidvania'];
-  var randGenreNum = Math.floor(Math.random() * possibleGenres.length);
-  var randGenre = possibleGenres[randGenreNum];
-  var randArrNum = Math.floor(Math.random() * 10);
-  var randId = 0;
+  const possibleGenres = ['action', 'rpg', 'strategy', 'racing', 'casual', 'puzzle', 'metroidvania'];
+  const randGenreNum = Math.floor(Math.random() * possibleGenres.length);
+  const randGenre = possibleGenres[randGenreNum];
+  const randArrNum = Math.floor(Math.random() * 10);
+  let randId = 0;
 
-  var targetUrlRand = encodeURIComponent('https://store.steampowered.com/api/getappsingenre/?genre=' + randGenre);
-  var xhrRand = new XMLHttpRequest();
+  const targetUrlRand = encodeURIComponent('https://store.steampowered.com/api/getappsingenre/?genre=' + randGenre);
+  const xhrRand = new XMLHttpRequest();
   xhrRand.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrlRand);
   xhrRand.setRequestHeader('token', 'abc123');
   xhrRand.responseType = 'json';
@@ -884,9 +900,9 @@ function getRandGame() {
 }
 
 function getRandGameData(randId) {
-  var targetUrlRandData = encodeURIComponent('https://store.steampowered.com/api/appdetails?appids=' + randId);
+  const targetUrlRandData = encodeURIComponent('https://store.steampowered.com/api/appdetails?appids=' + randId);
 
-  var xhrRandData = new XMLHttpRequest();
+  const xhrRandData = new XMLHttpRequest();
   xhrRandData.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrlRandData);
   xhrRandData.setRequestHeader('token', 'abc123');
   xhrRandData.responseType = 'json';
@@ -896,7 +912,7 @@ function getRandGameData(randId) {
     } else {
       createRandEntry(xhrRandData.response[randId].data);
 
-      var randValue = {
+      const randValue = {
         id: xhrRandData.response[randId].data.steam_appid,
         img: xhrRandData.response[randId].data.header_image,
         name: xhrRandData.response[randId].data.name
@@ -912,11 +928,11 @@ function getRandGameData(randId) {
 function handleHeartRand(event) {
   if (event.target && event.target.tagName === 'I' && event.target.className === 'fa-regular fa-heart') {
     event.target.className = 'fa-solid fa-heart';
-    for (var i = 0; i < randData.length; i++) {
+    for (let i = 0; i < randData.length; i++) {
       if (parseInt(event.target.id) === randData[i].id) {
         data.entries.unshift(randData[i]);
         createSingleEntry(randData[i]);
-        var $games = document.querySelectorAll('.user-games');
+        const $games = document.querySelectorAll('.user-games');
         $games[0].addEventListener('click', handleTiles);
         if ($emptyCodex.className === 'empty-codex') {
           $emptyCodex.className = 'empty-codex hidden';
@@ -927,36 +943,48 @@ function handleHeartRand(event) {
 }
 
 /* Filter game by play status */
-var $filter = document.querySelector('.order-button');
+const $filter = document.querySelector('.order-button');
 
 $filter.addEventListener('change', handleSelection);
 
 function handleSelection() {
-  var $currentCodex = document.querySelectorAll('.user-games');
+  const $currentCodex = document.querySelectorAll('.user-games');
   if ($filter.value === 'order-playing') {
-    for (var p = 0; p < data.entries.length; p++) {
+    for (let p = 0; p < data.entries.length; p++) {
       $currentCodex[p].className = 'user-games';
       if (data.entries[p].enteredNote === undefined || data.entries[p].enteredNote.status !== 'playing') {
         $currentCodex[p].className = 'user-games hidden';
       }
     }
   } else if ($filter.value === 'order-eventually') {
-    for (var e = 0; e < data.entries.length; e++) {
+    for (let e = 0; e < data.entries.length; e++) {
       $currentCodex[e].className = 'user-games';
       if (data.entries[e].enteredNote === undefined || data.entries[e].enteredNote.status !== 'eventually') {
         $currentCodex[e].className = 'user-games hidden';
       }
     }
   } else if ($filter.value === 'order-finished') {
-    for (var f = 0; f < data.entries.length; f++) {
+    for (let f = 0; f < data.entries.length; f++) {
       $currentCodex[f].className = 'user-games';
       if (data.entries[f].enteredNote === undefined || data.entries[f].enteredNote.status !== 'finished') {
         $currentCodex[f].className = 'user-games hidden';
       }
     }
   } else if ($filter.value === 'order-filter') {
-    for (var a = 0; a < data.entries.length; a++) {
+    for (let a = 0; a < data.entries.length; a++) {
       $currentCodex[a].className = 'user-games';
+    }
+  }
+}
+
+/* Feature Games Search When Clicked */
+function handleFeaturedTiles(event) {
+  if (event.target.tagName !== 'I') {
+    for (let i = 0; i < featured.length; i++) {
+      if (event.target.classList.contains(featured[i].id)) {
+        $search.value = featured[i].name;
+        handleSearch(event);
+      }
     }
   }
 }

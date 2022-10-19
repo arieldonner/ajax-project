@@ -1,12 +1,12 @@
 /* exported data */
 
-var data = {
+let data = {
   view: 'games',
   entries: [],
   nextEntryId: 1
 };
 
-var previousJSON = localStorage.getItem('javascript-local-storage');
+const previousJSON = localStorage.getItem('javascript-local-storage');
 
 if (previousJSON !== null) {
   data = JSON.parse(previousJSON);
@@ -15,6 +15,6 @@ if (previousJSON !== null) {
 window.addEventListener('beforeunload', handleBeforeUnload);
 
 function handleBeforeUnload(event) {
-  var dataJSON = JSON.stringify(data);
+  const dataJSON = JSON.stringify(data);
   localStorage.setItem('javascript-local-storage', dataJSON);
 }
