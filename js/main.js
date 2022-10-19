@@ -980,7 +980,7 @@ function handleSelection() {
 /* Feature Games Search When Clicked */
 function handleFeaturedTiles(event) {
   if (event.target.tagName !== 'I') {
-    for (var i = 0; i < featured.length; i++) {
+    for (let i = 0; i < featured.length; i++) {
       if (event.target.classList.contains(featured[i].id)) {
         $search.value = featured[i].name;
         handleSearch(event);
