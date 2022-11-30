@@ -20,7 +20,7 @@ const $emptyCodex = document.querySelector('.empty-codex');
 
 const randData = [];
 
-/* Get geatured games */
+/* Get featured games */
 function getFeatured() {
   const targetUrl3 = encodeURIComponent('https://store.steampowered.com/api/featured');
   const xhr3 = new XMLHttpRequest();

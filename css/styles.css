@@ -60,6 +60,12 @@ a {
   font-size: 1.1rem;
 }
 
+a:hover,
+.fa-shuffle:hover,
+.fa-circle-question:hover {
+  color: #007bff;
+}
+
 h2 {
   font-size: 1.4rem;
   font-weight: 500;
@@ -73,6 +79,12 @@ h2 {
   background-color: #171717;
   cursor: pointer;
   font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+.button-search:hover {
+  background-color: #007bff;
+  color: white;
 }
 
 #search {
@@ -159,6 +171,10 @@ li {
   color: #da0037;
 }
 
+.fa-solid.fa-heart:hover {
+  color: #be0030;
+}
+
 /* Modal */
 .center-page {
   display: flex;
@@ -229,6 +245,10 @@ li {
 .fa-pen-to-square {
   color: #007bff;
   cursor: pointer;
+}
+
+.fa-pen-to-square:hover {
+  color: #0061c8;
 }
 
 .rating {
@@ -395,6 +415,10 @@ input.star-3:checked ~ label.star::before {
   font-size: 1.2rem;
 }
 
+.button-submit:hover {
+  background-color: #0061c8;
+}
+
 .form-submit-button {
   text-align: right;
 }
@@ -403,6 +427,10 @@ input.star-3:checked ~ label.star::before {
   color: #da0037;
   cursor: pointer;
   transform: scale(1.1);
+}
+
+.fa-trash:hover {
+  color: #be0030;
 }
 
 .links-line {
@@ -506,6 +534,11 @@ input.star-3:checked ~ label.star::before {
   box-shadow: 5px 5px 10px black;
 }
 
+.add-button:hover {
+  background-color: #0061c8;
+  border-color: #0061c8;
+}
+
 .order-button {
   padding: 0.5rem 0.7rem;
   border: 1px solid #da0037;
@@ -515,6 +548,11 @@ input.star-3:checked ~ label.star::before {
   cursor: pointer;
   font-size: 0.9rem;
   box-shadow: 5px 5px 10px black;
+}
+
+.order-button:hover {
+  background-color: #be0030;
+  border-color: #be0030;
 }
 
 .new-submit {
@@ -543,10 +581,15 @@ input.star-3:checked ~ label.star::before {
 .cancel {
   border: none;
   color: #da0037;
+  background-color: white;
   text-decoration: underline;
   cursor: pointer;
   margin-right: 1.5rem;
   font-size: 1.1rem;
+}
+
+.cancel:hover {
+  color: #be0030;
 }
 
 /* Back Button */
@@ -558,4 +601,8 @@ input.star-3:checked ~ label.star::before {
   border-radius: 0.2rem;
   font-size: 1rem;
   cursor: pointer;
+}
+
+.back:hover {
+  background-color: #0061c8;
 }

@@ -489,6 +489,7 @@ img {
 
   label.star:hover {
     transform: rotate(-15deg) scale(1.3);
+    cursor: pointer;
   }
 
   .status-dropdown {
