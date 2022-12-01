@@ -721,3 +721,23 @@ lds-roller {
   height: 250px;
   margin-right: 70px;
 }
+
+.no-results {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.fa-face-frown {
+  transform: scale(5);
+  color: #007bff;
+  margin-bottom: 1rem;
+}
+
+.no-result-text {
+  font-size: 2.3rem;
+  color: #da0037;
+  text-align: center;
+  line-height: 45px;
+}

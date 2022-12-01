@@ -17,6 +17,7 @@ const $deleteConfirm = document.querySelector('.delete-confirm');
 let currentHeartId = 0;
 
 const $emptyCodex = document.querySelector('.empty-codex');
+const $noResults = document.querySelector('.no-results-div');
 
 const $spinner = document.querySelectorAll('.spinner');
 // const $spinnerg = document.querySelector('.s-g');
@@ -138,10 +139,14 @@ function handleSearch(event) {
       imgs = [];
       gameCounter = 0;
     }
-
-    xhrResponses = xhr.response;
-    const appId = xhr.response[0].appid;
-    getGameData(appId);
+    if (xhr.response.length === 0) {
+      $noResults.className = 'row no-results-div';
+    } else {
+      $noResults.className = 'row no-results-div hidden';
+      xhrResponses = xhr.response;
+      const appId = xhr.response[0].appid;
+      getGameData(appId);
+    }
   }
   );
 
