@@ -113,7 +113,7 @@ img {
 
 /* Notes */
 .notes-card {
-  width: 351px;
+  max-width: 351px;
   height: 630px;
   display: flex;
 }
@@ -340,13 +340,14 @@ img {
 
   .card {
     width: 945px;
-    height: 330px;
+    min-height: 330px;
     display: flex;
-    overflow: auto;
   }
 
   .card-text {
     padding: 0.2rem 2rem 1.7rem 1.4rem;
+    border-radius: 0.5rem;
+    background-color: white;
   }
 
   img {
@@ -358,8 +359,8 @@ img {
   }
 
   .search-img {
-    width: 378px;
-    height: 330px;
+    max-width: 378px;
+    height: 100%;
   }
 
   .card-small {
@@ -367,6 +368,7 @@ img {
     height: 340px;
     margin: 0.7rem 1rem;
     position: relative;
+    flex-shrink: 1;
   }
 
   .gallery {
@@ -420,7 +422,7 @@ img {
 
   /* Notes */
   .notes-card {
-    width: 1215px;
+    max-width: 1215px;
     height: 630px;
     overflow: auto;
   }

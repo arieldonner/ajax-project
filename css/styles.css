@@ -6,6 +6,7 @@ body {
 /* Nav Bar */
 .nav {
   background-color: #171717;
+  width: 100%;
 }
 
 .nav-top {
