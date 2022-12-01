@@ -18,8 +18,9 @@ let currentHeartId = 0;
 
 const $emptyCodex = document.querySelector('.empty-codex');
 
-const $spinner = document.querySelector('.spinner');
-const $spinnerg = document.querySelector('.s-g');
+const $spinner = document.querySelectorAll('.spinner');
+// const $spinnerg = document.querySelector('.s-g');
+// const $spinnerRand = document.querySelector('')
 
 const randData = [];
 
@@ -47,7 +48,7 @@ function getFeatured() {
         $sale[i].className = 'button-sale hidden';
       }
 
-      $spinner.className = 'spinner hidden';
+      $spinner[0].className = 'spinner hidden';
     }
 
     const $featured = document.querySelectorAll('.featured-games');
@@ -193,7 +194,7 @@ function getGameData(appId) {
     if (gameCounter < xhrResponses.length) {
       getGameData(xhrResponses[gameCounter].appid);
     }
-    $spinnerg.className = 'spinner s-g hidden';
+    $spinner[1].className = 'spinner s-g hidden';
   });
 
   xhr2.send();
@@ -926,8 +927,8 @@ function getRandGameData(randId) {
 
       randData.unshift(randValue);
     }
+    $spinner[2].className = 'spinner hidden';
   });
-
   xhrRandData.send();
 }
 
