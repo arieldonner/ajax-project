@@ -140,6 +140,7 @@ function handleSearch(event) {
       gameCounter = 0;
     }
     if (xhr.response.length === 0) {
+      $spinner[1].className = 'spinner s-g hidden';
       $noResults.className = 'row no-results-div';
     } else {
       $noResults.className = 'row no-results-div hidden';

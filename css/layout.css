@@ -270,6 +270,21 @@ img {
   left: 0;
 }
 
+/* No Result */
+
+.no-results {
+  min-height: 250px;
+}
+
+.fa-face-frown {
+  transform: scale(4);
+}
+
+.no-result-text {
+  font-size: 1.3rem;
+  line-height: 45px;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     max-width: 1350px;
@@ -604,5 +619,16 @@ img {
     position: absolute;
     left: 0;
     top: 0;
+  }
+
+  /* No Result */
+  .fa-face-frown {
+    transform: scale(5);
+    margin-bottom: 1rem;
+  }
+
+  .no-result-text {
+    font-size: 2.3rem;
+    line-height: 45px;
   }
 }
