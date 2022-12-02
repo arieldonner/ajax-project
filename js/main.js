@@ -19,9 +19,9 @@ let currentHeartId = 0;
 const $emptyCodex = document.querySelector('.empty-codex');
 const $noResults = document.querySelector('.no-results-div');
 
+const $networkError = document.querySelectorAll('.error-div');
+
 const $spinner = document.querySelectorAll('.spinner');
-// const $spinnerg = document.querySelector('.s-g');
-// const $spinnerRand = document.querySelector('')
 
 const randData = [];
 
@@ -50,12 +50,16 @@ function getFeatured() {
       }
 
       $spinner[0].className = 'spinner hidden';
+      $networkError[0].className = 'row error-div hidden';
     }
 
     const $featured = document.querySelectorAll('.featured-games');
     for (let f = 0; f < $featured.length; f++) {
       $featured[f].addEventListener('click', handleFeaturedTiles);
     }
+  });
+  xhr3.addEventListener('error', function () {
+    $networkError[0].className = 'row error-div';
   });
   xhr3.send();
 }
@@ -141,15 +145,20 @@ function handleSearch(event) {
     }
     if (xhr.response.length === 0) {
       $spinner[1].className = 'spinner s-g hidden';
+      $networkError[1].className = 'row error-div hidden';
       $noResults.className = 'row no-results-div';
     } else {
       $noResults.className = 'row no-results-div hidden';
+      $networkError[1].className = 'row error-div hidden';
       xhrResponses = xhr.response;
       const appId = xhr.response[0].appid;
       getGameData(appId);
     }
   }
   );
+  xhr.addEventListener('error', function () {
+    $networkError[1].className = 'row error-div';
+  });
 
   xhr.send();
 }
@@ -201,6 +210,10 @@ function getGameData(appId) {
       getGameData(xhrResponses[gameCounter].appid);
     }
     $spinner[1].className = 'spinner s-g hidden';
+    $networkError[1].className = 'row error-div hidden';
+  });
+  xhr2.addEventListener('error', function () {
+    $networkError[1].className = 'row error-div';
   });
 
   xhr2.send();

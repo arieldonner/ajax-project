@@ -729,13 +729,14 @@ lds-roller {
   align-items: center;
 }
 
-.fa-face-frown {
+.fa-face-frown,
+.fa-face-dizzy {
   color: #007bff;
   margin-bottom: 1rem;
 }
 
-.no-result-text {
+.no-result-text,
+.error-text {
   color: #da0037;
   text-align: center;
-  line-height: 45px;
 }

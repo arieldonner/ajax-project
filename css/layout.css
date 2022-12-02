@@ -276,13 +276,20 @@ img {
   min-height: 250px;
 }
 
-.fa-face-frown {
+.fa-face-frown,
+.fa-face-dizzy {
   transform: scale(4);
 }
 
 .no-result-text {
   font-size: 1.3rem;
   line-height: 45px;
+}
+
+.error-text {
+  font-size: 1.2rem;
+  line-height: 35px;
+  margin: 0.3rem 1.3rem;
 }
 
 @media screen and (min-width: 768px) {
@@ -437,7 +444,7 @@ img {
 
   /* Notes */
   .notes-card {
-    max-width: 1215px;
+    max-width: 1200px;
     height: 630px;
     overflow: auto;
   }
@@ -622,13 +629,20 @@ img {
   }
 
   /* No Result */
-  .fa-face-frown {
+  .fa-face-frown,
+  .fa-face-dizzy {
     transform: scale(5);
     margin-bottom: 1rem;
   }
 
-  .no-result-text {
+  .no-result-text,
+  .error-text {
     font-size: 2.3rem;
     line-height: 45px;
+  }
+
+  /* Network Error */
+  .error-text {
+    margin: 1.5rem;
   }
 }
