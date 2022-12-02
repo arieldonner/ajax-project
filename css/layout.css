@@ -294,6 +294,71 @@ img {
 
 @media screen and (min-width: 768px) {
   .container {
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  /* Nav */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    min-width: 760px;
+  }
+
+  .nav-top {
+    gap: 1.5rem;
+  }
+
+  .fa-feather-pointed {
+    margin-left: 1rem;
+  }
+
+  .nav-bottom {
+    display: flex;
+    gap: 1.8rem;
+    padding-left: 1.8rem;
+  }
+
+  .fa-shuffle {
+    position: static;
+  }
+
+  .fa-circle-question {
+    position: static;
+  }
+
+  .button-search {
+    position: static;
+    margin-left: -1.6rem;
+    margin-right: 1rem;
+  }
+
+  #search {
+    padding: 0.5rem 1.2rem;
+  }
+
+  ::placeholder {
+    padding-left: 0;
+  }
+
+  /* Games */
+  .search-img {
+    width: 551px;
+    height: 264px;
+  }
+
+  .card {
+    width: 551px;
+  }
+
+  .card-text {
+    padding: 0.5rem 2.3rem;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .container {
     max-width: 1350px;
   }
 
