@@ -609,7 +609,7 @@ input.star-3:checked ~ label.star::before {
 }
 
 /* Spinner */
-lds-roller {
+.lds-roller {
   display: inline-block;
   position: relative;
   width: 80px;
@@ -719,7 +719,6 @@ lds-roller {
   justify-content: center;
   align-items: center;
   height: 250px;
-  margin-right: 70px;
 }
 
 .no-results {
