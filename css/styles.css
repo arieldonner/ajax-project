@@ -6,6 +6,7 @@ body {
 /* Nav Bar */
 .nav {
   background-color: #171717;
+  width: 100%;
 }
 
 .nav-top {
@@ -60,6 +61,12 @@ a {
   font-size: 1.1rem;
 }
 
+a:hover,
+.fa-shuffle:hover,
+.fa-circle-question:hover {
+  color: #007bff;
+}
+
 h2 {
   font-size: 1.4rem;
   font-weight: 500;
@@ -73,6 +80,12 @@ h2 {
   background-color: #171717;
   cursor: pointer;
   font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+.button-search:hover {
+  background-color: #007bff;
+  color: white;
 }
 
 #search {
@@ -159,6 +172,10 @@ li {
   color: #da0037;
 }
 
+.fa-solid.fa-heart:hover {
+  color: #be0030;
+}
+
 /* Modal */
 .center-page {
   display: flex;
@@ -229,6 +246,10 @@ li {
 .fa-pen-to-square {
   color: #007bff;
   cursor: pointer;
+}
+
+.fa-pen-to-square:hover {
+  color: #0061c8;
 }
 
 .rating {
@@ -395,6 +416,10 @@ input.star-3:checked ~ label.star::before {
   font-size: 1.2rem;
 }
 
+.button-submit:hover {
+  background-color: #0061c8;
+}
+
 .form-submit-button {
   text-align: right;
 }
@@ -403,6 +428,10 @@ input.star-3:checked ~ label.star::before {
   color: #da0037;
   cursor: pointer;
   transform: scale(1.1);
+}
+
+.fa-trash:hover {
+  color: #be0030;
 }
 
 .links-line {
@@ -506,6 +535,11 @@ input.star-3:checked ~ label.star::before {
   box-shadow: 5px 5px 10px black;
 }
 
+.add-button:hover {
+  background-color: #0061c8;
+  border-color: #0061c8;
+}
+
 .order-button {
   padding: 0.5rem 0.7rem;
   border: 1px solid #da0037;
@@ -515,6 +549,11 @@ input.star-3:checked ~ label.star::before {
   cursor: pointer;
   font-size: 0.9rem;
   box-shadow: 5px 5px 10px black;
+}
+
+.order-button:hover {
+  background-color: #be0030;
+  border-color: #be0030;
 }
 
 .new-submit {
@@ -543,10 +582,15 @@ input.star-3:checked ~ label.star::before {
 .cancel {
   border: none;
   color: #da0037;
+  background-color: white;
   text-decoration: underline;
   cursor: pointer;
   margin-right: 1.5rem;
   font-size: 1.1rem;
+}
+
+.cancel:hover {
+  color: #be0030;
 }
 
 /* Back Button */
@@ -558,4 +602,140 @@ input.star-3:checked ~ label.star::before {
   border-radius: 0.2rem;
   font-size: 1rem;
   cursor: pointer;
+}
+
+.back:hover {
+  background-color: #0061c8;
+}
+
+/* Spinner */
+.lds-roller {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-roller div {
+  animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  transform-origin: 40px 40px;
+}
+
+.lds-roller div::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fff;
+  margin: -4px 0 0 -4px;
+}
+
+.lds-roller div:nth-child(1) {
+  animation-delay: -0.036s;
+}
+
+.lds-roller div:nth-child(1)::after {
+  top: 63px;
+  left: 63px;
+}
+
+.lds-roller div:nth-child(2) {
+  animation-delay: -0.072s;
+}
+
+.lds-roller div:nth-child(2)::after {
+  top: 68px;
+  left: 56px;
+}
+
+.lds-roller div:nth-child(3) {
+  animation-delay: -0.108s;
+}
+
+.lds-roller div:nth-child(3)::after {
+  top: 71px;
+  left: 48px;
+}
+
+.lds-roller div:nth-child(4) {
+  animation-delay: -0.144s;
+}
+
+.lds-roller div:nth-child(4)::after {
+  top: 72px;
+  left: 40px;
+}
+
+.lds-roller div:nth-child(5) {
+  animation-delay: -0.18s;
+}
+
+.lds-roller div:nth-child(5)::after {
+  top: 71px;
+  left: 32px;
+}
+
+.lds-roller div:nth-child(6) {
+  animation-delay: -0.216s;
+}
+
+.lds-roller div:nth-child(6)::after {
+  top: 68px;
+  left: 24px;
+}
+
+.lds-roller div:nth-child(7) {
+  animation-delay: -0.252s;
+}
+
+.lds-roller div:nth-child(7)::after {
+  top: 63px;
+  left: 17px;
+}
+
+.lds-roller div:nth-child(8) {
+  animation-delay: -0.288s;
+}
+
+.lds-roller div:nth-child(8)::after {
+  top: 56px;
+  left: 12px;
+}
+
+@keyframes lds-roller {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+}
+
+.no-results {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.fa-face-frown,
+.fa-face-dizzy {
+  color: #007bff;
+  margin-bottom: 1rem;
+}
+
+.no-result-text,
+.error-text {
+  color: #da0037;
+  text-align: center;
 }

@@ -17,18 +17,27 @@ const $deleteConfirm = document.querySelector('.delete-confirm');
 let currentHeartId = 0;
 
 const $emptyCodex = document.querySelector('.empty-codex');
+const $noResults = document.querySelector('.no-results-div');
+
+const $networkError = document.querySelectorAll('.error-div');
+
+const $spinner = document.querySelectorAll('.spinner');
 
 const randData = [];
 
-/* Get geatured games */
+/* Get featured games */
 function getFeatured() {
-  const targetUrl3 = encodeURIComponent('https://store.steampowered.com/api/featured');
+  const targetUrl3 = encodeURIComponent('https://store.steampowered.com/api/featuredcategories');
   const xhr3 = new XMLHttpRequest();
   xhr3.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrl3);
   xhr3.setRequestHeader('token', 'abc123');
   xhr3.responseType = 'json';
   xhr3.addEventListener('load', function () {
-    const xhr3Response = xhr3.response.featured_win;
+    const xhr3Response = xhr3.response.specials.items;
+    if (xhr3Response.length === 0) {
+      $spinner[0].className = 'spinner hidden';
+      $networkError[0].className = 'row error-div';
+    }
     for (let i = 0; i < xhr3Response.length; i++) {
       createEntrySmall(xhr3Response[i]);
       const $sale = document.querySelectorAll('.button-sale');
@@ -43,12 +52,18 @@ function getFeatured() {
       if (xhr3Response[i].discounted === false) {
         $sale[i].className = 'button-sale hidden';
       }
+
+      $spinner[0].className = 'spinner hidden';
+      $networkError[0].className = 'row error-div hidden';
     }
 
     const $featured = document.querySelectorAll('.featured-games');
     for (let f = 0; f < $featured.length; f++) {
       $featured[f].addEventListener('click', handleFeaturedTiles);
     }
+  });
+  xhr3.addEventListener('error', function () {
+    $networkError[0].className = 'row error-div';
   });
   xhr3.send();
 }
@@ -132,12 +147,22 @@ function handleSearch(event) {
       imgs = [];
       gameCounter = 0;
     }
-
-    xhrResponses = xhr.response;
-    const appId = xhr.response[0].appid;
-    getGameData(appId);
+    if (xhr.response.length === 0) {
+      $spinner[1].className = 'spinner s-g hidden';
+      $networkError[1].className = 'row error-div hidden';
+      $noResults.className = 'row no-results-div';
+    } else {
+      $noResults.className = 'row no-results-div hidden';
+      $networkError[1].className = 'row error-div hidden';
+      xhrResponses = xhr.response;
+      const appId = xhr.response[0].appid;
+      getGameData(appId);
+    }
   }
   );
+  xhr.addEventListener('error', function () {
+    $networkError[1].className = 'row error-div';
+  });
 
   xhr.send();
 }
@@ -188,6 +213,11 @@ function getGameData(appId) {
     if (gameCounter < xhrResponses.length) {
       getGameData(xhrResponses[gameCounter].appid);
     }
+    $spinner[1].className = 'spinner s-g hidden';
+    $networkError[1].className = 'row error-div hidden';
+  });
+  xhr2.addEventListener('error', function () {
+    $networkError[1].className = 'row error-div';
   });
 
   xhr2.send();
@@ -920,8 +950,8 @@ function getRandGameData(randId) {
 
       randData.unshift(randValue);
     }
+    $spinner[2].className = 'spinner hidden';
   });
-
   xhrRandData.send();
 }
 
