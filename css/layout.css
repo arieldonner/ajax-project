@@ -252,6 +252,7 @@ img {
   display: block;
   width: 300px;
   height: 32px;
+  border: 1px solid rgb(63, 63, 63);
 }
 
 #new-name {
@@ -463,6 +464,59 @@ img {
 
   .form-submit-button {
     padding: 1rem;
+  }
+
+  /* Delete Modal */
+  .rectangle-small {
+    width: 370px;
+    padding: 0.5rem;
+  }
+
+  /* Empty Codex */
+  .empty-card {
+    width: 550px;
+  }
+
+  /* Add Game */
+
+  .add-button {
+    left: 8rem;
+  }
+
+  .order-button {
+    right: 8rem;
+  }
+
+  .placeholder {
+    width: 551px;
+    height: 390px;
+  }
+
+  .add-game-card {
+    height: 745px;
+    width: 551px;
+  }
+
+  .add-game-form {
+    font-size: 1.3rem;
+    padding: 2.5rem;
+  }
+
+  #new-name,
+  #new-img {
+    display: block;
+    width: 450px;
+    height: 35px;
+  }
+
+  #new-name {
+    margin-bottom: 2rem;
+    margin-top: 0.5rem;
+  }
+
+  #new-img {
+    margin-bottom: 4rem;
+    margin-top: 0.5rem;
   }
 }
 

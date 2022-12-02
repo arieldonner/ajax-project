@@ -27,13 +27,17 @@ const randData = [];
 
 /* Get featured games */
 function getFeatured() {
-  const targetUrl3 = encodeURIComponent('https://store.steampowered.com/api/featured');
+  const targetUrl3 = encodeURIComponent('https://store.steampowered.com/api/featuredcategories');
   const xhr3 = new XMLHttpRequest();
   xhr3.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrl3);
   xhr3.setRequestHeader('token', 'abc123');
   xhr3.responseType = 'json';
   xhr3.addEventListener('load', function () {
-    const xhr3Response = xhr3.response.featured_win;
+    const xhr3Response = xhr3.response.specials.items;
+    if (xhr3Response.length === 0) {
+      $spinner[0].className = 'spinner hidden';
+      $networkError[0].className = 'row error-div';
+    }
     for (let i = 0; i < xhr3Response.length; i++) {
       createEntrySmall(xhr3Response[i]);
       const $sale = document.querySelectorAll('.button-sale');
