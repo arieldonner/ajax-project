@@ -298,6 +298,12 @@ img {
     margin: 0 auto;
   }
 
+  /* Image for Featured */
+  img {
+    width: 551px;
+    height: 264px;
+  }
+
   /* Nav */
   .nav {
     display: flex;
@@ -330,7 +336,7 @@ img {
 
   .button-search {
     position: static;
-    margin-left: -1.6rem;
+    margin-left: -1.4rem;
     margin-right: 1rem;
   }
 
@@ -354,6 +360,109 @@ img {
 
   .card-text {
     padding: 0.5rem 2.3rem;
+  }
+
+  /* Featured */
+  .card-small {
+    width: 551px;
+  }
+
+  /* Modal */
+
+  .rectangle {
+    width: 570px;
+    height: 780px;
+    margin-top: 4rem;
+  }
+
+  .modal-text {
+    font-size: 1.9rem;
+  }
+
+  .modal-body {
+    font-size: 1.45rem;
+    padding: 0 2rem;
+  }
+
+  .fa-xmark {
+    transform: scale(2.5);
+    position: absolute;
+    right: 1.5rem;
+    top: -1.2rem;
+  }
+
+  /* Notes */
+  .notes-card {
+    max-width: 551px;
+    height: 720px;
+  }
+
+  .fa-pen-to-square {
+    transform: scale(2);
+    position: absolute;
+    top: 16.7rem;
+    right: 1.8rem;
+  }
+
+  .notes-img {
+    width: 551px;
+    margin-bottom: 0;
+  }
+
+  .notes-title {
+    font-size: 1.8rem;
+    margin-left: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .notes-body {
+    font-size: 1.3rem;
+    margin-left: 1.5rem;
+    margin-top: -1rem;
+    height: 400px;
+    width: 500px;
+  }
+
+  .links-list li a {
+    font-size: 1.3rem;
+  }
+
+  .back {
+    margin-left: 180px;
+    margin-top: 1.8rem;
+  }
+
+  /* Edit */
+
+  .edit-title {
+    margin-top: 1rem;
+  }
+
+  .edit-img {
+    margin-bottom: 0;
+  }
+
+  .status-dropdown {
+    width: 360px;
+  }
+
+  #notes {
+    width: 410px;
+    height: 80px;
+  }
+
+  .link-description {
+    width: 190px;
+    height: 30px;
+  }
+
+  .link-url {
+    width: 260px;
+    height: 30px;
+  }
+
+  .form-submit-button {
+    padding: 1rem;
   }
 }
 
