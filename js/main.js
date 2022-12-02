@@ -834,7 +834,7 @@ $newGameForm.addEventListener('submit', function (event) {
   data.nextEntryId += 1;
   data.entries.unshift(values);
 
-  $addedImg.setAttribute('src', '../images/Placeholder_view_vector.svg .png');
+  $addedImg.setAttribute('src', '../images/placeholder-view-vector.svg .png');
 
   $newGameForm.reset();
 
