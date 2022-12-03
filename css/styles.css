@@ -6,7 +6,6 @@ body {
 /* Nav Bar */
 .nav {
   background-color: #171717;
-  width: 100%;
 }
 
 .nav-top {
@@ -182,7 +181,8 @@ li {
   min-height: 100vh;
 }
 
-.rectangle {
+.rectangle,
+.rectangle-small {
   background-color: white;
   border-radius: 0.5rem;
 }
@@ -213,13 +213,13 @@ li {
   color: #007bff;
 }
 
-.container-modal {
+.container-modal,
+.delete-modal {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1000;
   background-color: rgb(0 0 0 / 80%);
 }
 
@@ -377,14 +377,12 @@ input.star-3:checked ~ label.star::before {
   font-family: Roboto, sans-serif;
 }
 
-.edit-title {
-  max-width: 100%;
-}
-
 .link-description,
 .link-url,
 #notes,
-.status-dropdown {
+.status-dropdown,
+#new-name,
+#new-img {
   border: 1px solid black;
   border-radius: 0.2rem;
 }
@@ -459,21 +457,6 @@ input.star-3:checked ~ label.star::before {
 }
 
 /* Delete Modal */
-
-.delete-modal {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  background-color: rgb(0 0 0 / 80%);
-}
-
-.rectangle-small {
-  background-color: white;
-  border-radius: 0.5rem;
-}
 
 .delete-text {
   text-align: center;
@@ -721,6 +704,7 @@ input.star-3:checked ~ label.star::before {
   height: 250px;
 }
 
+/* No Results Card */
 .no-results {
   display: flex;
   flex-direction: column;
