@@ -50,8 +50,8 @@ None
 
 1. Clone the repository.
   ```shell
-    git clone https://github.com/arieldonner/ajax-project.git
-    cd ajax-project
+    git clone https://github.com/arieldonner/gamers-codex.git
+    cd gamers-codex
   ```
 
 2. View the project by opening index.html in the browser.
