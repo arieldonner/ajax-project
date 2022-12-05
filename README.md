@@ -11,7 +11,7 @@ As an avid gamer myself, I would often have countless tabs open in my browser fo
 - HTML5
 - CSS3
 - JavaScript
-- InternalSteamWebAPI
+- [InternalSteamWebAPI](https://github.com/Revadike/InternalSteamWebAPI/wiki)
 
 ## Live Demo
 
@@ -51,7 +51,7 @@ None
 1. Clone the repository.
   ```shell
     git clone https://github.com/arieldonner/ajax-project.git
-    cd sgt-react
+    cd ajax-project
   ```
 
 2. View the project by opening index.html in the browser.
