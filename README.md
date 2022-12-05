@@ -31,3 +31,4 @@ Try the application live at [https://arieldonner.github.io/ajax-project/](https:
 - User can view application info by clicking on the question icon
 
 ## Preview
+![SGT React](gamers-codex-preview-1.gif)
