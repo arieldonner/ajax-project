@@ -28,46 +28,67 @@ const randData = [];
 /* Get featured games */
 function getFeatured() {
   const targetUrl3 = encodeURIComponent('https://store.steampowered.com/api/featuredcategories');
+  const proxyUrl = 'https://api.allorigins.win/get?url=' + targetUrl3;
+  
   const xhr3 = new XMLHttpRequest();
-  xhr3.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrl3);
-  xhr3.setRequestHeader('token', 'abc123');
+  xhr3.open('GET', proxyUrl);
   xhr3.responseType = 'json';
+  
   xhr3.addEventListener('load', function () {
-    const xhr3Response = xhr3.response.specials.items;
+    // AllOrigins returns a JSON object with a "contents" property that is a string.
+    let apiResponse;
+    try {
+      apiResponse = JSON.parse(xhr3.response.contents);
+    } catch (e) {
+      console.error('Error parsing API response', e);
+      $networkError[0].className = 'row error-div';
+      return;
+    }
+    
+    // Extract the featured games items from the API response
+    const xhr3Response = apiResponse.specials.items;
+    
     if (xhr3Response.length === 0) {
       $spinner[0].className = 'spinner hidden';
       $networkError[0].className = 'row error-div';
+      return;
     }
+    
     for (let i = 0; i < xhr3Response.length; i++) {
       createEntrySmall(xhr3Response[i]);
       const $sale = document.querySelectorAll('.button-sale');
-
+      
       const values = {
         name: xhr3Response[i].name,
         img: xhr3Response[i].header_image,
         id: xhr3Response[i].id
       };
       featured.push(values);
-
-      if (xhr3Response[i].discounted === false) {
+      
+      if (xhr3Response[i].discounted === false && $sale[i]) {
         $sale[i].className = 'button-sale hidden';
       }
-
+      
+      // Hide the spinner and any network error message
       $spinner[0].className = 'spinner hidden';
       $networkError[0].className = 'row error-div hidden';
     }
-
+    
     const $featured = document.querySelectorAll('.featured-games');
     for (let f = 0; f < $featured.length; f++) {
       $featured[f].addEventListener('click', handleFeaturedTiles);
     }
   });
+  
   xhr3.addEventListener('error', function () {
     $networkError[0].className = 'row error-div';
   });
+  
   xhr3.send();
 }
 getFeatured();
+
+
 
 /* Games Link */
 const $games = document.querySelector('.nav-games');
@@ -132,11 +153,12 @@ $searchButton.addEventListener('click', handleSearch);
 function handleSearch(event) {
   handleView('games');
   const targetUrl = encodeURIComponent('https://steamcommunity.com/actions/SearchApps/' + $search.value);
+  const proxyUrl = 'https://api.allorigins.win/get?url=' + targetUrl;
 
   const xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrl);
-  xhr.setRequestHeader('token', 'abc123');
+  xhr.open('GET', proxyUrl);
   xhr.responseType = 'json';
+
   xhr.addEventListener('load', function () {
     /* Removes games when searching again */
     for (let j = 0; j < gameList.length; j++) {
@@ -147,19 +169,29 @@ function handleSearch(event) {
       imgs = [];
       gameCounter = 0;
     }
-    if (xhr.response.length === 0) {
+
+    let apiResponse;
+    try {
+      apiResponse = JSON.parse(xhr.response.contents);
+    } catch (e) {
+      console.error('Error parsing API response', e);
+      $networkError[1].className = 'row error-div';
+      return;
+    }
+
+    if (apiResponse.length === 0) {
       $spinner[1].className = 'spinner s-g hidden';
       $networkError[1].className = 'row error-div hidden';
       $noResults.className = 'row no-results-div';
     } else {
       $noResults.className = 'row no-results-div hidden';
       $networkError[1].className = 'row error-div hidden';
-      xhrResponses = xhr.response;
-      const appId = xhr.response[0].appid;
+      xhrResponses = apiResponse;
+      const appId = apiResponse[0].appid;
       getGameData(appId);
     }
-  }
-  );
+  });
+
   xhr.addEventListener('error', function () {
     $networkError[1].className = 'row error-div';
   });
@@ -175,26 +207,37 @@ function getGameData(appId) {
   }
 
   const targetUrl2 = encodeURIComponent('https://store.steampowered.com/api/appdetails?appids=' + appId);
+  const proxyUrl2 = 'https://api.allorigins.win/get?url=' + targetUrl2;
 
   const xhr2 = new XMLHttpRequest();
-  xhr2.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrl2);
-  xhr2.setRequestHeader('token', 'abc123');
+  xhr2.open('GET', proxyUrl2);
   xhr2.responseType = 'json';
+
   createEntry(xhrResponses[gameCounter]);
+
   xhr2.addEventListener('load', function () {
+    let apiResponse;
+    try {
+      apiResponse = JSON.parse(xhr2.response.contents);
+    } catch (e) {
+      console.error('Error parsing API response', e);
+      $networkError[1].className = 'row error-div';
+      return;
+    }
+
     gameCounter++;
 
     const $description = document.querySelectorAll('.description');
-    descriptions.push(xhr2.response[appId].data.short_description);
+    descriptions.push(apiResponse[appId].data.short_description);
 
     const $release = document.querySelectorAll('.release');
-    releases.push(xhr2.response[appId].data.release_date.date);
+    releases.push(apiResponse[appId].data.release_date.date);
 
     const $genre = document.querySelectorAll('.genre');
-    genres.push(xhr2.response[appId].data.genres[0].description);
+    genres.push(apiResponse[appId].data.genres[0].description);
 
     const $img = document.querySelectorAll('.search-img');
-    imgs.push(xhr2.response[appId].data.header_image);
+    imgs.push(apiResponse[appId].data.header_image);
 
     for (let i = 0; i < $description.length; i++) {
       $description[i].textContent = 'Description: ' + descriptions[i];
@@ -204,9 +247,9 @@ function getGameData(appId) {
     }
 
     const values = {
-      name: xhr2.response[appId].data.name,
-      img: xhr2.response[appId].data.header_image,
-      id: xhr2.response[appId].data.steam_appid
+      name: apiResponse[appId].data.name,
+      img: apiResponse[appId].data.header_image,
+      id: apiResponse[appId].data.steam_appid
     };
     searchedGames.push(values);
 
@@ -216,12 +259,14 @@ function getGameData(appId) {
     $spinner[1].className = 'spinner s-g hidden';
     $networkError[1].className = 'row error-div hidden';
   });
+
   xhr2.addEventListener('error', function () {
     $networkError[1].className = 'row error-div';
   });
 
   xhr2.send();
 }
+
 
 /* Changes page view */
 const $featuredContainer = document.querySelector('.featured-container');
@@ -918,42 +963,71 @@ function getRandGame() {
   let randId = 0;
 
   const targetUrlRand = encodeURIComponent('https://store.steampowered.com/api/getappsingenre/?genre=' + randGenre);
+  const proxyUrl = 'https://api.allorigins.win/get?url=' + targetUrlRand;
+
   const xhrRand = new XMLHttpRequest();
-  xhrRand.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrlRand);
-  xhrRand.setRequestHeader('token', 'abc123');
+  xhrRand.open('GET', proxyUrl);
   xhrRand.responseType = 'json';
+  
   xhrRand.addEventListener('load', function () {
-    randId = xhrRand.response.tabs.topsellers.items[randArrNum].id;
+    let apiResponse;
+    try {
+      apiResponse = JSON.parse(xhrRand.response.contents);
+    } catch (e) {
+      console.error('Error parsing API response for getRandGame', e);
+      return;
+    }
+    
+    // Retrieve the random game ID from the parsed API response.
+    randId = apiResponse.tabs.topsellers.items[randArrNum].id;
+    // Call getRandGameData with the random ID.
     getRandGameData(randId);
   });
+
   xhrRand.send();
 }
 
 function getRandGameData(randId) {
   const targetUrlRandData = encodeURIComponent('https://store.steampowered.com/api/appdetails?appids=' + randId);
+  const proxyUrl = 'https://api.allorigins.win/get?url=' + targetUrlRandData;
 
   const xhrRandData = new XMLHttpRequest();
-  xhrRandData.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + targetUrlRandData);
-  xhrRandData.setRequestHeader('token', 'abc123');
+  xhrRandData.open('GET', proxyUrl);
   xhrRandData.responseType = 'json';
+
   xhrRandData.addEventListener('load', function () {
-    if (xhrRandData.response[randId].success === false) {
+    let apiResponse;
+    try {
+      apiResponse = JSON.parse(xhrRandData.response.contents);
+    } catch (e) {
+      console.error('Error parsing API response for random game data', e);
+      // If parsing fails, call getRandGame() (or handle the error as needed) and hide the spinner.
+      getRandGame();
+      $spinner[2].className = 'spinner hidden';
+      return;
+    }
+
+    // Check if the API response failed.
+    if (apiResponse[randId].success === false) {
       getRandGame();
     } else {
-      createRandEntry(xhrRandData.response[randId].data);
+      // Create a random game entry using the fetched data.
+      createRandEntry(apiResponse[randId].data);
 
       const randValue = {
-        id: xhrRandData.response[randId].data.steam_appid,
-        img: xhrRandData.response[randId].data.header_image,
-        name: xhrRandData.response[randId].data.name
+        id: apiResponse[randId].data.steam_appid,
+        img: apiResponse[randId].data.header_image,
+        name: apiResponse[randId].data.name
       };
 
       randData.unshift(randValue);
     }
     $spinner[2].className = 'spinner hidden';
   });
+
   xhrRandData.send();
 }
+
 
 function handleHeartRand(event) {
   if (event.target && event.target.tagName === 'I' && event.target.className === 'fa-regular fa-heart') {
